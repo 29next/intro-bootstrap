@@ -1,0 +1,12 @@
+@mixin form-validation-state-selector($state) {
+  @if ($state == "valid" or $state == "invalid") {
+    .was-validated #{if(&, "&", "")}:#{$state},
+    #{if(&, "&", "")}.#{$state}, #{if(&, "&", "")}.is-#{$state} {
+      @content;
+    }
+  } @else {
+    #{if(&, "&", "")}.#{$state}, #{if(&, "&", "")}.is-#{$state} {
+      @content;
+    }
+  }
+}

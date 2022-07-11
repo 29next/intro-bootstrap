@@ -1,0 +1,74 @@
+// Brand colors
+$primary:       $blue;
+$secondary:     $gray-600;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$light:         $gray-100;
+$dark:          $gray-900;
+
+
+
+$theme-colors: (
+
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+
+);
+
+$body-color:  #595d69;
+$headings-color: #191a1f;
+$link-decoration: none;
+$link-color:var(--accent_color); 
+$link-hover-color: inherit;
+
+
+
+$font-sizes: (
+  1: $h1-font-size,
+  2: $h2-font-size,
+  3: $h3-font-size,
+  4: $h4-font-size,
+  5: $h5-font-size,
+  6: $h6-font-size,
+  7: .9375rem,
+  8: .875rem,
+  9: .75rem,
+  10: 0.625rem
+);
+
+$headings-margin-bottom:      $spacer * .5 !default;
+$headings-font-family:        null !default;
+$headings-font-style:         null !default;
+$headings-font-weight:        500 !default;
+$headings-line-height:        1.2 !default;
+$headings-color:              null !default;
+
+
+$input-bg:$gray-100;
+$form-select-bg:$input-bg;
+
+$form-validation-states: (
+  "valid": (
+    "color": $form-feedback-valid-color,
+    "icon": $form-feedback-icon-valid
+  ),
+  "invalid": (
+    "color": $form-feedback-invalid-color,
+    "icon": $form-feedback-icon-invalid
+  ),
+  "error": (
+    "color": $form-feedback-invalid-color,
+    "icon": $form-feedback-icon-invalid
+  )
+);
+
+
+$navbar-padding-y:            $spacer * .8;

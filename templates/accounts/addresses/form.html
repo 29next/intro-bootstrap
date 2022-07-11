@@ -1,0 +1,55 @@
+{% extends "layouts/customer_base.html" %}
+
+{% block tabcontent %}
+    <div class="alert alert-warning alert-dismissible fade show">
+        {% t "global.warning.address_form_edit_warning" %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <form class="form-custom-address row g-3" method="post" data-address-id="{{ object.id }}">
+        {% csrf_token %}
+
+        {% if form.is_bound and not form.is_valid %}
+            <div class="alert alert-danger alert-dismissible fade show">
+                {% t "global.error.please_check_error" %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger alert-dismissible fade show">
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+     
+            {% for field in form  %}
+                {% if field.name == 'country' %}
+
+                    {% include 'partials/form_field.html' with field=form.country  %}
+     
+                {% elif field.name == 'phone_number' %}
+                
+                        {% include 'partials/form_field.html' with field=form.phone_number breakpoint_col='col-md-6'  %}
+                   
+                        {% comment %}{% include 'partials/form_field.html' with field=form.phone_number_country  %}{% endcomment %}
+                    
+                {% elif field.name != 'same_as_shipping' and field.name != 'email' %}
+
+                        {% include 'partials/form_field.html' with field=field breakpoint_col='col-md-6' %}
+                  
+                {% endif %}
+            {% endfor %}
+     
+        <div class="d-grid gap-2 d-md-block mt-4">
+            
+            
+            <button class="btn btn-light"  onclick="window.history.go(-1);return false">{% t "global.button.cancel" %}</button>
+
+            <button type="submit" class="btn btn-primary" data-loading-text='{% t "global.button.save_loading" %}'>{% t "global.button.save" %}</button>
+        </div>
+        
+    </form>
+{% endblock tabcontent %}

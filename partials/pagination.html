@@ -1,0 +1,18 @@
+{% if paginator.num_pages > 1 %}
+<div class="my-3">
+    <nav class="store_pagination" role="navigation" aria-label="store pagination">
+        
+        <ul class="pagination">
+            {% with ''|center:paginator.num_pages as range %}
+                {% for _ in range %}
+                    <li class="page-item {% if forloop.counter == page_obj.number %}active{% endif %}" {% if forloop.counter == page_obj.number %}aria-current="page"{% endif %}><a class="page-link" href="?{% get_parameters page %}page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+                {% endfor %}
+            {% endwith %}
+            {% if page_obj.has_next %}
+            <li class="page-item"><a href="?{% get_parameters page %}page={{ page_obj.next_page_number }}" class="page-link">{% t "navigation.pagination.next" %}</a></li>
+            {% endif %}
+        </ul>
+
+    </nav>
+</div>
+{% endif %}

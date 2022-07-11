@@ -1,0 +1,94 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+    "{{ query }}" | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<section class="store_breadcrumbs">
+    <div class="container-xl">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
+                
+                <li class="breadcrumb-item active" aria-current="page">{% t "store.search.products_matching" with q=query %}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block headertext %}
+{% endblock %}
+
+{% block content %}
+
+<section class="catalogue_page">
+    <div class="container-xl">
+       {% if page.object_list %}
+        <div class="row row-cols-2 row-cols-md-4 g-4">
+                {% for result in page.object_list %}
+                <div class="col">
+                    <div class="card h-100">
+
+                        {% with image=result.object.primary_image %}
+                            {% image_thumbnail image.original "350x350" crop="center" upscale=True as thumb %}
+                            <a href="{{ result.object.get_absolute_url }}" >
+                                <img original="{{ image.original }}" src="{{ thumb.url }}" alt="{{ result.object.get_title }}" class="card-img-top">
+                            </a>
+                        {% endwith %}
+
+                        <div class="card-body d-flex flex-column">
+                            <div class="card-title">
+                                <a href="{{ result.object.get_absolute_url }}" >{{ result.object.get_title }}</a>
+                            </div>
+
+                             <div class="card-text fs-7 mb-2">
+                                {{ result.object.excerpt|safe|truncatewords:10 }}
+                             </div>
+
+                            <div class="mt-auto">
+                                <div class="d-block">
+                                    {% purchase_info_for_product request result.object as session %}
+                                    {% if session.price.exists %}
+                                    <span>
+                                        {% if session.price.excl_tax == 0 %}
+                                            {% t "store.catalogue.free" %} 
+                                        {% elif session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                        {% endif %}
+                                    </span>
+                                    {% if session.price.price_retail > session.price.excl_tax %}
+                                    <span class="text-muted fs-7">
+                                        <s>{{ session.price.price_retail|currency:session.price.currency }}</s>
+                                    </span>
+                                    {% endif %}
+                                    {% else %}
+                                    &nbsp;
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+           
+
+        </div>
+        {% include "partials/pagination.html" with page_obj=page %}
+        {% else %}
+        <div class="row text-center content-body">
+            <h4>{% t "store.search.search_not_found" %}</h4>
+            {% if suggestion %}
+                {% url 'search:search' as search_url %}
+                {% t "store.search.suggestion" with link=search_url %}
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

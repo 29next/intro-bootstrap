@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+    {% t "order.cart.title" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<section class="store_breadcrumbs">
+    <div class="container-xl">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
+                
+                <li class="breadcrumb-item active" aria-current="page">{% t "order.cart.title" %}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+{% endblock %}
+
+{# Hide mini-basket so we don't have two baskets to keep in sync #}
+{% block mini_basket %}{% endblock %}
+
+
+{% block content %}
+    {% include 'partials/cart_content.html' %}
+{% endblock content %}
+
+{% block modals %}{% endblock %}
+
+
+{% block onbodyload %}
+    {{ block.super }}
+    {# Cart JS actions #}
+    core.basket.init();
+{% endblock %}

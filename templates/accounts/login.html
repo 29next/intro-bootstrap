@@ -1,0 +1,81 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+    {% t "customer.login.title" %} | {{ block.super }}
+{% endblock %}
+
+
+{% block breadcrumbs %}
+
+
+	<section class="store_breadcrumbs">
+	    <div class="container-xl">
+	        <nav aria-label="breadcrumb">
+	            <ol class="breadcrumb">
+	                <li class="breadcrumb-item"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
+	                <li class="breadcrumb-item"><a href="{% url 'customer:profile-view' %}">{% t "navigation.account.account" %}</a></li>
+	                <li class="breadcrumb-item active" aria-current="page">{% t "customer.login.title" %}</li>
+	            </ol>
+	        </nav>
+	    </div>
+	</section>
+{% endblock %}
+
+{% block content %}
+	<section class="register_page">
+	    <div class="container-xl">
+  			<div class="row justify-content-md-center">
+  				<div class="col-md-8 col-lg-6 col-xl-5">
+  					{% include "partials/alert_messages.html" %}
+			    	<div class="card">
+			    		<div class="card-body">
+			    			<div class="d-block mb-4">
+					            <div class="h4">{% t "customer.login.heading" %}</div>
+					           	<div class="fs-6">
+						            {% url 'customer:register' as register_url %}
+						            {% t "customer.login.register_link" with link=register_url %}
+						        </div>
+					        </div>
+					        <div class="register_form-login">
+					        	<form id="login_form" class="row g-3" action="{{ request.get_full_path }}" method="post">
+					        		{% csrf_token %}
+					        		{% include "partials/form_fields.html" with form=login_form %}
+					        		<div class="d-grid gap-2 mt-4">
+						                    <button name="login_submit" type="submit" value="Log In" class="btn btn-primary btn-lg" data-loading-text='{% t "global.button.login_loading" %}'>{% t "global.button.login" %}</button>
+						     
+						            </div>
+				                    <div class="register_resetpassword-link">
+						                <a href="{% url 'password-reset' %}">{% t "customer.login.forgot_password" %}</a>
+						            </div>
+						            {% if allow_signup_with_phone_number %}
+						            <div class="register_resetpassword-link">
+						      		 	<a href="{% url 'otp:otp-request' %}?next={{ next_url }}">{% t "customer.login.sms" %}</a>
+						    		</div>		    
+						            {% endif %}
+				                        
+				  
+
+						            
+						        </form>
+				        		{% if allow_login_with_facebook %}
+		                    		<h5>{% t "customer.login.social" %}</h5>
+		                   			<hr class="margin-bottom-1x">
+		                    		{% load socialaccount %}
+					                   	{% providers_media_js %}
+					                   	<div class="d-grid gap-2">
+					                    	<a class="btn btn-primary btn-lg" href="{% provider_login_url 'facebook' method='oauth2' %}">{% t "customer.login.facebook" %}</a>
+					                	</div>
+					            {% endif %}
+
+
+
+			        		</div>
+			    		</div>
+
+			    	</div>
+  				</div>
+  			</div>    	
+	   </div>
+</section>
+{% endblock content %}

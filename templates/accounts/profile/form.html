@@ -1,0 +1,27 @@
+{% extends "layouts/customer_base.html" %}
+
+{% block tabcontent %}
+    <form id="profile_form" class="row g-3" method="post">
+        {% csrf_token %}
+
+                {% include 'partials/form_field.html' with field=form.email %}
+        
+                {% include 'partials/form_field.html' with field=form.first_name breakpoint_col='col-md-6' %}
+          
+                {% include 'partials/form_field.html' with field=form.last_name breakpoint_col='col-md-6' %}
+    
+        
+          
+                {% include 'partials/form_field.html' with field=form.language size='full' %}
+                {% comment %}
+                    {% include 'partials/form_field.html' with field=form.phone_number %}
+                    {% include "partials/form_field.html" with field=form.phone_number_country %}
+                {% endcomment %}
+           
+        <div class="d-grid gap-2 d-md-block mt-4">
+                <button type="button" class="btn btn-light" href="{% url 'customer:profile-view' %}">{% t "global.button.cancel" %}</button>
+      
+                <button type="submit" class="btn btn-primary" data-loading-text='{% t "global.button.save_loading" %}'>{% t "global.button.save" %}</button>
+        </div>
+    </form>
+{% endblock tabcontent %}

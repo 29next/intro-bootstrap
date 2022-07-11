@@ -1,0 +1,38 @@
+{% if form.is_bound and not form.is_valid %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {% t "global.error.please_check_error" %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endif %}
+
+{% if form.non_field_errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endif %}
+
+{% if gateway_name == 'spreedly' %}
+    <div id="spreedly-error-block" class="error-block"></div>
+{% endif %}
+
+<div class="row g-3">
+    <div class="col-md-6">
+            <div id="spreedly-number" class="form-control"></div>
+            <span class="error-block invalid-feedback"></span>
+            {% for field in form.hidden_fields %}
+                {{ field }}
+            {% endfor %}
+    </div>
+    {% include 'partials/form_field.html' with field=form.name nolabel=True breakpoint_col='col-md-6' %}
+
+    
+    {% include 'partials/form_field.html' with field=form.expiry nolabel=True breakpoint_col='col-md-6' %}
+    <div class="col-md-6">
+            <div id="spreedly-cvv" class="form-control"></div>
+            <span class="error-block invalid-feedback"></span>
+    </div>
+    
+</div>
+   
+{% include 'partials/form_field.html' with field=form.is_saved_card nolabel=True %}

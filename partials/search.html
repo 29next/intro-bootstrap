@@ -1,0 +1,16 @@
+<div class="store_search {% if request.resolver_match.url_name == 'search' %}search-visible{% endif %}">
+        <div class="container-xl">
+                <div class="row">
+                        <div class="col">
+                                 <form method="get" action="{% url 'search:search' %}">
+                                        <div class="input-group">                              
+                                                <a class="btn btn-light store_search-close" >{% t "global.button.close" %}</a>          
+                                                {% include 'partials/form_field.html' with field=search_form.q nolabel=True inputGroup=True  %}             
+                                                <button type="submit" class="btn btn-outline-primary">{% t "global.button.search" %}</button> 
+                                        </div>
+                                </form>
+                        </div>
+                </div>
+        </div>
+       
+</div>

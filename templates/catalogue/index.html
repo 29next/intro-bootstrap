@@ -1,0 +1,105 @@
+{% extends "layouts/base.html" %}
+{% block title %}
+{% if summary %}{{ summary }} |{% endif %} {{ block.super }}
+{% endblock %}
+{% block headertext %}{% endblock %}
+{% block breadcrumbs %}
+<section class="store_breadcrumbs">
+    <div class="container-xl">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ summary }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+{% endblock %}
+{% block content %}
+<section class="catalogue_page">
+    <div class="container-xl">
+        {% if products %}
+            <div class="row row-cols-2 row-cols-md-4 g-4">
+                {% for product in products %}
+                <div class="col">
+                    <div class="card h-100">
+                  
+                            {% block product_image %}
+                            {% with image=product.primary_image %}
+                            {% image_thumbnail image.original "350x350" crop="center" upscale=True as thumb %}
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="card-img-top">
+                            </a>
+                            {% endwith %}
+                            {% endblock %}
+                        <div class="card-body d-flex flex-column">
+                            {% block product_title %}
+                            <div class="card-title">
+                                <a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}">{{ product.get_title|truncatewords:4 }}</a>
+                            </div>
+                            {% endblock %}
+                            <div class="card-text fs-7 mb-2">
+                                {{ product.excerpt|safe|truncatewords_html:10 }}
+                            </div>
+                            {% block product_review %}
+                                {% if product.rating %}
+                                <div class="card-text d-flex mb-2">
+                                    <div class="catalogue_item-rating-stars">
+                                        {% for i in '12345' %}
+                                        {% if forloop.counter <= product.rating %} 
+                                            <span class="text-warning">
+                                                &#9733;
+                                            </span>       
+                                            {% else %}
+                                            <span class="text-muted">
+                                                &#9733;
+                                            </span>
+                                            {% endif %}
+                                            {% endfor %}
+                                    </div>
+                                    <div class="catalogue_item-rating-count ms-2">
+                                        ({{product.num_approved_reviews}})
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% endblock %}
+                            <div class="mt-auto">
+                                
+                                {% block product_price %}
+                                <div class="d-block">
+                                    {% purchase_info_for_product request product as session %}
+                                    {% if session.price.exists %}
+                                    
+                                    <span>
+                                        {% if session.price.excl_tax == 0 %}
+                                        {% t "store.catalogue.free" %}
+                                        {% elif session.price.is_tax_known %}
+                                        {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                        {{ session.price.excl_tax|currency:session.price.currency }}
+                                        {% endif %}
+                                    </span>
+                                    {% if session.price.price_retail > session.price.excl_tax %}
+                                    <span class="text-muted fs-7">
+                                        <s>{{ session.price.price_retail|currency:session.price.currency }}</s>
+                                    </span>
+                                    {% endif %}
+                                    {% else %}
+                                    &nbsp;
+                                    {% endif %}
+                                </div>
+                                {% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        {% include "partials/pagination.html" %}
+        {% else %}
+        <p>{% t "store.catalogue.none_found" %}</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock content %}

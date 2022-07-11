@@ -1,0 +1,101 @@
+{% if field.is_hidden %}
+    {{ field }}
+{% else %}
+
+    {% annotate_form_field field %}
+
+    {% block control_group %}
+
+                {% if not inputGroup %}
+                    <div class="{% if breakpoint_col %}{{ breakpoint_col }}{% else %}col-12{% endif %}">
+                {% else %}
+                {% endif %}
+                    {% block label %}
+                        {% if not nolabel and field.widget_type != 'checkbox' %}
+                            <label for="{{ field.auto_id }}" class="form-label">
+                                {{ field.label|safe }}
+                            </label>
+                        {% endif %}
+                    {% endblock %}
+
+                    {% block controls %}
+                            {% block widget %}
+                                {% if field.widget_type == 'checkbox' %}
+                                    <div class="form-check">
+                                        {% render_field field class+="form-check-input" %} {{field.label}}
+                                        <label class="form-check-label" for="{{ field.id_for_label }}"></label>
+                                    </div>
+                                {% elif field.widget_type == 'radioselect' %}
+                                    {% for radio in field %}
+                                        <div class="form-check">
+                                            <input id="id_{{ field.name }}_{{ forloop.counter0 }}" name="{{ field.name }}" type="radio" value="{{ radio.data.value }}" class="form-check-input {% if field.errors %}invalid{% endif %}" {% if radio.data.value == field.value %}checked="checked"{% endif %}/>
+                                            <label for="id_{{ field.name }}_{{ forloop.counter0 }}" class="form-check-label">{{ radio.data.label }}
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+
+                                {% elif field.widget_type == 'customfileinput' %}
+
+                          
+                                    {% render_field field class+="form-control" %}
+
+
+
+                                {% elif field.widget_type == 'bootstrapdatepicker' %}
+                              
+                                <input type="date" id="id_{{ field.name }}" name="{{ field.name }}" class=" form-control">
+                              
+                                {% elif field.widget_type == 'textarea' %}
+                               
+                                    {% render_field field class+="form-control" %}
+                       
+                                {% elif field.widget_type == 'select' %}
+                                        {% if size == 'sm' %}
+                                 
+                                            {% render_field field class+="form-select form-select-sm" %}
+
+                                        {% elif size == 'lg' %}
+
+                                            {% render_field field class+="form-select form-select-lg" %}
+                                            
+                                        {% else %}
+                              
+                                            {% render_field field class+="form-select" %}
+                                            
+                                        {% endif %}
+
+                                {% else %}
+
+                                    {% if size == 'sm' %}
+                                        {% render_field field class+="form-control form-control-sm" %}
+                                    {% elif size == 'lg' %}
+                                        {% render_field field class+="form-control form-control-lg" %}
+                                    {% else %}
+                                        {% render_field field class+="form-control" %}
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {% endblock %}
+
+                            {% block errors %}
+                                {% for error in field.errors %}
+                                    <span class="error-block invalid-feedback"> {{ error }}</span>
+                                {% endfor %}
+                            {% endblock %}
+
+                            {% block help_text %}
+                                {% if field.help_text %}
+                                    <span class='help-block'>
+                                        {# We allow HTML within form help fields #}
+                                        {{ field.help_text|safe }}
+                                    </span>
+                                {% endif %}
+                            {% endblock %}
+                    {% endblock %}
+                {% if not inputGroup %}
+                </div>
+                {% else %}
+                {% endif %}
+    {% endblock %}
+{% endif %}

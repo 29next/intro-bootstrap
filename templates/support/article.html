@@ -1,0 +1,57 @@
+{% extends "layouts/base.html" %}
+
+
+{% block title %}
+    {{ article.title }} | {{ block.super }}
+{% endblock %}
+
+
+
+{% block breadcrumbs %}
+<section class="store_breadcrumbs">
+    <div class="container-xl">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'support:category-list' %}">{% t "navigation.main.support" %}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ article.title }}</li>
+                {% if user.is_staff %}
+                <li class="breadcrumb-item">
+                    <a  href="{% url 'support_dashboard:article-detail' pk=article.pk %}"><small> {% t "store.support.edit_this_article" %}</small></a>
+                </li>
+                {% endif %}
+            </ol>
+        </nav>
+    </div>
+</section>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<section class="support_page">
+    <div class="container-xl">
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8 text-center mb-3">
+                <h1>{{ article.title }}</h1>
+            </div>
+            <div class="col-lg-8 my-4 text-center">
+                <p class="text-muted fs-7">{% t "store.support.last_updated" %} {{ article.updated_at|date:"M d, Y" }}</p>
+            </div>
+        </div>
+        <div class="row justify-content-center content-body">
+            <div class="col-lg-8">
+                {{ article.content|safe }}
+
+                <hr class="my-5">
+
+                <p class="text-muted">
+                    {% url 'customer:support-ticket-create' as create_ticket_link %}
+                    {% t "store.support.create_support_request" with link=create_ticket_link %}
+                </p>
+
+            </div>
+        </div>
+        
+
+    </div>
+</section>
+{% endblock content%}

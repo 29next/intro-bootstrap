@@ -1,0 +1,75 @@
+{% extends "layouts/base.html" %}
+
+{% block headertext %}
+    {% t "customer.register.title" %}
+{% endblock %}
+
+{% block breadcrumbs %}
+	<section class="store_breadcrumbs">
+	    <div class="container">
+	        <nav aria-label="breadcrumb">
+	            <ol class="breadcrumb">
+	                <li class="breadcrumb-item"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
+	                <li class="breadcrumb-item"><a href="{% url 'customer:profile-view' %}">{% t "navigation.account.account" %}</a></li>
+	                <li class="breadcrumb-item active" aria-current="page">{% t "customer.register.title" %}</li>
+	            </ol>
+	        </nav>
+	    </div>
+	</section>
+{% endblock %}
+
+{% block content %}
+	<section class="register_page">
+	    <div class="container">
+  			<div class="row justify-content-md-center">
+  				<div class="col-md-8 col-lg-6 col-xl-5">
+			        <div class="card">
+			    		<div class="card-body">
+			    			<div class="d-block mb-4">
+			            		<div class="h4">{% t "customer.register.welcome_to" with shop_name=shop_name %}</div>
+			            		<div class="fs-6">{% t "customer.register.already_have_account" %} <a href="{% url 'customer:login' %}">{% t "customer.register.login" %}</a></div>
+			            	</div>
+			            	<div class="register_form-new">
+					        	<form method="post" class="row g-3">
+					        		{% csrf_token %}
+					        		{% if form.is_bound and not form.is_valid %}
+				                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+						                    {% t "global.error.please_check_error" %}
+						                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						                </div>
+				                    {% endif %}
+
+				                    {% if form.non_field_errors %}
+				                        {% for error in form.non_field_errors %}
+				                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+				                                {{ error }}
+				                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				                            </div>
+				                        {% endfor %}
+				                    {% endif %}
+
+				                    {% include 'partials/form_field.html' with field=form.redirect_url %}
+
+				          
+						            {% include 'partials/form_field.html' with field=form.first_name breakpoint_col='col-md-6' %}
+						            {% include 'partials/form_field.html' with field=form.last_name breakpoint_col='col-md-6' %}
+						    
+									{% include 'partials/form_field.html' with field=form.email %}
+						            {% include 'partials/form_field.html' with field=form.password1 %}
+
+						            <div class="d-grid gap-2 mt-4">
+					                    <button class="btn btn-primary btn-lg" type="submit" data-loading-text='{% t "global.button.register_loading" %}' >{% t "global.button.register" %}</button>
+						          
+						            </div>
+
+
+						        </form>
+					        </div>
+			        	</div>
+			        </div>
+			        
+			    </div>
+			</div>
+	    </div>
+	</section>
+{% endblock content %}

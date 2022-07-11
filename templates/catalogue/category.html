@@ -1,0 +1,53 @@
+{% extends "templates/catalogue/index.html" %}
+
+
+
+{% block title %}
+    {{ category.name }} | {{ block.super }}
+{% endblock %}
+
+{% block description %}
+    {{ category.description|default:""|striptags }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<section class="store_breadcrumbs">
+    <div class="container-xl">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'catalogue:index' %}">{% t "navigation.main.shop" %}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+                {% if user.is_staff %}
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'dashboard:catalogue-category-update' pk=category.id %}"><small> {% t "store.catalogue.edit_this_category" %}</small></a>
+                    </li>
+                {% endif %}
+            </ol>
+        </nav>
+    </div>
+</section>
+{% endblock breadcrumbs %}
+
+{% block content %}
+    {% if category.description %}
+        <div class="container-xl">
+            <div class="d-flex flex-column flex-sm-row mb-3 align-items-sm-center">
+                <div class="d-flex flex-column flex-sm-row mb-3 align-items-sm-center">
+                    {% if category.image %}
+                        <div class="me-4">
+                            {% with image=category.image.url %}
+                            {% image_thumbnail image "75x" upscale=False as thumb %}
+                                <img original="{{ image.original }}" src="{{ thumb.url }}" alt="{{ product.get_title }}" class="thumbnail">
+                            {% endwith %}
+                        </div>
+                    {% endif %}
+                    <div class="my-4 my-sm-0">
+                        <h1 class="h5"><p>{{ category.description|safe }}</p></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {{ block.super }}
+{% endblock %}

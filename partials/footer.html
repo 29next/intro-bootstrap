@@ -1,0 +1,90 @@
+<footer>
+    <div class="container-xl">
+        <div class="row pt-5 my-5 text-muted border-top">
+            <div class="col-md mb-3 mb-md-0">
+                <div class="mb-3">
+                    {% t "navigation.footer.about_us" %}
+                </div>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
+                    <li class="mb-2"><a href="{% url 'catalogue:index' %}">{% t "navigation.main.shop" %}</a></li>
+                    <li class="mb-2"><a href="{% url 'blog:blog-list' %}">{% t "navigation.main.blog" %}</a></li>
+                </ul>
+            </div>
+            <div class="col-md mb-3 mb-md-0">
+                <div class="mb-3">
+                    {% t "navigation.footer.account_info" %}
+                </div>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{% url 'basket:summary' %}">{% t "navigation.main.cart" %}</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="mb-2"><a href="{% url 'customer:summary' %}">{% t "navigation.account.account" %}</a></li>
+                    <li class="mb-2"><a href="{% url 'customer:logout' %}">{% t "navigation.account.logout" %}</a></li>
+                    {% else %}
+                    <li class="mb-2"><a href="{% url 'customer:login' %}">{% t "navigation.account.login_or_register" %}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="col-md mb-3 mb-md-0">
+                <div class="mb-3">
+                    {% t "navigation.footer.support_terms" %}
+                </div>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{% url 'support:category-list' %}"><span>{% t "navigation.footer.support" %}</span></a></li>
+                    <li class="mb-2"><a href="/terms/">{% t "navigation.footer.terms_conditions" %}</a></li>
+                    <li class="mb-2"><a href="/privacy/">{% t "navigation.footer.privacy" %}</a></li>
+                </ul>
+            </div>
+            <div class="col-md mb-3 mb-md-0">
+                <div class="mb-3">
+                    {% t "navigation.footer.contact_us" %}
+                </div>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="/contact/">{% t "navigation.main.contact" %} </a></li>
+                    {% if store.phone %}
+                    <li class="mb-2"><a href="tel:{{ store.phone }}">{{ store.phone }} </a></li>
+                    {% endif %}
+                    <li class="mb-2"><a href="mailto:{{ support_email }}">{{ support_email }}</a></li>
+                </ul>
+            </div>
+            {% if store.address.line_1 %}
+            <div class="col-md mb-3 mb-md-0">
+                <div class="mb-3">
+                    {% t "navigation.footer.address" %}
+                </div>
+                <address>
+                    {% if store.legal_name %}{{ store.legal_name }}<br>{% endif %}
+                    {% if store.address.line_1 %}{{ store.address.line_1 }}<br>{% endif %}
+                    {% if store.address.line_2 %}{{ store.address.line_2 }}<br>{% endif %}
+                    {% if store.address.city and store.address.state %}
+                    {{ store.address.city }}, {{ store.address.state }}<br>
+                    {% elif store.address.city and not store.address.state %}
+                    {{ store.address.city }}<br>
+                    {% elif store.address.state and not store.address.city %}
+                    {{ store.address.state }}<br>
+                    {% endif %}
+                    {% if store.address.postcode %}{{ store.address.postcode }}<br>{% endif %}
+                    {% if store.address.country %}{{ store.address.country }}<br>{% endif %}
+                </address>
+            </div>
+            {% endif %}
+        </div>
+        <div class="row pt-5 my-5 text-muted border-top">
+            <div class="col-sm mb-4 mb-sm-0">
+                 &copy;{% now "Y" %} {{ store.name }}. {% t "navigation.footer.copyright" %}
+            </div>
+            <div class="col-sm-auto">
+                <div class="d-flex align-items-center">
+                    <span class="pay-icon pay-icon-visa"></span>&nbsp;
+                    <span class="pay-icon pay-icon-mc"></span>&nbsp;
+                    <span class="pay-icon pay-icon-ppal"></span>&nbsp;
+                    <span class="pay-icon pay-icon-klarna"></span>&nbsp;
+                    <span class="pay-icon pay-icon-amex"></span>&nbsp;
+                    <span class="pay-icon pay-icon-discover"></span>&nbsp;
+                    <span class="pay-icon pay-icon-jcb"></span>&nbsp;
+                    <span class="pay-icon pay-icon-dankort"></span>&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

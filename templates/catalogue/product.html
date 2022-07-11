@@ -1,0 +1,306 @@
+{% extends "layouts/base.html" %}
+{% block seo %}
+    {% seo %}
+{% endblock %}
+{% block title %}
+    {{ product.get_title }} | {{ block.super }}
+{% endblock %}
+{% block description %}
+    {{ product.description|default:""|striptags }}
+{% endblock %}
+{% block breadcrumbs %}
+<section class="store_breadcrumbs">
+    <div class="container-xl">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'catalogue:index' %}">{% t "navigation.main.shop" %}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ product.get_title }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+{% endblock %}
+{% block header %}{% endblock header %}
+{% block content %}
+
+<section class="product-{{product.id}} pb-5">
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-lg-5">
+                {% block product_gallery %}
+                    {% include "partials/product_carousel.html" %}
+                {% endblock %}
+            </div>
+
+
+            <div class="col-lg-7 px-lg-5">
+                    <h3>
+                        {{ product.get_title }}
+                        {% if user.is_staff %}
+                            <span class="fs-7">
+                                <a href="{% url 'dashboard:catalogue-product' pk=product.id %}"><small> {% t "store.catalogue.edit_this_product" %}</small></a>
+                            </span>
+                        {% endif %}
+                    </h3>
+
+                    {% if product.rating %}
+                    <div class="my-3">          
+                        {% for i in '12345' %}
+                            {% if forloop.counter <= product.rating %}
+                                <span class="text-warning">
+                                    &#9733;
+                                </span>
+                            {% else %}
+                                <span class="text-muted">
+                                    &#9733;
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                        <span>&nbsp;&nbsp;({{product.num_approved_reviews}})</span>
+                    </div>
+                    {% endif %}
+
+
+                    <div class="mb-3">
+                        {% block product_stock_record %}
+                            {% purchase_info_for_product request product as session %}
+                            {% if session.price.exists %}
+                                {% if session.price.price_retail > session.price.excl_tax %}
+                                    <del data-product-price-retail class="text-muted">{{ session.price.price_retail|currency:session.price.currency }}</del>
+                                {% endif %}
+                                {% if session.price.excl_tax == 0 %}
+                                    <span class="h5">{% t "store.catalogue.free" %}</span>
+                                {% elif session.price.is_tax_known %}
+                                    <span data-product-price class="h5">{{ session.price.incl_tax|currency:session.price.currency }}</span>
+                                {% else %}
+                                    <span class="h5">{{ session.price.excl_tax|currency:session.price.currency }}</span>
+                                {% endif %}
+                            {% else %}
+                            &nbsp;
+                            {% endif %}
+                        {% endblock %}
+                    </div>
+
+
+                    {% if product.attr.tagline %}
+                    <p>
+                        {{ product.attr.tagline|safe }}
+                    </p>
+                    {% endif %}
+
+
+                    {% if product.get_excerpt %}
+                    <p>
+                        {{ product.get_excerpt|safe }}
+                    </p>
+                    {% endif %}
+
+                   
+                    
+                    {% for field in variant_form %}
+                        
+                        {% if 'attr' in field.id_for_label %}
+                            <div class="row mb-4">
+                                {% include "partials/form_field.html" with field=field breakpoint_col='col-md-5' %}
+                            </div>
+                        {% endif %}
+                        
+                    {% endfor %}
+                    
+             
+
+                    {% if product.attr.interval and interval_count_choices %}
+
+                        <h6 class="my-2">{% t "store.catalogue.buy_option" %}</h6>
+
+                        <div class="catalogue_product-option mb-4">
+                             <div class="btn-group" role="group">
+                                <input type="radio" id="product-one-time" class="btn-check" name="subscription-option" value="one-time" checked>
+                                <label class="btn btn-outline-secondary" for="product-one-time">
+                                    {% t "store.catalogue.one_time" %}
+                                </label>
+                                <input type="radio" id="product-subscribe" class="btn-check" name="subscription-option" value="subscribe">
+                                <label class="btn btn-outline-secondary" for="product-subscribe">
+                                    {% t "store.catalogue.subscribe_save" %} 
+                                </label>
+                            </div>
+                            <div id="product-subscribe-options" style="display: none;" class="my-3">
+                                <h5>{{ product.attr.subscription_detail_text|safe }}</h5>
+                                <h6>{% t "store.catalogue.order_arrival_frequency" %}</h6>
+                                <div class="btn-group" role="group" id="product-subscribe-options-select">
+                                    {% for interval_count_choice_value, interval_count_choice_text in interval_count_choices %}
+                                
+                                        <input id="{{ interval_count_choice_value }}_{{ product.attr.interval.option }}" class="btn-check" type="radio" autocomplete="off" name="options" value="{{ interval_count_choice_value }}" interval="{{ product.attr.interval.option }}">
+
+                                        <label class="btn btn-outline-secondary" for="{{ interval_count_choice_value }}_{{ product.attr.interval.option }}">
+                                            {{ interval_count_choice_text }}
+                                        </label>
+                               
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+                    <hr class="my-5">
+
+
+                    <div class="catalogue_product-action">
+                        {% block product_basket_form %}
+                        {% purchase_info_for_product request product as session %}
+
+                        {% if session.availability.is_available_to_buy %}
+                        {% basket_form request product 'single' as basket_form %}
+                        <form id="add-to-cart" class="row g-3" action="{% url 'basket:add' pk=product.pk %}" method="post">
+                            {% csrf_token %}
+                            {% include "partials/form_fields.html" with form=basket_form breakpoint_col='col-3 col-md-2' size='lg' nolabel=True %}
+                            <div class="col-9 col-md-10">
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg omnisend-add-to-cart-button" data-loading-text='{% t "store.catalogue.add_to_cart_loading" %}' data-disabled-text="Unavailable">{% t "store.catalogue.add_to_cart" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                        {% endif %}
+
+                        {% endblock %}
+                    </div>
+           
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+<section class="bg-light border-top py-5">
+    <div class="container-xl">
+            <ul class="nav nav-tabs nav-fill" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="tab-about" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="true">{% t "store.catalogue.about" %}</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="tab-reviews" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">{% t "store.catalogue.reviews" %} ({{ product.num_approved_reviews }})</button>
+                </li>
+            </ul>
+            <div class="tab-content bg-white">
+                <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about">
+                    <div class="row justify-content-center p-3 content-body">
+                        <div class="col">
+                            <div class="py-5 px-md-5">
+                                {% block product_description %}
+                                    {% if product.get_description %}
+                                        {{ product.get_description|safe }}
+                                    {% endif %}
+                                {% endblock %}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div id="reviews" class="tab-pane fade" role="tabpanel" aria-labelledby="reviews">
+                    <div class="row justify-content-center p-3">
+                        <div class="col">
+                            <div class="py-5 px-md-5">
+                                {% if product.num_approved_reviews == 0 %}
+                                    <p>
+                                        {% if product|is_review_permitted:user %}
+                                            {% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id as add_review_url %}
+                                            {% t "store.catalogue.no_reviews" %} <a href="{{ add_review_url }}#addreview">{% t "store.catalogue.no_reviews_add" %}</a>.
+                                        {% else %}
+                                            {% t "store.catalogue.no_reviews" %}.
+                                        {% endif %}
+                                    </p>
+                                {% else %}
+                                <div class="d-flex flex-column flex-md-row align-items-center mb-3">
+                                    <h4 class="me-3">{% t "store.catalogue.customer_reviews" %}</h4>
+                                    <div class="d-flex">
+                                        <div class="me-3">
+                                            {% for i in '12345' %}
+                                                {% if forloop.counter <= product.rating %} <span class="text-warning">&#9733;</span>
+                                            {% else %}
+                                                <span>&#9733;</span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="catalogue_item-rating-count">
+                                            ({{product.num_approved_reviews}} Customer Reviews)
+                                        </div>
+                                    </div>
+                                </div>
+                                {% for review in product.reviews.approved.all|slice:":3" %}
+                                    <div class="card mb-5">
+                                        <div class="card-header d-flex flex-column flex-sm-row  align-items-sm-center">
+                                            <h5 class="card-title mb-0 me-3">
+                                                {{ review.title }}
+                                            </h5>
+                                            <div class="catalogue_item-rating mb-0">
+                                                <div class="catalogue_item-rating-stars">
+                                                    {% for i in '12345' %}
+                                                    {% if forloop.counter <= review.score %} <span class="text-warning">&#9733;</span>
+                                                        {% else %}
+                                                        <span>&#9733;</span>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">{{ review.body|striptags }}</p>
+                                        </div>
+                                        <div class="card-footer  text-muted">
+                                            {% if review.user == user %}
+                                                {% t "store.review.reviewed_by_you" with review_date=review.date_created %}
+                                            {% else %}
+                                                {% t "store.review.reviewed_by_other" with name=review.reviewer_name review_date=review.date_created %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+                                    <div class="d-grid gap-2 d-md-block mt-4">
+                                        {% if product.num_approved_reviews > 3 %}
+                                            <a href="{% url 'catalogue:reviews-list' product_slug=product.slug product_pk=product.id %}" class="btn btn-primary btn-sm">{% t "store.catalogue.see_all_reviews" %}</a>
+                                        {% endif %}
+
+                                        {% if product|is_review_permitted:user %}
+                                            <a id="write_review" href="{% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id %}#addreview" class="btn btn-secondary btn-sm">
+                                                {% t "store.catalogue.write_a_review" %}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                        
+
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block extrascripts %}
+{{ block.super }}
+
+{{ product.data|json_script:"product-data" }}
+
+<script>
+(function() {
+    theme.product.init({
+        add_to_cart_msg: '{% t "store.catalogue.add_to_cart" %}',
+        unavailable_msg: '{% t "store.catalogue.product_unavailable" %}'
+    });
+})();
+</script>
+
+{% app_hook 'view_product' %}
+{% app_hook 'add_to_cart' %}
+
+{% endblock %}

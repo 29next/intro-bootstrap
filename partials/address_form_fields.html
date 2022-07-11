@@ -1,0 +1,38 @@
+{% if form.is_bound and not form.is_valid %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      
+        {% t "global.error.please_check_error" %}
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endif %}
+
+
+{% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+             {{ error }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+    {% for field in form %}
+
+        {% if field.name == 'country' %}
+
+            {% include 'partials/form_field.html' with field=form.country  %}
+
+        {% elif field.name == 'phone_number' %}
+            {% include 'partials/form_field.html' with field=form.phone_number breakpoint_col='col-md-6' %}
+            {% include 'partials/form_field.html' with field=form.phone_number_country  %}
+
+        {% elif field.name != 'same_as_shipping' and field.name != 'email' %}
+            {% include 'partials/form_field.html' with field=field breakpoint_col='col-md-6' %}
+        {% endif %}
+    {% endfor %}
+
+{% if not request.user.is_authenticated %}
+
+                {% include 'partials/form_field.html' with field=form.email %}
+
+{% endif %}

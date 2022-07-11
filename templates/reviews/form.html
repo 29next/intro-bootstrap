@@ -1,0 +1,24 @@
+{% extends "templates/reviews/index.html" %}
+{% block product_review %}
+<hr>
+<div class="mt-5">
+    <h5 class="mb-4">{% t "store.review.leave_review" %}</h5>
+    <form method="post" id="add_review_form" class="row g-3" method="post" action=".">
+        {% csrf_token %}
+            {% if form.name %}  
+                    {% include 'partials/form_field.html' with field=form.name %}
+            {% endif %}
+            {% if form.email %}
+                    {% include 'partials/form_field.html' with field=form.email %}
+            {% endif %}
+            {% include 'partials/form_field.html' with field=form.title breakpoint_col='col-md-6' %}
+            {% include 'partials/form_field.html' with field=form.score breakpoint_col='col-md-6' %}
+            {% include 'partials/form_field.html' with field=form.body %}
+            <div class="d-grid gap-2 d-md-block mt-4">
+                <button type="submit" class="btn btn-primary" data-loading-text='{% t "global.button.save_loading" %}'>
+                    {% t "store.review.save_review" %}
+                </button>
+            </div>
+    </form>
+</div>
+{% endblock %}

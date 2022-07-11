@@ -1,0 +1,110 @@
+{% if storefront_geos and storefront_geos|length > 1 %}
+<!-- <div class="nav-item dropdown">
+    <a class="btn btn-light dropdown-toggle" id="langCurrencyDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="flag-icon flag-icon-{{ request.COUNTRY_CODE|lower }}"></span>&nbsp;<span class="d-none">Language/Currency</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langCurrencyDropdown">
+
+        <form action="{% url 'core:set-storefront' %}" method="post" id='set-storefront'>
+            {% csrf_token %}
+            <input name="country" type="hidden" value="" />
+            <input name="language" type="hidden" value="" />
+            <input name="currency" type="hidden" value="" />
+            <input name="next" type="hidden" value="{{ language_neutral_url_path }}">
+            {% for storefront in storefront_geos %}
+                <a class="dropdown-item" href="#" data-country="{{ storefront.country.code }}" data-language="{{ storefront.get_language }}" data-currency="{{ storefront.currency.code }}"> 
+                    <span class="flag-icon flag-icon-{{ storefront.country.code|lower }}"></span>
+                    &nbsp;&nbsp;
+                    <span> {{ storefront.country }}</span>
+                </a>
+            {% endfor %}
+        </form>
+
+        <li><hr class="dropdown-divider" /></li>
+        {% if languages_active_storefront %}
+        <li>
+            <form action="{% url 'set_language' %}" method="post" id='set-language' class="px-2">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ language_neutral_url_path }}">
+                <select class="form-select form-select-sm" aria-label="language" name="language">
+                {% for language_code, name in languages_active_storefront %}
+                    <option value="{{ language_code }}" {% if request.LANGUAGE_CODE == language_code %} selected {% endif %}>
+                        {{ name }}
+                    </option>
+                {% endfor %}
+                </select>
+            </form>
+        </li>
+        {% endif %}
+        <li><hr class="dropdown-divider" /></li>
+        {% if currencies and currencies|length > 1 %}
+        <li>
+            <form action="{% url 'core:set-currency' %}" method="post" id='set-currency' class="px-2">
+                {% csrf_token %}
+                <select class="form-select form-select-sm" aria-label="currency" name="currency">
+                    {% for currency in currencies %}
+                    <option value="{{ currency.code }}" {% if request.CURRENCY_CODE == currency.code %} selected {% endif %}>
+                        {{ currency.symbol }} {{ currency.code }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </form>
+        </li>
+        {% endif %}
+    </ul>
+</div> -->
+<li class="nav-item dropdown">
+    <a class="nav-link has-icon dropdown-toggle" id="langCurrencyDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="flag-icon flag-icon-{{ request.COUNTRY_CODE|lower }} me-2 me-md-0"></span>&nbsp;<span class="d-md-none">Language/Currency</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langCurrencyDropdown">
+
+        <form action="{% url 'core:set-storefront' %}" method="post" id='set-storefront'>
+            {% csrf_token %}
+            <input name="country" type="hidden" value="" />
+            <input name="language" type="hidden" value="" />
+            <input name="currency" type="hidden" value="" />
+            <input name="next" type="hidden" value="{{ language_neutral_url_path }}">
+            {% for storefront in storefront_geos %}
+                <a class="dropdown-item" href="#" data-country="{{ storefront.country.code }}" data-language="{{ storefront.get_language }}" data-currency="{{ storefront.currency.code }}"> 
+                    <span class="flag-icon flag-icon-{{ storefront.country.code|lower }}"></span>
+                    &nbsp;&nbsp;
+                    <span> {{ storefront.country }}</span>
+                </a>
+            {% endfor %}
+        </form>
+
+        <li><hr class="dropdown-divider" /></li>
+        {% if languages_active_storefront %}
+        <li>
+            <form action="{% url 'set_language' %}" method="post" id='set-language' class="px-2">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ language_neutral_url_path }}">
+                <select class="form-select form-select-sm" aria-label="language" name="language">
+                {% for language_code, name in languages_active_storefront %}
+                    <option value="{{ language_code }}" {% if request.LANGUAGE_CODE == language_code %} selected {% endif %}>
+                        {{ name }}
+                    </option>
+                {% endfor %}
+                </select>
+            </form>
+        </li>
+        {% endif %}
+        <li><hr class="dropdown-divider" /></li>
+        {% if currencies and currencies|length > 1 %}
+        <li>
+            <form action="{% url 'core:set-currency' %}" method="post" id='set-currency' class="px-2">
+                {% csrf_token %}
+                <select class="form-select form-select-sm" aria-label="currency" name="currency">
+                    {% for currency in currencies %}
+                    <option value="{{ currency.code }}" {% if request.CURRENCY_CODE == currency.code %} selected {% endif %}>
+                        {{ currency.symbol }} {{ currency.code }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </form>
+        </li>
+        {% endif %}
+    </ul>
+</li>
+{% endif %}

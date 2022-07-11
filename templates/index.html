@@ -1,0 +1,268 @@
+{% extends "layouts/base.html" %}
+{% block topbar %}{% include "partials/topbar.html" %}{% endblock %}
+{% block content_wrapper %}
+<section class="py-5" style="background: url('{{ "img/bg.jpg" | asset_url }}') no-repeat center center;background-size: cover;">
+    <div class="container py-5 mb-3 mb-lg-0">
+        <div class="row py-5">
+            <div class="col-sm-8 offset-lg-1 py-4">
+                <h5 class="fw-normal text-light">Lorem ipsum dolor sit amet</h5>
+                <h1 class="text-light mb-3">Store hero value proposition or offer</h1>
+                <h4 class="fw-normal text-muted mb-5">Ullam vero aliquam, natus quae architecto hic quod!</h4>
+                <div class="d-grid gap-3 d-lg-block mb-5">
+                    <a class="btn btn-primary btn-lg me-lg-3" href="#">Button Primary</a>
+                    <a class="btn btn-secondary btn-lg" href="#">Button Secondary</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container py-5 my-5">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            {% category_tree as tree_categories %}
+            {% for tree_category, info in tree_categories %}
+            <div class="col">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ tree_category.name }}</h5>
+                        <p class="card-text">{{ tree_category.description }}</p>
+                        <a href="{{ tree_category.get_absolute_url }}" class="card-link">Shop now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="bg-light">
+    <div class="container py-5 mb-3 mb-lg-0">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <span class="badge bg-danger mb-3">Limited Offer</span>
+                <h5 class="fw-normal">The all new</h5>
+                <h1>Latest Product</h1>
+                <h4 class="fw-normal text-muted mb-5">at a discounted price, subscribe and save!</h4>
+                <div class="d-grid gap-3  d-xl-block mb-5">
+                    <button data-action="add-product" data-stockrecord-id="1" data-quantity="1" data-clear-cart=true class="btn btn-primary btn-lg me-xl-3" data-loading-text='{% t "store.catalogue.add_to_cart_loading" %}'>Buy One-Time Example</button>
+                    <button data-action="add-product" data-stockrecord-id="1" data-quantity="1" data-interval="month" data-interval-count="1" data-redirect=false data-clear-cart=true data-loading-text='{% t "store.catalogue.add_to_cart_loading" %}' class="btn btn-secondary btn-lg">Subscribe and Save Example</button>
+                </div>
+            </div>
+            <div class="col">
+                <img src="{{ 'img/generic-product-placeholder.png' | asset_url }}" alt="" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-5">
+    <div class="container py-5 mb-3 mb-lg-0">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center pt-2 pt-md-4 mb-4 mb-md-5">Featured Products</h2>
+            </div>
+            
+        </div>
+         <div class="row row-cols-2 row-cols-md-4 g-4">
+            {% for product in products|by_ids:'1,2,3,4' %}
+            <div class="col">
+                <div class="card h-100">
+                    {% block product_image %}
+                        {% with image=product.primary_image %}
+                        {% image_thumbnail image.original "350x350" crop="center" upscale=True as thumb %}
+                        <a href="{{ product.get_absolute_url }}">
+                            <img original="{{ image.original }}" src="{{ thumb.url }}" alt="{{ product.get_title }}" class="card-img-top">
+                        </a>
+                        {% endwith %}
+                    {% endblock %}
+                    <div class="card-body d-flex flex-column">
+                        <div class="card-title">
+                            <a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}">{{ product.get_title }}</a>
+                        </div>
+                        <div class="card-text fs-7 mb-2">
+                            {{ product.excerpt|safe|truncatewords_html:10 }}
+                        </div>
+                        {% if product.rating %}
+                            <div class="card-text d-flex mb-2">
+                                <div class="catalogue_item-rating-stars">
+                                    {% for i in '12345' %}
+                                    {% if forloop.counter <= product.rating %} 
+                                        <span class="text-warning">
+                                            &#9733;
+                                        </span>       
+                                        {% else %}
+                                        <span class="text-muted">
+                                            &#9733;
+                                        </span>
+                                        {% endif %}
+                                        {% endfor %}
+                                </div>
+                                <div class="catalogue_item-rating-count ms-2">
+                                    ({{product.num_approved_reviews}})
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="mt-auto">
+                            {% block product_price %}
+                            <div class="d-block">
+                                {% purchase_info_for_product request product as session %}
+                                {% if session.price.exists %}
+                                <span>
+                                    {% if session.price.excl_tax == 0 %}
+                                    {% t "store.catalogue.free" %}
+                                    {% elif session.price.is_tax_known %}
+                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                    {% else %}
+                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                    {% endif %}
+                                </span>
+                                {% if session.price.price_retail > session.price.excl_tax %}
+                                <span class="text-muted fs-7">
+                                    <s>{{ session.price.price_retail|currency:session.price.currency }}</s>
+                                </span>
+                                {% endif %}
+                                {% else %}
+                                &nbsp;
+                                {% endif %}
+                            </div>
+                            {% endblock %}
+                            <div class="d-block mt-3">
+                                <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Shop This</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="bg-light py-5">
+    <div class="container py-md-5 mb-4 pt-3 pb-4">
+        <h2 class="text-center mb-4 mb-md-5 pb-2">Customer reviews</h2>
+        <div class="row testimonials">
+            <div class="col mx-2">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body text-muted">
+                    <div class="mb-2">
+                      <div class="star-rating">
+                            <span class="text-warning">★</span>
+                            <span class="text-warning">★</span>
+                            <span class="text-warning">★</span>
+                            <span class="text-warning">★</span>
+                            <span class="text-muted">★</span>
+                      </div>
+                    </div>
+                    Lorem ipsum dolor sit amet, quia non consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center pt-4">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <h6 class="fs-7">Laura Willson</h6>
+                      <span class="fs-7 text-muted opacity-75">Feb 05, 2020</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col mx-2">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body text-muted">
+                    <div class="mb-2">
+                      <div class="star-rating">
+                            <span class="text-warning">★</span>
+                            <span class="text-warning">★</span>
+                            <span class="text-warning">★</span>
+                            <span class="text-warning">★</span>
+                            <span class="text-muted">★</span>
+                      </div>
+                    </div>
+                    Lorem ipsum dolor sit amet, quia non consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center pt-4">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <h6 class="fs-7">Laura Willson</h6>
+                      <span class="fs-7 text-muted opacity-75">Feb 05, 2020</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col mx-2">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body text-muted">
+                    <div class="mb-2">
+                      <div class="star-rating">
+                            <span class="text-warning">★</span>
+                            <span class="text-warning">★</span>
+                            <span class="text-warning">★</span>
+                            <span class="text-warning">★</span>
+                            <span class="text-muted">★</span>
+                      </div>
+                    </div>
+                    Lorem ipsum dolor sit amet, quia non consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center pt-4">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <h6 class="fs-7">Laura Willson</h6>
+                      <span class="fs-7 text-muted opacity-75">Feb 05, 2020</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="py-5">
+    <div class="container py-md-5 mb-4 pt-3 pb-4">
+        <h2 class="text-center mb-4 mb-md-5 pb-2">From the blog</h2>
+        <div class="row row-cols-md-3 g-4">
+            {% for post in posts|slice:"3" %}
+                <div class="col">
+                    <div class="card border-0 shadow-sm h-100  d-flex flex-column">
+                        {% with image=post.featured_image %}
+                            {% if image %}
+                            {% image_thumbnail image "x600" upscale=False as thumb %}
+           
+                            <a href="{{post.get_absolute_url}}"><img src="{{ thumb.url }}" alt="Post" class="card-img-top"></a>
+       
+                            {% endif %}
+                        {% endwith %}
+                        <div class="mt-auto p-3">
+                            <div class="card-text text-muted fs-7">{{post.posted_date|date:"M d, Y"}}</div>
+                            <div class="card-title"><a href="{{post.get_absolute_url}}">{{ post.title }}</a></div>
+                            <div class="card-text text-muted fs-7">{{ post.excerpt_with_readmore|safe }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block extrascripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.testimonials').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: false,
+            fade: false,
+            responsive: [
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+
+            ]
+
+        });
+
+    });
+</script>
+{% endblock %}

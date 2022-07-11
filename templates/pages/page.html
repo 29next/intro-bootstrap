@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+    {{ page.title}} | {{ block.super }}
+{% endblock %}
+
+
+
+{% block content_wrapper %}
+{% block breadcrumbs %}    
+<section class="store_breadcrumbs">
+    <div class="container-xl">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ page.title }}</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+{% endblock %}
+<section>
+    <div class="container-xl">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 content-body">
+                {% block content %}
+                {% csrf_token %}
+                    {{ page.content }}
+                    <div class="loader-overlay">
+                        <div class="loader-msg">
+                          <div class="spinner loading"></div>
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,278 @@
+<section class="basket_page">
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-lg-8 mb-5">
+
+                {% if basket_warnings %}
+                    {% for warning in basket_warnings %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            {{ warning }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+
+                {% if upsell_messages %}
+                    {% for upsell in upsell_messages %}
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {% t "order.cart.upsell_message_detail" with message=upsell.message offer_name=upsell.offer.name %}
+                    </div>
+                    {% endfor %}
+
+                {% endif %}
+
+                {% include "partials/alert_messages.html" %}
+
+                {% if not basket.is_empty %}
+                    {% block basket_form_headers %}
+                    {% endblock %}
+
+                    {% block basket_form_main %}
+                        <form method="post" id="basket_formset">
+                            <table class="account_table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">{% t "tables.heading.product_name" %}</th>
+                                        <th scope="col">{% t "tables.heading.quantity" %}</th>
+                                        <th scope="col">{% t "tables.heading.schedule" %}</th>
+                                        <th scope="col">{% t "tables.heading.total" %}</th>
+                                        <th scope="col">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% csrf_token %}
+                                    {{ formset.management_form }}
+                                    {% for form in formset %}
+                                        {% with line=form.instance product=form.instance.product %}
+                                            {% purchase_info_for_line request line as session %}
+                                            <tr>
+                                                <td data-label='{% t "tables.heading.product_name" %}'>
+                                                    <div class="account_table-product">
+                                                        {{ form.id }}
+                                                        {% with image=product.primary_image %}
+                                                            {% image_thumbnail image.original "70x" upscale=False as thumb %}
+                                                            <div class="account_table-pimage">
+                                                                <a href="{{ product.get_absolute_url }}">
+                                                                    <img src="{{ thumb.url }}" alt="Product">
+                                                                </a>
+                                                            </div>
+                                                        {% endwith %}
+                                                            <div>
+                                                                <div class="account_table-pname">
+                                                                    {{ line.description }}
+                                                                </div>
+                                                                <div class="account_table-schedule">
+                                                                    <div>
+                                                                        {% t "tables.content.price" %}:
+                                                                        {% if not line.unit_price_incl_tax and not line.unit_tax_excl_tax %}
+                                                                            &mdash;
+                                                                        {% else %}
+                                                                            {% if line.is_tax_known %}
+                                                                                {{ line.unit_price_incl_tax|currency:line.price_currency }}
+                                                                            {% else %}
+                                                                                {{ line.unit_price_excl_tax|currency:line.price_currency }}
+                                                                            {% endif %}
+                                                                        {% endif %}
+                                                                    </div>
+                                                                {% if line.discount_value %}
+                                                                    <div class="text-success">{% t "tables.content.discount" %}: {{ line.discount_value|currency:line.price_currency }}
+                                                                    </div>
+                                                                {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </td>
+                                                <td data-label='{% t "tables.heading.quantity" %}' class="select-submit">
+                                                    {% include 'partials/form_field.html' with field=form.quantity nolabel=True size='sm' %}
+                                                </td>
+                                                <td data-label='{% t "tables.heading.schedule" %}' class="select-submit">
+                                                    {% include 'partials/form_field.html' with field=form.subscription_range nolabel=True size='sm' %}
+                                                </td>
+                                                <td data-label="Total">
+                                                    <div class="account_table-total">
+                                                        {{ line.line_price_incl_tax_incl_discounts|currency:line.price_currency }}
+                                                    </div>
+
+                                                </td>
+                                                 <td data-label="">
+                                                    <div class="account_table-actions">
+                                                        <a href="#" data-id="{{ forloop.counter0 }}" data-behaviours="remove" title='{% t "tables.actions.remove" %}' class="remove-from-cart btn btn-sm btn-light">
+                                                            Remove
+                                                            <div style="display:none">
+                                                                {{ form.DELETE }}
+                                                            </div>
+
+
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endwith %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </form>
+
+                        <div class="d-md-flex justify-content-md-between align-items-center py-4">
+                            <div class="basket_footer-voucher">
+                                {% block vouchers %}
+                                {% if voucher_form %}
+                                <form id="voucher_form" action="{% url 'basket:vouchers-add' %}" method="post">
+                                    {% csrf_token %}
+                                     <div class="input-group">
+                                 
+                                            <input type="text" name="code" required id="id_code" maxlength="128" class="form-control" />
+                                
+                                  
+                                            <button type="submit" class="btn btn-light" data-loading-text='{% t "tables.actions.add_coupon_loading" %}'>{% t "tables.actions.add_coupon" %}</button>
+                                
+                                    </div>
+                                </form>
+                                {% endif %}
+                                {% endblock vouchers %}
+                            </div>
+                            <div class="basket_footer-totals">
+                                {% block baskettotals %}
+                                    {% t "order.cart.basket_total_discount" %}:
+                                    <span class="fw-bold">
+                                        {% if not show_tax_separately and basket.is_tax_known %}
+                                            {{ basket.total_incl_tax|currency:basket.currency }}
+                                        {% else %}
+                                            {{ basket.total_excl_tax|currency:basket.currency }}
+                                        {% endif %}
+                                    </span>
+                                {% endblock baskettotals %}
+                            </div>
+                        </div>
+                        {% block formactions %}
+                            <div class="basket_footer-actions">
+
+                                    <a class="btn btn-light" href="{% url 'catalogue:index' %}">
+                                        &nbsp;{% t "order.cart.continue_shopping" %}
+                                    </a>
+
+
+                            </div>
+                        {% endblock formactions %}
+                    {% endblock %}
+
+                {% else %}
+                    {% block emptybasket %}
+       
+                    <p>
+                        {% t "order.cart.basket_empty" %} <a href="{% url 'catalogue:index' %}">{% t "order.cart.continue_shopping" %}</a>
+                    </p>
+            
+                    {% endblock %}
+                {% endif %}
+
+                {% block savedbasket %}
+                    {% if user.is_authenticated and saved_formset %}
+                    <form action="{% url 'basket:saved' %}" method="post" id="saved_basket_formset">
+
+
+                        <table class="account_table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">{% t "tables.heading.items_to_buy_now" %}</th>
+                                    <th scope="col">{% t "tables.heading.quantity" %}</th>
+                                    <th scope="col">{% t "tables.heading.price" %}</th>
+                                    <th scope="col">{% t "tables.heading.discount" %}</th>
+                                    <th scope="col">{% t "tables.heading.total" %}</th>
+                                    <th scope="col">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% csrf_token %}
+                                {{ saved_formset.management_form }}
+                                {% for form in formset %}
+                                        {% with line=form.instance product=form.instance.product %}
+                                            {% purchase_info_for_line request line as session %}
+                                            <tr>
+                                                <td data-label="Product">
+                                                    <div class="account_table-product">
+                                                        {{ form.id }}
+                                                        {% with image=product.primary_image %}
+                                                            {% image_thumbnail image.original "150x150" upscale=False as thumb %}
+                                                            <div class="account_table-pimage">
+                                                                <a class="product-thumb" href="{{ product.get_absolute_url }}">
+                                                                    <img original="{{ image.original }}" src="{{ thumb.url }}" alt="Product">
+                                                                </a>
+                                                            </div>
+                                                        {% endwith %}
+                                                         <div class="account_table-pname">
+                                                                {{ line.description }}
+                                                            </div>
+                                                  </div>
+                                                </td>
+                                                <td data-label='{% t "tables.heading.quantity" %}'>
+                                                    <div class="field is-grouped">
+                                                        <span class="control is-expanded">
+                                                            {% render_field form.quantity size='sm' %}
+                                                        </span>
+                                                        <span class="control">
+                                                           <button class="button button-sm" type="submit" data-loading-text='{% t "tables.actions.reload_loading" %}'>
+                                                                {% t "tables.actions.reload" %}
+                                                                </button>
+                                                        </span>
+                                                    </div>
+
+                                                </td>
+
+
+                                                <td data-label='{% t "tables.heading.price" %}'>
+                                                    {% if not line.unit_price_incl_tax and not line.unit_tax_excl_tax %}
+                                                            &mdash;
+                                                    {% else %}
+                                                        {% if line.is_tax_known %}
+                                                            {{ line.unit_price_incl_tax|currency:line.price_currency }}
+                                                        {% else %}
+                                                            {{ line.unit_price_excl_tax|currency:line.price_currency }}
+                                                        {% endif %}
+                                                    {% endif %}
+
+                                                </td>
+
+
+
+                                                <td  data-label='{% t "tables.heading.discount" %}'>
+                                                    {{ line.discount_value|currency:line.price_currency }}
+                                                </td>
+                                                <td  data-label='{% t "tables.heading.total" %}'>
+                                                    {{ line.line_price_incl_tax_incl_discounts|currency:line.price_currency }}
+                                                </td>
+                                                <td>
+                                                    <a href="#" data-toggle="tooltip" data-id="{{ forloop.counter0 }}" data-behaviours="remove" title='{% t "tables.actions.remove" %}' class="remove-from-cart">
+                                                        {% t "tables.actions.remove" %}
+                                                        <div style="display:none">
+                                                            {{ form.DELETE }}
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                          </tr>
+                                        {% endwith %}
+                                    {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </form>
+                    {% endif %}
+                {% endblock %}
+            </div>
+            <div class="col-lg-4">
+                <div class="basket_summary">
+                    {% block basket_summary %}
+                        {% include 'partials/cart_summary.html' with editable=1 %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+            
+            
+      
+    </div>
+</section>
