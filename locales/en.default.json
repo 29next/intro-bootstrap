@@ -443,7 +443,8 @@
             "ending_in": "ending in",
             "use_new_credit_card": "Use a New Credit Card?",
             "billing_address": "Billing address",
-            "same_as_shipping_address": "Same as Shipping address"
+            "same_as_shipping_address": "Same as Shipping address",
+            "reactivate": "Reactivate"
         },
         "support": {
              "heading": "Support",

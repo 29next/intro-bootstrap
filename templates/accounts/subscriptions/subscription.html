@@ -36,8 +36,9 @@
                     <p>{% t "customer.subscriptions.modal_change_ship_date_body" %}</p>
                     <h6>{% t "customer.subscriptions.modal_next_ship_date" with next_renewal=object.next_renewal_date|date:"d M, Y" %}</h6>
                     <p>{% t "customer.subscriptions.modal_use_calendar_body" %}</p>
-           
-                    {% include "partials/form_field.html" with field=next_shipment_form.next_renewal_date nolabel=True %}
+                     <div class="row">
+                        {% include "partials/form_field.html" with field=next_shipment_form.next_renewal_date nolabel=True %}
+                    </div>
                 </div>
                 <div class="modal-footer">
                     
@@ -234,6 +235,33 @@
     </form>
 
 </div>
+<!-- Reactivate Modal -->
+<div class="modal fade" id="sub-reactivate" tabindex="-1" aria-hidden="true">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reactivate Subscription</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Next renewal date for how often to receive new orders.</p>
+                    <div class="row">
+                        {% include "partials/form_field.html" with field=reactivate_form.renewal_date nolabel=True %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name='action' value='reactivate'>
+                    <button class="btn btn-primary" type="submit">
+                        Next Renewal Date
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <button class="store_modal-close store_modal-dismiss" aria-label="close"></button>
+</div>
 {% if object.num_lines > 1%}
 <!-- Remove Product Modal -->
     {% for line in object.lines.active %}
@@ -378,6 +406,8 @@
         <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#sub-change-next-shipment-date">{% t "customer.subscriptions.edit_ship_date" %}</button>
         <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#sub-change-schedule">{% t "customer.subscriptions.change_schedule" %}</button>
         <button class="btn btn-light" data-bs-toggle="modal" {% if object.downsell_avaliable %} data-bs-target="#subscription-cancel-downsell" {% else %} data-bs-target="#subscription-cancel" {% endif %}>{% t "global.button.cancel" %}</button>
+        {% else %}
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sub-reactivate">{% t "customer.subscriptions.reactivate" %}</button>
         {% endif %}
     </div>
 </div>
