@@ -242,11 +242,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Reactivate Subscription</h5>
+                    <h5 class="modal-title">{% t "customer.subscriptions.modal_reactivate_heading" %}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Next renewal date for how often to receive new orders.</p>
+                    <p>{% t "customer.subscriptions.modal_reactivate_body" %}</p>
                     <div class="row">
                         {% include "partials/form_field.html" with field=reactivate_form.renewal_date nolabel=True %}
                     </div>
@@ -254,7 +254,7 @@
                 <div class="modal-footer">
                     <input type="hidden" name='action' value='reactivate'>
                     <button class="btn btn-primary" type="submit">
-                        Next Renewal Date
+                        {% t "customer.subscriptions.modal_reactivate_button" %}
                     </button>
                 </div>
             </div>
