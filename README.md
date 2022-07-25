@@ -13,10 +13,10 @@ You can add a theme in a few ways:
 
 1. Clone or download this respository
 ```
-git clone git@github.com:29next/intro.git
+git clone git@github.com:29next/bootstrap-theme.git
 ```
 
-2. Inside the downloaded theme files you can open the `mainifest.json` file and edit the storename to be what you would like
+2. Inside the downloaded theme files you can open the `mainifest.json` file and edit the storename to be what you would like.
 ```
 {
     "name": "Bootstrap Intro",
@@ -39,7 +39,7 @@ git clone git@github.com:29next/intro.git
 
 1. Clone or download this respository
 ```
-git clone git@github.com:29next/intro.git
+git clone git@github.com:29next/bootstrap-theme.git
 ```
 
 2. Install [Theme Kit](https://github.com/29next/theme-kit) to your local development environment. 
@@ -51,11 +51,14 @@ git clone git@github.com:29next/intro.git
 ntk init -n <theme name> -s <store url> -a <api key>
 ```
 
+> :question:  A guide for creating the required API Key can be found on our [developer docs site](https://developers.29next.com/themes/theme-kit/#generate-an-api-key)
+
 4. Push Theme to Store
 
 ```
 ntk push
 ```
+
 > :question: After you have initialized the theme, `ntk` will automatically create a config.yml file so you dont need to pass your store url, api key, and theme id parameters. This file contains your api key so keep it safe and secure. 
 
 5. Customise & Preview Theme Changes
@@ -63,6 +66,7 @@ ntk push
 ```
 ntk watch
 ```
+
 > :question:  Use the `ntk watch` command to monitor and sync changes from your local environment to the store. 
 
 
@@ -89,7 +93,7 @@ git remote -v
 ```
 3. If you don't have an `upstream`, add it with the `remote` command. 
 ```
-git remote add upstream git@github.com:29next/intro.git
+git remote add upstream git@github.com:29next/bootstrap-theme.git
 ```
 4. Verify that you now have the `upstream` remote added correctly. 
 ```
