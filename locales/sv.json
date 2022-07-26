@@ -437,7 +437,11 @@
             "ending_in": "slutar i",
             "use_new_credit_card": "Använda ett nytt kreditkort?",
             "billing_address": "Fakturering",
-            "same_as_shipping_address": "Samma som leveransadress"
+            "same_as_shipping_address": "Samma som leveransadress",
+            "reactivate": "Reactivate",
+            "modal_reactivate_heading": "Reactivate Subscription",
+            "modal_reactivate_body": "Set a new shipment date for your subscription.",
+            "modal_reactivate_button": "Set Shipment Date"
         },
         "support": {
             "heading": "Support",
