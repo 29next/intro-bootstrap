@@ -24,7 +24,8 @@
             "login_loading": "Accesso in corso...",
             "register": "Registrare",
             "register_loading": "Registrazione...",
-            "go_back": "Torna indietro"
+            "go_back": "Torna indietro",
+            "request_cancellation": "Request cancellation"
         },
         "error": {
             "please_check_error": "<strong>Oops! Abbiamo trovato alcuni errori</strong> - controlla i messaggi di errore qui sotto e riprova",
@@ -51,9 +52,11 @@
             "about": "Informazioni su"
         },
         "account": {
+            "account_navigation": "Account Navigation",
             "account": "Account",
             "subscriptions": "Abbonamenti",
             "orders": "Cronologia ordini",
+            "profile": "Profile",
             "addresses": "Indirizzi",
             "emails": "Cronologia e-mail",
             "support": "Supporto",
@@ -203,7 +206,22 @@
             "tracking_your_order_message": "Puoi monitorare lo stato del tuo ordine",
             "view_order_status": "Visualizza lo stato dell'ordine",
             "print_this_page": "Stampa questa pagina",
-            "continue_shopping": "Continua gli acquisti"
+            "continue_shopping": "Continua gli acquisti",
+            "order_number": "Order #{{ number }}",
+            "order_status": "Ordered on {{ date_created }} and is",
+            "pending": "Pending",
+            "confirmed": "Confirmed",
+            "processing": "Processing",
+            "shipped": "Shipped",
+            "delivered": "Delivered",
+            "canceled": "Canceled",
+            "shipping_info": "Shipping information",
+            "contact": "Contact",
+            "payment_method": "Payment method",
+            "tracking": "Tracking",
+            "track_my_order": "Track my order",
+            "summary": "Summary",
+            "shipping_discount": "Shipping Discount"
         },
         "offline": {
             "thanks": "Grazie! Abbiamo ricevuto il tuo ordine.",
@@ -248,6 +266,7 @@
             "remove_loading": "Rimozione...",
             "add_to_cart": "Aggiungi al carrello",
             "add_to_cart_loading": "Aggiunta di...",
+            "product_unavailable": "Unavailable",
             "about": "Informazioni su",
             "reviews": "Recensioni",
             "no_reviews": "Questo prodotto non ha ancora recensioni",
@@ -418,12 +437,17 @@
             "ending_in": "terminando in",
             "use_new_credit_card": "Usa una nuova carta di credito?",
             "billing_address": "Indirizzo di fatturazione",
-            "same_as_shipping_address": "Ugualmente all'indirizzo di spedizione"
+            "same_as_shipping_address": "Ugualmente all'indirizzo di spedizione",
+            "reactivate": "Reactivate",
+            "modal_reactivate_heading": "Reactivate Subscription",
+            "modal_reactivate_body": "Set a new shipment date for your subscription.",
+            "modal_reactivate_button": "Set Shipment Date"
         },
         "support": {
             "heading": "Supporto",
             "support_tickets": "Biglietti di supporto",
             "create_new": "Crea nuovo",
+            "submit_ticket": "Submit ticket",
             "no_tickets": "Non sono ancora stati creati biglietti.",
             "created_at": "Creato {{ created_at }}",
             "update_ticket": "Biglietto di aggiornamento",
