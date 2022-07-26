@@ -223,10 +223,8 @@
                     <div class="card border-0 shadow-sm h-100  d-flex flex-column">
                         {% with image=post.featured_image %}
                             {% if image %}
-                            {% image_thumbnail image "x600" upscale=False as thumb %}
-           
-                            <a href="{{post.get_absolute_url}}"><img src="{{ thumb.url }}" alt="Post" class="card-img-top"></a>
-       
+                            {% image_thumbnail image "400x250" upscale=False crop="top" as thumb %}
+                                <a href="{{post.get_absolute_url}}"><img src="{{ thumb.url }}" alt="{{ post.title }}" class="card-img-top"></a>
                             {% endif %}
                         {% endwith %}
                         <div class="mt-auto p-3">

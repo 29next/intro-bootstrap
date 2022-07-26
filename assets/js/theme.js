@@ -1,26 +1,4 @@
 var theme = (function(t, $) {
-    t.nav = {
-        init: function() {
-            document.addEventListener('DOMContentLoaded', function() {
-               window.onscroll = function() { 
-                    stickyHeader() 
-                }
-                var navbar = document.getElementById("store_navbar");
-                var sticky = navbar.offsetTop;
-
-                function stickyHeader() {
-                    if (window.pageYOffset >= sticky) {
-                        navbar.classList.add("fixed-top");
-                        document.documentElement.classList.add('has-navbar-fixed-top');
-                    } else {
-                        navbar.classList.remove("fixed-top");
-                        document.documentElement.classList.remove('has-navbar-fixed-top');
-                    }
-                }
-            })
-
-        }
-    };
     t.forms = {
         init: function() {
             t.forms.loadingText();
@@ -223,7 +201,6 @@ var theme = (function(t, $) {
 
     // global init
     t.init = function(options) {
-        t.nav.init();
         t.forms.init();
         t.search.init();
     };
