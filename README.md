@@ -1,4 +1,4 @@
-[![stability-beta](https://img.shields.io/badge/stability-beta-33bbff.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta) [![Crowdin](https://badges.crowdin.net/intro-theme/localized.svg)](https://crowdin.com/project/intro-theme)
+[![stability-beta](https://img.shields.io/badge/stability-beta-33bbff.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta) [![Crowdin](https://badges.crowdin.net/intro-bootstrap/localized.svg)](https://crowdin.com/project/intro-bootstrap)
 
 # Intro Bootstrap Theme
 
