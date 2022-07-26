@@ -13,13 +13,13 @@ You can add a theme in a few ways:
 
 1. Clone or download this respository
 ```
-git clone git@github.com:29next/bootstrap-theme.git
+git clone git@github.com:29next/intro-bootstrap.git
 ```
 
 2. Inside the downloaded theme files you can open the `mainifest.json` file and edit the storename to be what you would like.
 ```
 {
-    "name": "Bootstrap Intro",
+    "name": "Intro Bootstrap",
     "version": "1.0"
 }
 ```
@@ -39,7 +39,7 @@ git clone git@github.com:29next/bootstrap-theme.git
 
 1. Clone or download this respository
 ```
-git clone git@github.com:29next/bootstrap-theme.git
+git clone git@github.com:29next/intro-bootstrap.git
 ```
 
 2. Install [Theme Kit](https://github.com/29next/theme-kit) to your local development environment. 
@@ -93,7 +93,7 @@ git remote -v
 ```
 3. If you don't have an `upstream`, add it with the `remote` command. 
 ```
-git remote add upstream git@github.com:29next/bootstrap-theme.git
+git remote add upstream git@github.com:29next/intro-bootstrap.git
 ```
 4. Verify that you now have the `upstream` remote added correctly. 
 ```
