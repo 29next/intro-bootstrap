@@ -31,10 +31,6 @@
     {% block extrastyles %}{% endblock %}
     {% block extrahead %}{% endblock %}
     {% block tracking %}
-    {# Tracking Scripts #}
-        {% include "partials/trackings/google/analytics.html" %}
-        {% include "partials/trackings/taboola/analytics.html" %}
-        {% include "partials/trackings/facebook/analytics.html" %}
     {% endblock %}
 
     {% app_hook 'global_header' %}
@@ -84,10 +80,10 @@
                                     </span>
 
                                 </a>
-                        
+
                     </li>
                     <li class="nav-item">
-                    
+
                              <a href="#basket-modal" data-toggle="side-cart" class="nav-link has-icon">
                                 <span class="me-1">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,10 +92,10 @@
                                 </span>
                                 <span id="basket-count">{{ request.basket.num_items }}</span>
                             </a>
-                      
+
                     </li>
                 </ul>
-                        
+
                 {% url 'catalogue:index' as catalogue_url %}
                 {% url 'blog:blog-list' as blog_url %}
                 {% url 'support:category-list' as support_url %}
@@ -127,7 +123,7 @@
                             </a>
                         </li>
 
-        
+
                         <li class="nav-item dropdown">
                             <a class="nav-link has-icon dropdown-toggle" id="navbarAccount" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="me-2 me-md-0">
@@ -153,7 +149,7 @@
                                 {% endif %}
                             </ul>
                         </li>
-                        
+
                         {% block mini_basket %}
                         <li class="nav-item d-none d-md-block">
                             <a class="nav-link has-icon"  href="#basket-modal" data-toggle="side-cart">
@@ -198,7 +194,6 @@
         theme.init();
     })();
     </script>
-    {% include "partials/trackings/omnisend/snippet.html" %}
     {% endblock %}
 
     {# Additional JS scripts #}
