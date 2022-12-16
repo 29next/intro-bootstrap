@@ -38,13 +38,13 @@
                                         <a href="{% url 'customer:address-detail' pk=address.id %}" class="btn btn-primary btn-sm">{% t "global.button.edit" %}</a>
                                         <a href="#" data-delete-id="{{ address.id }}" class="btn btn-outline-danger btn-sm">{% t "global.button.delete" %}</a>
                                         {% if address.country.is_shipping_country and not address.is_default_for_shipping %}
-                                            <a class="btn btn-outline-secondary btn-sm" href="{% url 'customer:address-change-status' pk=address.id action='default_for_shipping' %}">
+                                            <a class="btn btn-light btn-sm" href="{% url 'customer:address-change-status' pk=address.id action='default_for_shipping' %}">
                                  
                                                 {% t "customer.address.set_default_shipping_address" %}
                                             </a>
                                         {% endif %}
                                         {% if not address.is_default_for_billing %}
-                                            <a class="btn btn-outline-secondary btn-sm" href="{% url 'customer:address-change-status' pk=address.id action='default_for_billing' %}">
+                                            <a class="btn btn-light btn-sm" href="{% url 'customer:address-change-status' pk=address.id action='default_for_billing' %}">
                           
                                                 {% t "customer.address.set_default_billing_address" %}
                                             </a>

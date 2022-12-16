@@ -1,22 +1,15 @@
 .navbar-brand {
     font-size: 1rem;
-    font-weight:500 ;
+    font-weight:500;
+    img {
+        max-height: 2.5rem;
+    }
 }
 .navbar-toggler {
     border: none;
     &:focus {
         border: none;
         box-shadow:none;
-    }
-}
-.nav-item {
-    &:hover {
-        background-color: #fff;
-    }
-    @include media-breakpoint-up(md) {
-        &:hover {
-            background-color: transparent;
-        }
     }
 }
 .nav-link {

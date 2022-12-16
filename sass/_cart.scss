@@ -443,20 +443,14 @@ table.sidecart-table {
     background-color: $success;
     color: #fff;
 }
-
-
-
-
 .loader {
     margin: 25% 0;
-
     .loading {
         text-align: center;
         margin: auto;
         padding: 25px;
         margin: 30px;
     }
-
     .loading:before {
         content: "";
         height: 50px;
@@ -481,7 +475,6 @@ table.sidecart-table {
         transform: rotate(359deg);
     }
 }
-
 
 .cart-empty {
     margin: 25% 0;
@@ -527,8 +520,6 @@ table.sidecart-table {
     z-index: 0;
 }
 
-
-
 .cart-popover-wrapper {
     position: relative;
     display: inline-block;
@@ -544,11 +535,9 @@ table.sidecart-table {
         padding: 0.5rem;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
         width: auto;
-
         p {
             margin-bottom: 0.5rem;
         }
-
         table.popover-table {
             margin-bottom: 0.75em;
             margin-top: 0.75em;
@@ -556,21 +545,17 @@ table.sidecart-table {
             tr:first-child td {
                 border-top: none;
             }
-
             tr:first-child td,
             tr:last-child td,
             tr:nth-last-child(2) {
                 font-weight: 600;
             }
-
             td {
                 border-top: 1px solid #dee2e6;
                 padding: 0.375rem;
             }
         }
-
     }
-
     &:hover .popover-content {
         z-index: 10;
         opacity: 1;
@@ -579,7 +564,6 @@ table.sidecart-table {
         transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
         width: max-content;
     }
-
     .help-icon {
         cursor: pointer;
         display: inline-block;

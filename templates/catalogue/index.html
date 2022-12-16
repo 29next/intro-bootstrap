@@ -80,6 +80,7 @@
                                         {% endif %}
                                     </span>
                                     {% if session.price.price_retail > session.price.excl_tax %}
+                                    <div class="badge bg-danger position-absolute top-2 start-5 text-uppercase">{% t "store.catalogue.sale" %}</div>
                                     <span class="text-muted fs-7">
                                         <s>{{ session.price.price_retail|currency:session.price.currency }}</s>
                                     </span>

@@ -13,8 +13,8 @@
   &:before {
     content: '\00a0';
   }
-
 }
+
 .pay-icon {
 	&-visa {
 		background-image: url("{{ 'img/pay/visa.svg' | asset_url }}");

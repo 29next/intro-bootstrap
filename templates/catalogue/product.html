@@ -32,125 +32,109 @@
                     {% include "partials/product_carousel.html" %}
                 {% endblock %}
             </div>
-
-
             <div class="col-lg-7 px-lg-5">
-                    <h3>
-                        {{ product.get_title }}
-                        {% if user.is_staff %}
-                            <span class="fs-7">
-                                <a href="{% url 'dashboard:catalogue-product' pk=product.id %}"><small> {% t "store.catalogue.edit_this_product" %}</small></a>
+                <h1 class="fs-3">
+                    {{ product.get_title }}
+                    {% if user.is_staff %}
+                        <span class="fs-7">
+                            <a href="{% url 'dashboard:catalogue-product' pk=product.id %}"><small> {% t "store.catalogue.edit_this_product" %}</small></a>
+                        </span>
+                    {% endif %}
+                </h1>
+
+                {% if product.rating %}
+                <div class="my-3">          
+                    {% for i in '12345' %}
+                        {% if forloop.counter <= product.rating %}
+                            <span class="text-warning">
+                                &#9733;
+                            </span>
+                        {% else %}
+                            <span class="text-muted">
+                                &#9733;
                             </span>
                         {% endif %}
-                    </h3>
-
-                    {% if product.rating %}
-                    <div class="my-3">          
-                        {% for i in '12345' %}
-                            {% if forloop.counter <= product.rating %}
-                                <span class="text-warning">
-                                    &#9733;
-                                </span>
-                            {% else %}
-                                <span class="text-muted">
-                                    &#9733;
-                                </span>
-                            {% endif %}
-                        {% endfor %}
-                        <span>&nbsp;&nbsp;({{product.num_approved_reviews}})</span>
-                    </div>
-                    {% endif %}
-
-
-                    <div class="mb-3">
-                        {% block product_stock_record %}
-                            {% purchase_info_for_product request product as session %}
-                            {% if session.price.exists %}
-                                {% if session.price.price_retail > session.price.excl_tax %}
-                                    <del data-product-price-retail class="text-muted">{{ session.price.price_retail|currency:session.price.currency }}</del>
-                                {% endif %}
-                                {% if session.price.excl_tax == 0 %}
-                                    <span class="h5">{% t "store.catalogue.free" %}</span>
-                                {% elif session.price.is_tax_known %}
-                                    <span data-product-price class="h5">{{ session.price.incl_tax|currency:session.price.currency }}</span>
-                                {% else %}
-                                    <span class="h5">{{ session.price.excl_tax|currency:session.price.currency }}</span>
-                                {% endif %}
-                            {% else %}
-                            &nbsp;
-                            {% endif %}
-                        {% endblock %}
-                    </div>
-
-
-                    {% if product.attr.tagline %}
-                    <p>
-                        {{ product.attr.tagline|safe }}
-                    </p>
-                    {% endif %}
-
-
-                    {% if product.get_excerpt %}
-                    <p>
-                        {{ product.get_excerpt|safe }}
-                    </p>
-                    {% endif %}
-
-                   
-                    
-                    {% for field in variant_form %}
-                        
-                        {% if 'attr' in field.id_for_label %}
-                            <div class="row mb-4">
-                                {% include "partials/form_field.html" with field=field breakpoint_col='col-md-5' %}
-                            </div>
-                        {% endif %}
-                        
                     {% endfor %}
+                    <span>&nbsp;&nbsp;({{product.num_approved_reviews}})</span>
+                </div>
+                {% endif %}
+
+
+                    
+                {% block product_stock_record %}
+                <div class="mb-3">
+                    {% purchase_info_for_product request product as session %}
+                    {% if session.price.exists %}
+                        {% if session.price.price_retail > session.price.excl_tax %}
+                            <del data-product-price-retail class="text-muted">{{ session.price.price_retail|currency:session.price.currency }}</del>
+                        {% endif %}
+                        {% if session.price.excl_tax == 0 %}
+                            <span class="fs-5">{% t "store.catalogue.free" %}</span>
+                        {% elif session.price.is_tax_known %}
+                            <span data-product-price class="fs-5">{{ session.price.incl_tax|currency:session.price.currency }}</span>
+                            
+                        {% else %}
+                            <span class="fs-5">{{ session.price.excl_tax|currency:session.price.currency }}</span>
+                            
+                        {% endif %}
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </div>
+                {% endblock %}
+                    
+
+                {% if product.get_excerpt %}
+                    {{ product.get_excerpt|safe }}
+                {% endif %}
+
+                {% for field in variant_form %}
+                {% if 'attr' in field.id_for_label %}
+                    <div class="row mb-4">
+                        {% include "partials/form_field.html" with field=field breakpoint_col='col-md-5' %}
+                    </div>
+                {% endif %}
+                {% endfor %}
                     
              
 
-                    {% if product.attr.interval and interval_count_choices %}
+                {% block buy_options %}
+                {% purchase_info_for_product request product as session %}
+                {% if product.attr.interval and interval_count_choices and session.availability.is_available_to_buy %}
+                    <h6 class="my-2">{% t "store.catalogue.buy_option" %}</h6>
+                    <div class="catalogue_product-option mb-4">
+                        <div class="btn-group" role="group">
+                            <input type="radio" id="product-one-time" class="btn-check" name="subscription-option" value="one-time" checked>
+                            <label class="btn btn-outline-secondary" for="product-one-time">
+                                {% t "store.catalogue.one_time" %}
+                            </label>
+                            <input type="radio" id="product-subscribe" class="btn-check" name="subscription-option" value="subscribe">
+                            <label class="btn btn-outline-secondary" for="product-subscribe">
+                                {% t "store.catalogue.subscribe_save" %} 
+                            </label>
+                        </div>
+                        <div id="product-subscribe-options" style="display: none;" class="my-3">
+                            <h6>{% t "store.catalogue.order_arrival_frequency" %}</h6>
+                            <div class="btn-group" role="group" id="product-subscribe-options-select">
+                                {% for interval_count_choice_value, interval_count_choice_text in interval_count_choices %}
+                            
+                                    <input id="{{ interval_count_choice_value }}_{{ product.attr.interval.option }}" class="btn-check" type="radio" autocomplete="off" name="options" value="{{ interval_count_choice_value }}" interval="{{ product.attr.interval.option }}">
 
-                        <h6 class="my-2">{% t "store.catalogue.buy_option" %}</h6>
-
-                        <div class="catalogue_product-option mb-4">
-                             <div class="btn-group" role="group">
-                                <input type="radio" id="product-one-time" class="btn-check" name="subscription-option" value="one-time" checked>
-                                <label class="btn btn-outline-secondary" for="product-one-time">
-                                    {% t "store.catalogue.one_time" %}
-                                </label>
-                                <input type="radio" id="product-subscribe" class="btn-check" name="subscription-option" value="subscribe">
-                                <label class="btn btn-outline-secondary" for="product-subscribe">
-                                    {% t "store.catalogue.subscribe_save" %} 
-                                </label>
-                            </div>
-                            <div id="product-subscribe-options" style="display: none;" class="my-3">
-                                <h5>{{ product.attr.subscription_detail_text|safe }}</h5>
-                                <h6>{% t "store.catalogue.order_arrival_frequency" %}</h6>
-                                <div class="btn-group" role="group" id="product-subscribe-options-select">
-                                    {% for interval_count_choice_value, interval_count_choice_text in interval_count_choices %}
-                                
-                                        <input id="{{ interval_count_choice_value }}_{{ product.attr.interval.option }}" class="btn-check" type="radio" autocomplete="off" name="options" value="{{ interval_count_choice_value }}" interval="{{ product.attr.interval.option }}">
-
-                                        <label class="btn btn-outline-secondary" for="{{ interval_count_choice_value }}_{{ product.attr.interval.option }}">
-                                            {{ interval_count_choice_text }}
-                                        </label>
-                               
-                                    {% endfor %}
-                                </div>
+                                    <label class="btn btn-outline-secondary" for="{{ interval_count_choice_value }}_{{ product.attr.interval.option }}">
+                                        {{ interval_count_choice_text }}
+                                    </label>
+                        
+                                {% endfor %}
                             </div>
                         </div>
-                    {% endif %}
+                    </div>
+                {% endif %}
+                <hr class="my-5">
+                {% endblock %}
 
-
-                    <hr class="my-5">
-
-
+                {% block product_basket_form %}
                     <div class="catalogue_product-action">
-                        {% block product_basket_form %}
                         {% purchase_info_for_product request product as session %}
-
                         {% if session.availability.is_available_to_buy %}
                         {% basket_form request product 'single' as basket_form %}
                         <form id="add-to-cart" class="row g-3" action="{% url 'basket:add' pk=product.pk %}" method="post">
@@ -158,24 +142,19 @@
                             {% include "partials/form_fields.html" with form=basket_form breakpoint_col='col-3 col-md-2' size='lg' nolabel=True %}
                             <div class="col-9 col-md-10">
                                 <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary btn-lg omnisend-add-to-cart-button" data-loading-text='{% t "store.catalogue.add_to_cart_loading" %}' data-disabled-text="Unavailable">{% t "store.catalogue.add_to_cart" %}</button>
+                                    <button type="submit" class="btn btn-primary btn-lg omnisend-add-to-cart-button" data-loading-text='{% t "store.catalogue.add_to_cart_loading" %}' data-disabled-text='{% t "store.catalogue.product_unavailable" %}'>{% t "store.catalogue.add_to_cart" %}</button>
                                 </div>
                             </div>
                         </form>
+                        {% else %}
+                        <div class="fs-6">{% t "store.catalogue.out_of_stock" %}</div>
                         {% endif %}
-
-                        {% endblock %}
                     </div>
-           
+                {% endblock %}
             </div>
         </div>
-
     </div>
 </section>
-
-
-
-
 
 <section class="bg-light border-top py-5">
     <div class="container-xl">
@@ -228,7 +207,7 @@
                                             {% endfor %}
                                         </div>
                                         <div class="catalogue_item-rating-count">
-                                            ({{product.num_approved_reviews}} Customer Reviews)
+                                            ({{product.num_approved_reviews}} {% t "store.catalogue.customer_reviews" %})
                                         </div>
                                     </div>
                                 </div>
@@ -260,7 +239,6 @@
                                             {% endif %}
                                         </div>
                                     </div>
-
                                 {% endfor %}
                                     <div class="d-grid gap-2 d-md-block mt-4">
                                         {% if product.num_approved_reviews > 3 %}
@@ -273,7 +251,6 @@
                                             </a>
                                         {% endif %}
                                     </div>
-                                        
 
                                 {% endif %}
                                 
@@ -283,6 +260,9 @@
                 </div>
             </div>
     </div>
+    {% if product.sorted_recommended_products %}
+        {% include "partials/recommended_products.html" %}
+    {% endif %}
 </section>
 {% endblock content %}
 

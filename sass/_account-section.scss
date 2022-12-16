@@ -1,22 +1,9 @@
 //--------------------------------- Account Nav-------------------------//
-// .account_nav-item {
-//     display: flex;
-//     align-items:center;
-// }
-// .account_nav-item--icon {
-//     line-height: 1.2;
-//     margin-right: 0.375rem
-// }
-
-
 .account_nav-list {
     @include media-breakpoint-up(md) {
         display: block !important;
     }
 }
-//--------------------------------- Account General-------------------------//
-
-
 //--------------------------------- Account Table-------------------------//
 
 table.account_table {
@@ -25,8 +12,6 @@ table.account_table {
     padding: 0;
     width: 100%;
     border-bottom: 1px solid #000;
-    // table-layout: fixed;
-
     tr {
         border-top: 1px solid #ddd;
 
@@ -41,7 +26,6 @@ table.account_table {
     th,
     td {
         padding: 1rem .75rem;
-        // text-align: center;
         font-size: 0.875rem;
         vertical-align: middle;
     }
@@ -80,24 +64,8 @@ table.account_table {
         font-weight: bold;
     }
 
-
-    // .account_table-actions {
-    //     text-align: right;
-
-    //     .btn:not(:first-child) { 
-    //         margin-left: .75rem;
-            
-    //     }
-    //     .btn:not(:last-child) {
-    //         margin-bottom: .75rem;
-    //     }
-
-    // }
-
     @include media-breakpoint-down(md) {
-
         border: 0;
-
         thead {
             border: none;
             clip: rect(0 0 0 0);
@@ -113,6 +81,8 @@ table.account_table {
             display: block;
             margin-bottom: 1.5rem;
             background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 0.25rem;
         }
 
         td {
@@ -125,7 +95,6 @@ table.account_table {
                 content: attr(data-label);
                 float: left;
                 font-weight: bold;
-                // text-transform: uppercase;
             }
 
             &:last-child {
@@ -145,26 +114,11 @@ table.account_table {
 
         }
         .form-select {
-            
                 background-color: white;
         
         }
     }
 }
-
-
-//--------------------------------- Orders & Subs-------------------------//
-
-
-
-
-
-//--------------------------------- Profile-------------------------//
-
-
-
-//--------------------------------- Addresses-------------------------//
-
 
 //--------------------------------- Payment Methods-------------------------//
 
@@ -202,6 +156,7 @@ table.account_table {
 
     }
 }
+
 #payment-detail-form {
     .payment-icon {
         display: none;
@@ -222,7 +177,6 @@ table.account_table {
         padding: 0;
         width: 100%;
         border-bottom: 1px solid #000;
-        // table-layout: fixed;
 
         tr {
             border-top: 1px solid #ddd;
@@ -238,7 +192,6 @@ table.account_table {
         th,
         td {
             padding: 1rem .75rem;
-            // text-align: center;
             font-size: 0.875rem;
             vertical-align: middle;
         }
@@ -261,16 +214,11 @@ table.account_table {
 
 }
 
-
-
 //--------------------------------- Account Support-------------------------//
 
 .account_support-add {
-
     padding-bottom: .75rem;
-
     margin-bottom: 1.5rem;
-
     @include media-breakpoint-up(md) {
         margin-bottom: 0;
         border-bottom: 1px solid #000;

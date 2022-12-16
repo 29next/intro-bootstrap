@@ -53,17 +53,17 @@
                             {% endwith %}
                             {% with image=store.branding.icon %}
                                 {% image_thumbnail image "50x" upscale=False as thumb_store_icon %}
-                                <img src="{{ thumb_store_icon.url }}" alt="{{ store.name }}" />
+                                <img src="{{ thumb_store_icon.url }}" alt="{{ store.name }}" class="img-fluid" />
                             {% endwith %}
                         {% elif store.branding.logo and not store.branding.icon %}
                             {% with image=store.branding.logo %}
                                 {% image_thumbnail image "150x" upscale=False as thumb_store_logo %}
-                                <img src="{{ thumb_store_logo.url }}" alt="{{ store.name }}" />
+                                <img src="{{ thumb_store_logo.url }}" alt="{{ store.name }}" class="img-fluid" />
                             {% endwith %}
                         {% elif store.branding.icon and not store.branding.logo %}
                             {% with image=store.branding.icon %}
                                 {% image_thumbnail image "50x" upscale=False as thumb_store_icon %}
-                                <img src="{{ thumb_store_icon.url }}" alt="{{ store.name }}" />
+                                <img src="{{ thumb_store_icon.url }}" alt="{{ store.name }}" class="img-fluid" />
                             {% endwith %}
                     </picture>
                     {% else %}
@@ -104,11 +104,11 @@
 
                         <li class="nav-item"><a {% if request.path == homepage_url %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %}  href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
 
-                        <li class="nav-item"><a {% if request.path == catalogue_url %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %} href="{% url 'catalogue:index' %}">{% t "navigation.main.shop" %}</a></li>
+                        <li class="nav-item"><a {% if catalogue_url in request.path %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %} href="{% url 'catalogue:index' %}">{% t "navigation.main.shop" %}</a></li>
 
-                        <li class="nav-item"><a {% if request.path == blog_url %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %}  href="{% url 'blog:blog-list' %}">{% t "navigation.main.blog" %}</a></li>
+                        <li class="nav-item"><a {% if blog_url in request.path %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %}  href="{% url 'blog:blog-list' %}">{% t "navigation.main.blog" %}</a></li>
 
-                        <li class="nav-item"><a {% if request.path == support_url %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %}  href="{% url 'support:category-list' %}">{% t "navigation.main.support" %}</a></li>
+                        <li class="nav-item"><a {% if support_url in request.path %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %}  href="{% url 'support:category-list' %}">{% t "navigation.main.support" %}</a></li>
 
                         <li class="nav-item"><a {% if '/contact/' == request.path %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %} href="/contact/">{% t "navigation.main.contact" %}</a></li>
                     </ul>

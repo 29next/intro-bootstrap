@@ -1,4 +1,4 @@
-// Brand colors
+// User Bootstrap Variables Overides
 $primary:       $blue;
 $secondary:     $gray-600;
 $success:       $green;
@@ -8,10 +8,7 @@ $danger:        $red;
 $light:         $gray-100;
 $dark:          $gray-900;
 
-
-
 $theme-colors: (
-
   "primary":    $primary,
   "secondary":  $secondary,
   "success":    $success,
@@ -24,12 +21,11 @@ $theme-colors: (
 );
 
 $body-color:  #595d69;
-$headings-color: #191a1f;
 $link-decoration: none;
 $link-color:var(--accent_color); 
 $link-hover-color: inherit;
-
-
+$nav-link-color:$link-color;
+$nav-link-hover-color:$link-hover-color;
 
 $font-sizes: (
   1: $h1-font-size,
@@ -44,12 +40,14 @@ $font-sizes: (
   10: 0.625rem
 );
 
-$headings-margin-bottom:      $spacer * .5 !default;
-$headings-font-family:        null !default;
-$headings-font-style:         null !default;
-$headings-font-weight:        500 !default;
-$headings-line-height:        1.2 !default;
-$headings-color:              null !default;
+$component-active-bg:         $primary;
+// $font-family-base:            var(--#{$variable-prefix}font-sans-serif);
+$headings-margin-bottom:      $spacer * .5;
+$headings-font-family:        null;
+$headings-font-style:         null;
+$headings-font-weight:        500;
+$headings-line-height:        1.2;
+$headings-color: #191a1f;
 
 
 $input-bg:$gray-100;
@@ -70,5 +68,35 @@ $form-validation-states: (
   )
 );
 
+$enable-negative-margins:true ;
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  6: $spacer * 4,
+  7: $spacer * 5,
+  8: $spacer * 6,
+  9: $spacer * 8,
+  10: $spacer * 10,
+  11: $spacer * 14,
+  12: $spacer * 18
+);
+$negative-spacers: if($enable-negative-margins, negativify-map($spacers), null);
+
+$position-values: (
+  0: 0,
+  2: 2%,
+  5: 5%,
+  50: 50%,
+  100: 100%
+);
+
 
 $navbar-padding-y:            $spacer * .8;
+
+$pagination-focus-color:    var(--primary_color);
+$pagination-hover-color:    var(--primary_color);

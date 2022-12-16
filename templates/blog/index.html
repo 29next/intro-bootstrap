@@ -26,39 +26,38 @@
 <section class="blog_page">
     <div class="container-xl">
         <div class="row">
-            <div class="col-md-3 order-md-1">
-             
-                {% if categories %}
-                <div class="row mb-4">
-                    <div class="col">
-                        <select class="form-select" onchange="location = this.value;">
-                            <option>Category filter</option>
-                            <option value="{% url 'blog:blog-list' %}">All Categories</option>
-                            {% for category in categories %}
-                                <option value="{{ category.get_absolute_url }}">{{ category.name }}</option>
-                            {% endfor %}
-                        </select>
+            <div class="col-lg-3 order-lg-1 mb-4 mb-lg-0">
+                <div class="card blog_page-filters">
+                    <div class="card-body">
+                        {% if categories %}
+                        <div class="row mb-4">
+                            <div class="col">
+                                <select class="form-select" onchange="location = this.value;">
+                                    <option>Category filter</option>
+                                    <option value="{% url 'blog:blog-list' %}">All Categories</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category.get_absolute_url }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% block search_posts %}
+                        <form action="{% url 'blog:blog-list' %}" method="get" class="row g-3">
+                            <div class="input-group">
+                
+                                {% include 'partials/form_field.html' with field=form.name nolabel=True inputGroup=True %}
+                             
+                                <button type="submit" name="search" class="btn btn-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                        {% endblock search_posts %}
                     </div>
                 </div>
-                {% endif %}
-                {% block search_posts %}
-                <form action="{% url 'blog:blog-list' %}" method="get" class="row g-3 mb-5">
-                    <div class="input-group">
-                        
-                    
-                    {% include 'partials/form_field.html' with field=form.name nolabel=True inputGroup=True %}
-                     
-                            <button type="submit" name="search" class="btn btn-light">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                </svg>
-                            </button>
-                    </div>
-                        
-                </form>
-             
-                {% endblock search_posts %}
-             
             </div>
             <div class="col-md-9 order-md-0">
                 {% if posts %}
