@@ -253,6 +253,7 @@
         },
         "catalogue": {
             "free": "Gratuit",
+            "sale": "Sale",
             "none_found": "Aucun produit n'a été trouvé.",
             "edit_this_category": "Modifier cette catégorie",
             "edit_this_product": "Modifier ce produit",
@@ -267,6 +268,7 @@
             "add_to_cart": "Ajouter au panier",
             "add_to_cart_loading": "Ajout de...",
             "product_unavailable": "Indisponible",
+            "out_of_stock": "Out of stock",
             "about": "À propos",
             "reviews": "Avis",
             "no_reviews": "Ce produit n'a pas encore d'avis",
@@ -274,7 +276,8 @@
             "customer_reviews": "Avis des clients",
             "see_all_reviews": "Voir tous les avis",
             "write_a_review": "Écrire un avis",
-            "product_in_wishlist": "Le produit est dans la liste de souhaits {{ name }} ."
+            "product_in_wishlist": "Le produit est dans la liste de souhaits {{ name }} .",
+            "recommended_products_header": "Customers who viewed this item also bought"
         },
         "registration": {
             "enter_new_password": "Saisissez un nouveau mot de passe",
