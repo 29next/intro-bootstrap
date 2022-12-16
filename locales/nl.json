@@ -253,6 +253,7 @@
         },
         "catalogue": {
             "free": "Gratis",
+            "sale": "Sale",
             "none_found": "Er zijn geen producten gevonden.",
             "edit_this_category": "Deze categorie bewerken",
             "edit_this_product": "Dit product bewerken",
@@ -267,6 +268,7 @@
             "add_to_cart": "Toevoegen aan winkelwagen",
             "add_to_cart_loading": "Toevoegen...",
             "product_unavailable": "Niet beschikbaar",
+            "out_of_stock": "Out of stock",
             "about": "Over",
             "reviews": "Recensies",
             "no_reviews": "Dit product heeft nog geen reviews",
@@ -274,7 +276,8 @@
             "customer_reviews": "Recensies van klanten",
             "see_all_reviews": "Bekijk alle reviews",
             "write_a_review": "Schrijf een review",
-            "product_in_wishlist": "Product staat in {{ name }} verlanglijstje."
+            "product_in_wishlist": "Product staat in {{ name }} verlanglijstje.",
+            "recommended_products_header": "Customers who viewed this item also bought"
         },
         "registration": {
             "enter_new_password": "Voer een nieuw wachtwoord in",
