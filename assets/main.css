@@ -10649,31 +10649,6 @@ label.error {
 .content-body figure figcaption {
   font-style: italic; }
 
-.ql-align-left {
-  text-align: left; }
-
-.ql-align-center {
-  text-align: center; }
-
-.ql-align-right {
-  text-align: right; }
-
-.ql-align-justify {
-  text-align: justify; }
-
-.ql-indent-1 {
-  margin-left: 1rem; }
-
-.ql-indent-2 {
-  margin-left: 2rem; }
-
-.ql-video {
-  width: 100%;
-  height: 56.25vw;
-  max-height: calc(736px / 16 * 9);
-  margin-top: 2rem;
-  margin-bottom: 1.125rem; }
-
 @media (min-width: 992px) {
   .blog_page-filters {
     position: sticky;

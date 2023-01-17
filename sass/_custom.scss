@@ -189,33 +189,7 @@ label {
 .content-body figure figcaption {
     font-style: italic;
 }
-.ql {
-    &-align-left {
-        text-align: left;
-    }
-    &-align-center {
-        text-align: center;
-    }
-    &-align-right {
-        text-align: right;
-    }
-    &-align-justify {
-        text-align: justify;
-    }
-    &-indent-1 {
-        margin-left: 1rem;
-    }   
-    &-indent-2 {
-        margin-left: 2rem;
-    }
-    &-video {
-        width: 100%;
-        height: 56.25vw;
-        max-height: calc(736px / 16 * 9);   
-        margin-top: 2rem;
-        margin-bottom: 1.125rem;
-    }
-}
+
 .blog_page-filters {
     @include media-breakpoint-up(lg) {
         position: sticky;
