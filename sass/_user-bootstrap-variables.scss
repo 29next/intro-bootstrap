@@ -22,7 +22,7 @@ $theme-colors: (
 
 $body-color:  #595d69;
 $link-decoration: none;
-$link-color:var(--accent_color); 
+$link-color:var(--accent-color); 
 $link-hover-color: inherit;
 $nav-link-color:$link-color;
 $nav-link-hover-color:$link-hover-color;
@@ -98,5 +98,5 @@ $position-values: (
 
 $navbar-padding-y:            $spacer * .8;
 
-$pagination-focus-color:    var(--primary_color);
-$pagination-hover-color:    var(--primary_color);
+$pagination-focus-color:    var(--primary-color);
+$pagination-hover-color:    var(--primary-color);

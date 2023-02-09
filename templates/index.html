@@ -82,9 +82,6 @@
                         <div class="card-title">
                             <a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}">{{ product.get_title }}</a>
                         </div>
-                        <div class="card-text fs-7 mb-2">
-                            {{ product.excerpt|safe|truncatewords_html:10 }}
-                        </div>
                         {% if product.rating %}
                             <div class="card-text d-flex mb-2">
                                 <div class="catalogue_item-rating-stars">
@@ -110,21 +107,15 @@
                             <div class="d-block">
                                 {% purchase_info_for_product request product as session %}
                                 {% if session.price.exists %}
-                                <span>
-                                    {% if session.price.excl_tax == 0 %}
-                                    {% t "store.catalogue.free" %}
-                                    {% elif session.price.is_tax_known %}
-                                    {{ session.price.incl_tax|currency:session.price.currency }}
-                                    {% else %}
-                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                    <span>
+                                        {{ session.price.price|currency:session.price.currency }}
+                                    </span>
+                                    {% if session.price.price_retail > session.price.excl_tax %}
+                                        <div class="badge bg-danger position-absolute top-2 start-5 text-uppercase">{% t "store.catalogue.sale" %}</div>
+                                        <span class="text-muted fs-7">
+                                            <s>{{ session.price.price_retail|currency:session.price.currency }}</s>
+                                        </span>
                                     {% endif %}
-                                </span>
-                                {% if session.price.price_retail > session.price.excl_tax %}
-                                <div class="badge bg-danger position-absolute top-2 start-5 text-uppercase">{% t "store.catalogue.sale" %}</div>
-                                <span class="text-muted fs-7">
-                                    <s>{{ session.price.price_retail|currency:session.price.currency }}</s>
-                                </span>
-                                {% endif %}
                                 {% else %}
                                 &nbsp;
                                 {% endif %}
@@ -236,7 +227,7 @@
                         <div class="mt-auto p-3">
                             <div class="card-text text-muted fs-7">{{post.posted_date|date:"M d, Y"}}</div>
                             <div class="card-title"><a href="{{post.get_absolute_url}}">{{ post.title }}</a></div>
-                            <div class="card-text text-muted fs-7">{{ post.excerpt_with_readmore|safe }}</div>
+                            <div class="card-text text-muted fs-7">{{ post.content|safe|truncatewords_html:25 }}</div>
                         </div>
                     </div>
                 </div>

@@ -81,13 +81,13 @@
                                 <h4 class="card-title"><a href="{{post.get_absolute_url}}">{{ post.title }}</a></h4>
 
                                 
-                                <p class="card-text">{{ post.excerpt_with_readmore|safe }}</p>
+                                <p class="card-text">{{ post.content|safe|truncatewords_html:25 }}</p>
                                 <div class="d-flex mb-3 fs-7 text-muted">
                                     <span class="me-4">By &nbsp;{{ post.author.first_name}}&nbsp;{{post.author.last_name }}</span>
                                     <span>{{ post.created_at }}</span>
                                 </div>
                                 
-                               <!--  <div class="d-grid gap-2 d-md-block mt-2"><a class="btn btn-primary" href="{{post.get_absolute_url}}">{% t "global.button.read" %}</a></div> -->
+                               <div class="d-grid gap-2 d-md-block mt-2"><a class="btn btn-primary" href="{{post.get_absolute_url}}">{% t "global.button.more" %}</a></div>
                             </div>
                         </div>
                     {% endfor %}
