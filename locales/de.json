@@ -476,5 +476,36 @@
             "already_have_account": "Hast du schon ein Konto?",
             "login": "Einloggen"
         }
+    },
+    "side_cart": {
+        "default": {
+            "your_order": "Your Order",
+            "your_cart_is_empty": "Your Cart is Empty!",
+            "oops_You_have_nothing_here": "Oops! You have nothing here.",
+            "quantity": "Quantity",
+            "qty": "Qty",
+            "schedule": "Schedule",
+            "price": "Price",
+            "savings": "Savings",
+            "regular": "Regular",
+            "your_price": "Your Price",
+            "cart_subtotal": "Cart Subtotal",
+            "discount": "Discount",
+            "shipping": "Shipping",
+            "cart": "Cart",
+            "total": "Total",
+            "product": "Product",
+            "subscription_details": "Subscription Details",
+            "applied_coupons": "Applied Coupons",
+            "subscription_items_one": "Subscription ({{count}} item)",
+            "subscription_items_other": "Subscription ({{count}} items)",
+            "calculated_at_checkout": "Calculated at checkout",
+            "subscription_total": "Subscription Total",
+            "subscription_renewal_message": "Your subscription will renew every",
+            "proceed_to_checkout": "Proceed to checkout",
+            "have_a_coupon": "Have a coupon?",
+            "coupon_code": "Coupon Code",
+            "apply_coupon": "Apply coupon"
+        }
     }
 }
