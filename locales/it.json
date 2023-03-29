@@ -25,7 +25,7 @@
             "register": "Registrare",
             "register_loading": "Registrazione...",
             "go_back": "Torna indietro",
-            "request_cancellation": "Request cancellation"
+            "request_cancellation": "Richiesta di cancellazione"
         },
         "error": {
             "please_check_error": "<strong>Oops! Abbiamo trovato alcuni errori</strong> - controlla i messaggi di errore qui sotto e riprova",
@@ -43,8 +43,8 @@
     },
     "navigation": {
         "main": {
-            "home": "Home",
-            "shop": "Shop",
+            "home": "Casa",
+            "shop": "Negozio",
             "blog": "Blog",
             "support": "Supporto",
             "contact": "Contatto",
@@ -52,15 +52,15 @@
             "about": "Informazioni su"
         },
         "account": {
-            "account_navigation": "Account Navigation",
-            "account": "Account",
+            "account_navigation": "Navigazione dell'account",
+            "account": "Conto",
             "subscriptions": "Abbonamenti",
             "orders": "Cronologia ordini",
-            "profile": "Profile",
+            "profile": "Profilo",
             "addresses": "Indirizzi",
             "emails": "Cronologia e-mail",
             "support": "Supporto",
-            "dashboard": "Dashboard",
+            "dashboard": "Cruscotto",
             "logout": "Disconnettersi",
             "login_or_register": "Accedi o registrati"
         },
@@ -161,13 +161,13 @@
             "message_addition_multiple": "{{ quantity }}  copie di  {{ title }} sono state aggiunte al tuo carrello.",
             "message_line_restored": "{{ title }} è stato spostato di nuovo nel carrello.",
             "message_line_saved": "{{ title }} è stato salvato per dopo",
-            "calculated_at_checkout": "Calculated at checkout",
-            "subscription_details": "Subscription Details",
-            "product": "Product",
-            "quantity": "Qty",
-            "price": "Price",
-            "subscription_total": "Subscription Total",
-            "subscription_renewal_message": "Your subscription will renew every"
+            "calculated_at_checkout": "Calcolato al momento del pagamento",
+            "subscription_details": "Dettagli dell'abbonamento",
+            "product": "Prodotto",
+            "quantity": "Qtà",
+            "price": "Prezzo",
+            "subscription_total": "Totale sottoscrizione",
+            "subscription_renewal_message": "Il tuo abbonamento si rinnoverà ogni"
         },
         "checkout": {
             "terms_agree": "Creando il tuo ordine, accetti le nostre <a href='#' data-toggle='modal' data-target='#terms_page_button'>Condizioni di servizio</a> e <a href='#' data-toggle='modal' data-target='#privacy_page_button'>Privacy Policy</a>.",
@@ -207,21 +207,21 @@
             "view_order_status": "Visualizza lo stato dell'ordine",
             "print_this_page": "Stampa questa pagina",
             "continue_shopping": "Continua gli acquisti",
-            "order_number": "Order #{{ number }}",
-            "order_status": "Ordered on {{ date_created }} and is",
-            "pending": "Pending",
-            "confirmed": "Confirmed",
-            "processing": "Processing",
-            "shipped": "Shipped",
-            "delivered": "Delivered",
-            "canceled": "Canceled",
-            "shipping_info": "Shipping information",
-            "contact": "Contact",
-            "payment_method": "Payment method",
-            "tracking": "Tracking",
-            "track_my_order": "Track my order",
-            "summary": "Summary",
-            "shipping_discount": "Shipping Discount"
+            "order_number": "Ordine n.{{ number }}",
+            "order_status": "Ordinato su {{ date_created }} ed è",
+            "pending": "In sospeso",
+            "confirmed": "Confermato",
+            "processing": "Elaborazione",
+            "shipped": "Spedito",
+            "delivered": "Consegnato",
+            "canceled": "Annullato",
+            "shipping_info": "Informazioni sulla spedizione",
+            "contact": "Contatto",
+            "payment_method": "Metodo di pagamento",
+            "tracking": "Monitoraggio",
+            "track_my_order": "Tieni traccia del mio ordine",
+            "summary": "Riepilogo",
+            "shipping_discount": "Sconto sulla spedizione"
         },
         "offline": {
             "thanks": "Grazie! Abbiamo ricevuto il tuo ordine.",
@@ -253,6 +253,7 @@
         },
         "catalogue": {
             "free": "Gratuito",
+            "sale": "Vendita",
             "none_found": "Nessun prodotto trovato.",
             "edit_this_category": "Modifica questa categoria",
             "edit_this_product": "Modifica questo prodotto",
@@ -266,7 +267,8 @@
             "remove_loading": "Rimozione...",
             "add_to_cart": "Aggiungi al carrello",
             "add_to_cart_loading": "Aggiunta di...",
-            "product_unavailable": "Unavailable",
+            "product_unavailable": "Non disponibile",
+            "out_of_stock": "Esaurito",
             "about": "Informazioni su",
             "reviews": "Recensioni",
             "no_reviews": "Questo prodotto non ha ancora recensioni",
@@ -274,7 +276,8 @@
             "customer_reviews": "Recensioni clienti",
             "see_all_reviews": "Vedi tutte le recensioni",
             "write_a_review": "Scrivi una recensione",
-            "product_in_wishlist": "Il prodotto è in {{ name }} wishlist."
+            "product_in_wishlist": "Il prodotto è in {{ name }} wishlist.",
+            "recommended_products_header": "I clienti che hanno visto questo articolo hanno acquistato anche"
         },
         "registration": {
             "enter_new_password": "Inserisci una nuova password",
@@ -438,16 +441,16 @@
             "use_new_credit_card": "Usa una nuova carta di credito?",
             "billing_address": "Indirizzo di fatturazione",
             "same_as_shipping_address": "Ugualmente all'indirizzo di spedizione",
-            "reactivate": "Reactivate",
-            "modal_reactivate_heading": "Reactivate Subscription",
-            "modal_reactivate_body": "Set a new shipment date for your subscription.",
-            "modal_reactivate_button": "Set Shipment Date"
+            "reactivate": "Riattiva",
+            "modal_reactivate_heading": "Riattiva l'abbonamento",
+            "modal_reactivate_body": "Imposta una nuova data di spedizione per il tuo abbonamento.",
+            "modal_reactivate_button": "Imposta la data di spedizione"
         },
         "support": {
             "heading": "Supporto",
             "support_tickets": "Biglietti di supporto",
             "create_new": "Crea nuovo",
-            "submit_ticket": "Submit ticket",
+            "submit_ticket": "Invia ticket",
             "no_tickets": "Non sono ancora stati creati biglietti.",
             "created_at": "Creato {{ created_at }}",
             "update_ticket": "Biglietto di aggiornamento",
@@ -472,6 +475,37 @@
             "welcome_to": "Benvenuto a {{ shop_name }}",
             "already_have_account": "Hai già un account?",
             "login": "Accedi"
+        }
+    },
+    "side_cart": {
+        "default": {
+            "your_order": "Il tuo ordine",
+            "your_cart_is_empty": "Il tuo carrello è vuoto!",
+            "oops_You_have_nothing_here": "Ops! Non hai niente qui.",
+            "quantity": "Quantità",
+            "qty": "Qtà",
+            "schedule": "Pianificazione",
+            "price": "Prezzo",
+            "savings": "Risparmio",
+            "regular": "Regolare",
+            "your_price": "Il tuo prezzo",
+            "cart_subtotal": "Subtotale del carrello",
+            "discount": "Sconto",
+            "shipping": "Spedizioni",
+            "cart": "Carrello",
+            "total": "Totale",
+            "product": "Prodotto",
+            "subscription_details": "Dettagli dell'abbonamento",
+            "applied_coupons": "Buoni applicati",
+            "subscription_items_one": "Abbonamento ({{count}} articoli)",
+            "subscription_items_other": "Abbonamento ({{count}} articoli)",
+            "calculated_at_checkout": "Calcolato al momento del pagamento",
+            "subscription_total": "Totale sottoscrizione",
+            "subscription_renewal_message": "Il tuo abbonamento si rinnoverà ogni",
+            "proceed_to_checkout": "Procedi al pagamento",
+            "have_a_coupon": "Hai un coupon?",
+            "coupon_code": "Codice coupon",
+            "apply_coupon": "Applica il coupon"
         }
     }
 }

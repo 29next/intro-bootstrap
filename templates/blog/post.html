@@ -35,9 +35,6 @@
                     <h1>{{ post.title }}</h1>
                 </div>
                 <div class="col-lg-8 my-4 text-center">
-                    {% if post.excerpt %}
-                        {{ post.excerpt|safe }}
-                    {% endif %}
                     <div class="blog_content-meta">
                         <p class="text-muted fs-7">By {{ post.author.first_name}}&nbsp;{{post.author.last_name }}</p>
                         <p class="text-muted fs-7">{{ post.created_at }}</p>

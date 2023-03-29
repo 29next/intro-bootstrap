@@ -52,20 +52,15 @@
                                 <div class="d-block">
                                     {% purchase_info_for_product request result.object as session %}
                                     {% if session.price.exists %}
-                                    <span>
-                                        {% if session.price.excl_tax == 0 %}
-                                            {% t "store.catalogue.free" %} 
-                                        {% elif session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
-                                        {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                        <span>
+                                            {{ session.price.price|currency:session.price.currency }}
+                                        </span>
+                                        {% if session.price.price_retail > session.price.price %}
+                                        <div class="badge bg-danger position-absolute top-2 start-5 text-uppercase">{% t "store.catalogue.sale" %}</div>
+                                        <span class="text-muted fs-7">
+                                            <s>{{ session.price.price_retail|currency:session.price.currency }}</s>
+                                        </span>
                                         {% endif %}
-                                    </span>
-                                    {% if session.price.price_retail > session.price.excl_tax %}
-                                    <span class="text-muted fs-7">
-                                        <s>{{ session.price.price_retail|currency:session.price.currency }}</s>
-                                    </span>
-                                    {% endif %}
                                     {% else %}
                                     &nbsp;
                                     {% endif %}

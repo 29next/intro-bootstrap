@@ -65,35 +65,22 @@
                 <div class="mb-3">
                     {% purchase_info_for_product request product as session %}
                     {% if session.price.exists %}
-                        {% if session.price.price_retail > session.price.excl_tax %}
+                        {% if session.price.price_retail > session.price.price %}
                             <del data-product-price-retail class="text-muted">{{ session.price.price_retail|currency:session.price.currency }}</del>
                         {% endif %}
-                        {% if session.price.excl_tax == 0 %}
-                            <span class="fs-5">{% t "store.catalogue.free" %}</span>
-                        {% elif session.price.is_tax_known %}
-                            <span data-product-price class="fs-5">{{ session.price.incl_tax|currency:session.price.currency }}</span>
-                            
-                        {% else %}
-                            <span class="fs-5">{{ session.price.excl_tax|currency:session.price.currency }}</span>
-                            
-                        {% endif %}
+                        <span data-product-price class="fs-5">{{ session.price.price|currency:session.price.currency }}</span>
                     {% else %}
                     &nbsp;
                     {% endif %}
                 </div>
                 {% endblock %}
-                    
-
-                {% if product.get_excerpt %}
-                    {{ product.get_excerpt|safe }}
-                {% endif %}
 
                 {% for field in variant_form %}
-                {% if 'attr' in field.id_for_label %}
-                    <div class="row mb-4">
-                        {% include "partials/form_field.html" with field=field breakpoint_col='col-md-5' %}
-                    </div>
-                {% endif %}
+                    {% if 'attr' in field.id_for_label %}
+                        <div class="row mb-4">
+                            {% include "partials/form_field.html" with field=field breakpoint_col='col-md-5' %}
+                        </div>
+                    {% endif %}
                 {% endfor %}
                     
              

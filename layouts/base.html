@@ -23,8 +23,8 @@
         <link rel="stylesheet" type="text/css" href="{{ 'main.css'|asset_url }}">
         <style>
             :root {
-                --primary_color: {{ store.branding.primary_color }};
-                --accent_color: {{ store.branding.accent_color }};
+                --primary-color: {{ store.branding.primary_color }};
+                --accent-color: {{ store.branding.accent_color }};
             }
         </style>
     {% endblock %}
@@ -207,8 +207,8 @@
     </script>
 
     {# Additional JS scripts for backend #}
+    {% include 'partials/side_cart.html' %}
     {% core_js %}
-    {% include "partials/messages_script.html" %}
 
     {% app_hook 'global_footer' %}
 
