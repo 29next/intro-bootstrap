@@ -87,7 +87,7 @@
 
                 {% block buy_options %}
                 {% purchase_info_for_product request product as session %}
-                {% if product.attr.interval and interval_count_choices and session.availability.is_available_to_buy %}
+                {% if product.get_interval and interval_count_choices and session.availability.is_available_to_buy %}
                     <h6 class="my-2">{% t "store.catalogue.buy_option" %}</h6>
                     <div class="catalogue_product-option mb-4">
                         <div class="btn-group" role="group">
@@ -105,9 +105,9 @@
                             <div class="btn-group" role="group" id="product-subscribe-options-select">
                                 {% for interval_count_choice_value, interval_count_choice_text in interval_count_choices %}
                             
-                                    <input id="{{ interval_count_choice_value }}_{{ product.attr.interval.option }}" class="btn-check" type="radio" autocomplete="off" name="options" value="{{ interval_count_choice_value }}" interval="{{ product.attr.interval.option }}">
+                                    <input id="{{ interval_count_choice_value }}_{{ product.get_interval }}" class="btn-check" type="radio" autocomplete="off" name="options" value="{{ interval_count_choice_value }}" interval="{{ product.get_interval }}">
 
-                                    <label class="btn btn-outline-secondary" for="{{ interval_count_choice_value }}_{{ product.attr.interval.option }}">
+                                    <label class="btn btn-outline-secondary" for="{{ interval_count_choice_value }}_{{ product.get_interval }}">
                                         {{ interval_count_choice_text }}
                                     </label>
                         
