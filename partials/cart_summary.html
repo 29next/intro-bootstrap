@@ -8,7 +8,7 @@
                 {% t "order.cart.items_count" with count=basket.num_items %}
             </span>
         </div>
-        
+
     </div>
     <div class="card-body">
 
@@ -120,7 +120,7 @@
                         {% endif %}
                     {% endwith %}
                     <tr>
-                        <td colspan="3">{% t "order.cart.shipping" %}                        
+                        <td colspan="3">{% t "order.cart.shipping" %}
                             <span class="text-end text-muted float-end">
                                 <small>{% t "order.cart.calculated_at_checkout" %}</small>
                             </span>
@@ -148,7 +148,7 @@
                 <div class="d-grid mt-4">
                     <a class="btn btn-primary" href="{% url 'checkout:index' %}">{% t "order.cart.proceed_to_checkout" %}&nbsp;</a>
                 </div>
-                
+
             {% endif %}
         </div>
     </div>
