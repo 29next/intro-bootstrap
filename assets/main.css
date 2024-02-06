@@ -10838,6 +10838,79 @@ label.error {
 .mobile-nav .nav-link.has-icon {
   line-height: 1; }
 
+table.cart_table {
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-bottom: 1px solid #000; }
+  table.cart_table tr {
+    border-top: 1px solid #ddd; }
+    @media (min-width: 768px) {
+      table.cart_table tr:first-child {
+        border-top: transparent; } }
+  table.cart_table th,
+  table.cart_table td {
+    padding: 1rem .75rem;
+    font-size: 0.875rem;
+    vertical-align: middle; }
+  table.cart_table thead tr {
+    border-top: transparent;
+    border-bottom: 1px solid #000; }
+  table.cart_table th {
+    font-size: 1rem;
+    border-top: transparent; }
+  table.cart_table .cart_table-product {
+    display: flex;
+    align-items: center; }
+    table.cart_table .cart_table-product img {
+      max-width: 70px;
+      height: 70px;
+      margin-right: 0.75rem;
+      border: 1px solid #dee2e6;
+      border-radius: 0.35rem;
+      padding: 0.35rem; }
+  table.cart_table .cart_table-pname {
+    font-weight: bold; }
+  table.cart_table .cart_table-total {
+    font-weight: bold; }
+  @media (max-width: 767.98px) {
+    table.cart_table {
+      border: 0; }
+      table.cart_table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px; }
+      table.cart_table tr {
+        display: block;
+        margin-bottom: 1.5rem;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 0.25rem; }
+      table.cart_table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right !important; }
+        table.cart_table td::before {
+          content: attr(data-label);
+          float: left;
+          font-weight: bold; }
+        table.cart_table td:last-child {
+          border-bottom: 0; }
+      table.cart_table .cart_table-product {
+        display: block; }
+        table.cart_table .cart_table-product img {
+          max-width: 50px;
+          height: 50px;
+          margin-right: 0; }
+      table.cart_table .form-select {
+        background-color: white; } }
 .sidecart-open {
   overflow: hidden; }
 
