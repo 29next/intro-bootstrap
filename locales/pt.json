@@ -88,7 +88,7 @@
             "shipping": "Remessa",
             "order_total": "Total do pedido",
             "proceed_to_checkout": "Prosseguir com a finalização da compra",
-            "upsell_message_detail": "{{ message }} to qualify for the <b>{{ offer_name }}</b> special offer",
+            "upsell_message_detail": "{{ message }} para se qualificar para a oferta especial <b>{{ offer_name }}</b>",
             "continue_shopping": "Continue comprando",
             "basket_empty": "Sua cesta está vazia.",
             "items_count": {
