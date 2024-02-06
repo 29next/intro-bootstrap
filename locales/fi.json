@@ -1,202 +1,202 @@
 {
     "global": {
         "button": {
-            "more": "More",
-            "search": "Search",
-            "close": "Close",
-            "save": "Save",
-            "save_loading": "Saving...",
-            "go_back": "Go back"
+            "more": "Enemmän",
+            "search": "Etsi",
+            "close": "Sulje",
+            "save": "Tallentaa",
+            "save_loading": "Säästää...",
+            "go_back": "Mene takaisin"
         },
         "error": {
-            "please_check_error": "<strong>Oops! We found some errors</strong> - please check the error messages below and try again",
-            "403": "Permission denied!",
-            "403_message": "We're sorry but you are not permitted to access this page.",
-            "404": "Page not found",
-            "404_message": "We're sorry but the page you are looking for can't be found.",
-            "500": "500 Internal Server Error",
-            "500_heading": "Sorry, it's not you, it's us.",
-            "500_message": "We've been notified of the issue, please try again later."
+            "please_check_error": "<strong>Hups! Löysimme virheitä</strong> - tarkista alla olevat virheilmoitukset ja yritä uudelleen",
+            "403": "Lupa evätty!",
+            "403_message": "Olemme pahoillamme, mutta sinulla ei ole lupaa käyttää tätä sivua.",
+            "404": "Sivua ei löydy",
+            "404_message": "Pahoittelemme, mutta etsimääsi sivua ei löydy.",
+            "500": "500 Sisäinen palvelinvirhe",
+            "500_heading": "Anteeksi, se ei ole sinä, vaan me.",
+            "500_message": "Meille on ilmoitettu ongelmasta, yritä myöhemmin uudelleen."
         }
     },
     "navigation": {
         "main": {
-            "home": "Home",
-            "shop": "Shop",
-            "blog": "Blog",
-            "support": "Support",
-            "contact": "Contact",
-            "cart": "Cart"
+            "home": "Koti",
+            "shop": "Kauppa",
+            "blog": "Blogi",
+            "support": "Tuki",
+            "contact": "Yhteystiedot",
+            "cart": "Ostoskori"
         },
         "account": {
-            "account": "Account",
-            "subscriptions": "Subscriptions",
-            "orders": "Order History",
-            "profile": "Profile",
-            "addresses": "Addresses",
-            "support": "Support",
-            "dashboard": "Dashboard",
-            "logout": "Logout",
-            "login_or_register": "Login or Register"
+            "account": "Tili",
+            "subscriptions": "Tilaukset",
+            "orders": "Tilaushistoria",
+            "profile": "Profiili",
+            "addresses": "osoitteet",
+            "support": "Tuki",
+            "dashboard": "Hallintapaneeli",
+            "logout": "Kirjaudu ulos",
+            "login_or_register": "Kirjaudu tai Rekisteröidy"
         },
         "footer": {
-            "about_us": "About us",
-            "contact_us": "Contact us",
-            "account_info": "Account & Info",
-            "support_terms": "Support & Terms",
+            "about_us": "Tietoa meistä",
+            "contact_us": "Ota yhteyttä",
+            "account_info": "Tili ja tiedot",
+            "support_terms": "Tuki ja ehdot",
             "support": "FAQ",
-            "terms_conditions": "Terms & Conditions",
-            "privacy": "Privacy Policy",
-            "address": "Address",
-            "copyright": "All Rights Reserved"
+            "terms_conditions": "Säännöt ja ehdot",
+            "privacy": "Tietosuojakäytäntö",
+            "address": "Osoite",
+            "copyright": "Kaikki oikeudet pidätetään"
         },
         "pagination": {
-            "next": "Next"
+            "next": "Seuraava"
         }
     },
     "tables": {
         "heading": {
-            "product_name": "Product Name",
-            "product": "Product",
-            "quantity": "Quantity",
-            "schedule": "Schedule",
-            "price": "Price",
-            "discount": "Discount",
-            "total": "Total",
-            "items_to_buy_now": "Items to buy now"
+            "product_name": "Tuotteen nimi",
+            "product": "Tuote",
+            "quantity": "Määrä",
+            "schedule": "Aikataulu",
+            "price": "Hinta",
+            "discount": "Alennus",
+            "total": "Yhteensä",
+            "items_to_buy_now": "Nyt ostettavat tuotteet"
         },
         "content": {
-            "price": "Price",
-            "discount": "Discount"
+            "price": "Hinta",
+            "discount": "Alennus"
         },
         "actions": {
-            "remove": "Remove",
-            "add_coupon": "Add coupon",
-            "add_coupon_loading": "Adding...",
-            "reload": "Reload",
-            "reload_loading": "Updating..."
+            "remove": "Poistaa",
+            "add_coupon": "Lisää kuponki",
+            "add_coupon_loading": "Lisätään...",
+            "reload": "Lataa uudelleen",
+            "reload_loading": "Päivitetään..."
         }
     },
     "order": {
         "cart": {
-            "title": "Basket",
-            "summary": "Summary",
-            "basket_total": "Basket Total",
-            "basket_total_discount": "Basket total (after discounts)",
-            "applied_offer": "Applied Offer",
-            "applied_coupons": "Applied Coupons",
-            "shipping": "Shipping",
-            "order_total": "Order Total",
-            "proceed_to_checkout": "Proceed to checkout",
-            "upsell_message_detail": "{{ message }} to qualify for the <b>{{ offer_name }}</b> special offer",
-            "continue_shopping": "Continue shopping",
-            "basket_empty": "Your basket is empty.",
+            "title": "Ostoskori",
+            "summary": "Yhteenveto",
+            "basket_total": "Ostoskori yhteensä",
+            "basket_total_discount": "Ostoskori yhteensä (alennusten jälkeen)",
+            "applied_offer": "Sovellettu tarjous",
+            "applied_coupons": "Sovelletut kupongit",
+            "shipping": "Toimitus",
+            "order_total": "Tilaus yhteensä",
+            "proceed_to_checkout": "Siirry kassalle",
+            "upsell_message_detail": "{{ message }} päästäksesi <b>{{ offer_name }}</b> -erikoistarjoukseen",
+            "continue_shopping": "Jatka ostoksia",
+            "basket_empty": "Ostoskorisi on tyhjä.",
             "items_count": {
-                "one": "{{ count }} Item",
-                "other": "{{ count }} Items"
+                "one": "{{ count }} Tuote",
+                "other": "{{ count }} Tuotteet"
             },
             "subscription_items": {
-                "one": "Subscription ({{ count }} item)",
-                "other": "Subscription ({{ count }} items)"
+                "one": "Tilaus ({{ count }} tuote)",
+                "other": "Tilaus ({{ count }} kohdetta)"
             },
-            "calculated_at_checkout": "Calculated at checkout",
-            "subscription_details": "Subscription Details",
-            "product": "Product",
-            "quantity": "Qty",
-            "price": "Price",
-            "subscription_total": "Subscription Total",
-            "subscription_renewal_message": "Your subscription will renew every"
+            "calculated_at_checkout": "Lasketaan kassalla",
+            "subscription_details": "Tilauksen tiedot",
+            "product": "Tuote",
+            "quantity": "Määrä",
+            "price": "Hinta",
+            "subscription_total": "Tilaus yhteensä",
+            "subscription_renewal_message": "Tilauksesi uusitaan joka kerta"
         }
     },
     "store": {
         "blog": {
-            "title": "Blog",
-            "no_posts": "No posts have been created yet.",
-            "search_not_found": "Found <strong>0</strong> results."
+            "title": "Blogi",
+            "no_posts": "Viestejä ei ole vielä luotu.",
+            "search_not_found": "Löytyi <strong>0</strong> -tuloksia."
         },
         "catalogue": {
-            "free": "Free",
-            "sale": "Sale",
-            "none_found": "No products found.",
-            "edit_this_category": "Edit this category",
-            "edit_this_product": "Edit this product",
-            "buy_option": "Buy option",
-            "one_time": "One Time",
-            "subscribe_save": "Subscribe & Save",
-            "order_arrival_frequency": "How often would you like your order to arrive?",
-            "add_to_cart": "Add to cart",
-            "add_to_cart_loading": "Adding...",
-            "product_unavailable": "Unavailable",
-            "out_of_stock": "Out of stock",
-            "about": "About",
-            "reviews": "Reviews",
-            "no_reviews": "This product does not have any reviews yet",
-            "no_reviews_add": "be the first to write one",
-            "customer_reviews": "Customer Reviews",
-            "see_all_reviews": "See all reviews",
-            "write_a_review": "Write a review",
-            "recommended_products_header": "Customers who viewed this item also bought"
+            "free": "Vapaa",
+            "sale": "Myynti",
+            "none_found": "Tuotteita ei löytynyt.",
+            "edit_this_category": "Muokkaa tätä luokkaa",
+            "edit_this_product": "Muokkaa tätä tuotetta",
+            "buy_option": "Ostovaihtoehto",
+            "one_time": "Kerran",
+            "subscribe_save": "Tilaa ja tallenna",
+            "order_arrival_frequency": "Kuinka usein haluat tilauksesi saapuvan?",
+            "add_to_cart": "Lisää ostoskoriin",
+            "add_to_cart_loading": "Lisätään...",
+            "product_unavailable": "Ei saatavilla",
+            "out_of_stock": "Loppunut varastosta",
+            "about": "Noin",
+            "reviews": "Arvostelut",
+            "no_reviews": "Tällä tuotteella ei ole vielä arvosteluja",
+            "no_reviews_add": "Ole ensimmäinen, joka kirjoittaa yhden",
+            "customer_reviews": "Asiakkaiden arvostelut",
+            "see_all_reviews": "Katso kaikki arvostelut",
+            "write_a_review": "Kirjoita arvostelu",
+            "recommended_products_header": "Asiakkaat, jotka katsoneet tätä tuotetta, ostivat myös"
         },
         "review": {
-            "reviews": "Reviews",
-            "customer_reviews": "Customer reviews",
-            "all_reviews": "All Reviews",
+            "reviews": "Arvostelut",
+            "customer_reviews": "Asiakkaiden arvostelut",
+            "all_reviews": "Kaikki arvostelut",
             "customer_reviews_count": {
-                "one": "{{ count }} customer review",
-                "other": "{{ count }} customer reviews"
+                "one": "{{ count }} asiakasarvio",
+                "other": "{{ count }} asiakasarviota"
             },
-            "reviewed_by_you": "Reviewed by you",
-            "reviewed_by_other": "Reviewed by <b>{{ name }}</b>",
-            "no_reviews": "This product does not have any reviews yet.",
-            "leave_review": "Leave a product review",
-            "save_review": "Save review"
+            "reviewed_by_you": "Arvostellut",
+            "reviewed_by_other": "Arvostellut <b>{{ name }}</b>",
+            "no_reviews": "Tällä tuotteella ei ole vielä arvosteluja.",
+            "leave_review": "Jätä tuotearvio",
+            "save_review": "Tallenna arvostelu"
         },
         "search": {
-            "products_matching": "Products matching {{ q }}",
-            "search_not_found": "Found 0 results."
+            "products_matching": "Tuotteet, jotka vastaavat {{ q }}",
+            "search_not_found": "Löytyi 0 tulosta."
         },
         "support": {
-            "title": "Support",
-            "heading": "How can we help?",
-            "search_not_found": "Found 0 results.",
-            "view": "View",
-            "create_support_request": "Still need help? Create <a href='{{ link }}'>a support request</a> with our customer service team and we'd be happy to help.",
-            "no_categories": "No categories have been created yet.",
-            "articles": "Articles",
-            "no_articles": "No articles have been created yet.",
-            "edit_this_article": "Edit this article",
-            "last_updated": "Last Updated"
+            "title": "Tuki",
+            "heading": "Miten voimme auttaa?",
+            "search_not_found": "Löytyi 0 tulosta.",
+            "view": "Näkymä",
+            "create_support_request": "Tarvitsetko vielä apua? Luo <a href='{{ link }}'>tukipyyntö</a> asiakaspalvelutiimimme kanssa ja autamme mielellämme.",
+            "no_categories": "Kategorioita ei ole vielä luotu.",
+            "articles": "Artikkelit",
+            "no_articles": "Artikkeleita ei ole vielä luotu.",
+            "edit_this_article": "Muokkaa tätä artikkelia",
+            "last_updated": "Viimeksi päivitetty"
         }
     },
     "side_cart": {
         "default": {
-            "your_order": "Your Order",
-            "your_cart_is_empty": "Your Cart is Empty!",
-            "oops_You_have_nothing_here": "Oops! You have nothing here.",
-            "quantity": "Quantity",
-            "qty": "Qty",
-            "schedule": "Schedule",
-            "price": "Price",
-            "savings": "Savings",
-            "regular": "Regular",
-            "your_price": "Your Price",
-            "cart_subtotal": "Cart Subtotal",
-            "discount": "Discount",
-            "shipping": "Shipping",
-            "cart": "Cart",
-            "total": "Total",
-            "product": "Product",
-            "subscription_details": "Subscription Details",
-            "applied_coupons": "Applied Coupons",
-            "subscription_items_one": "Subscription ({{count}} item)",
-            "subscription_items_other": "Subscription ({{count}} items)",
-            "calculated_at_checkout": "Calculated at checkout",
-            "subscription_total": "Subscription Total",
-            "subscription_renewal_message": "Your subscription will renew every",
-            "proceed_to_checkout": "Proceed to checkout",
-            "have_a_coupon": "Have a coupon?",
-            "coupon_code": "Coupon Code",
-            "apply_coupon": "Apply coupon"
+            "your_order": "Tilauksesi",
+            "your_cart_is_empty": "Ostoskorisi on tyhjä!",
+            "oops_You_have_nothing_here": "Hups! Sinulla ei ole täällä mitään.",
+            "quantity": "Määrä",
+            "qty": "Määrä",
+            "schedule": "Aikataulu",
+            "price": "Hinta",
+            "savings": "Säästöt",
+            "regular": "Säännöllinen",
+            "your_price": "Sinun hintasi",
+            "cart_subtotal": "Ostoskorin välisumma",
+            "discount": "Alennus",
+            "shipping": "Toimitus",
+            "cart": "Ostoskori",
+            "total": "Yhteensä",
+            "product": "Tuote",
+            "subscription_details": "Tilauksen tiedot",
+            "applied_coupons": "Sovelletut kupongit",
+            "subscription_items_one": "Tilaus ({{count}} tuote)",
+            "subscription_items_other": "Tilaus ({{count}} kohdetta)",
+            "calculated_at_checkout": "Lasketaan kassalla",
+            "subscription_total": "Tilaus yhteensä",
+            "subscription_renewal_message": "Tilauksesi uusitaan joka kerta",
+            "proceed_to_checkout": "Siirry kassalle",
+            "have_a_coupon": "Onko sinulla kuponki?",
+            "coupon_code": "Kuponkikoodi",
+            "apply_coupon": "Käytä kuponkia"
         }
     }
 }
