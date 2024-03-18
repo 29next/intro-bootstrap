@@ -49,7 +49,7 @@
     var sidecart_options = {
         modal_open: {% if modal_open %} true {% else %} false {% endif %},
         graphql_url: "{% url 'storefrontapi:graphql' %}",
-        max_basket_quantity_per_line: {{config.max_basket_quantity_per_line}},
+        max_cart_quantity_per_line: {{ max_cart_quantity_per_line }},
         SIDECART_MSGS: SIDECART_MSGS
     }
     sidecart.init(sidecart_options);
