@@ -90,7 +90,7 @@
             "proceed_to_checkout": "Prosseguir com a finalização da compra",
             "upsell_message_detail": "{{ message }} para se qualificar para a oferta especial <b>{{ offer_name }}</b>",
             "continue_shopping": "Continue comprando",
-            "cart_empty": "Your cart is empty.",
+            "cart_empty": "Seu carrinho está vazio.",
             "items_count": {
                 "one": "{{ count }} item",
                 "other": "{{ count }} itens"
