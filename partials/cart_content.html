@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-lg-8 mb-5">
 
-                {% if basket_warnings %}
-                    {% for warning in basket_warnings %}
+                {% if cart_warnings %}
+                    {% for warning in cart_warnings %}
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             {{ warning }}
@@ -25,12 +25,12 @@
 
                 {% include "partials/alert_messages.html" %}
 
-                {% if not basket.is_empty %}
-                    {% block basket_form_headers %}
+                {% if not cart.is_empty %}
+                    {% block cart_form_headers %}
                     {% endblock %}
 
-                    {% block basket_form_main %}
-                        <form method="post" id="basket_formset">
+                    {% block cart_form_main %}
+                        <form method="post" id="cart_formset">
                             <table class="cart_table">
                                 <thead>
                                     <tr>
@@ -118,10 +118,10 @@
                         </form>
 
                         <div class="d-md-flex justify-content-md-between align-items-center py-4">
-                            <div class="basket_footer-voucher">
+                            <div class="cart_footer-voucher">
                                 {% block vouchers %}
                                 {% if voucher_form %}
-                                <form id="voucher_form" action="{% url 'basket:vouchers-add' %}" method="post">
+                                <form id="voucher_form" action="{% url 'cart:vouchers-add' %}" method="post">
                                     {% csrf_token %}
                                      <div class="input-group">
 
@@ -136,16 +136,16 @@
                                 {% endblock vouchers %}
                             </div>
                             <div class="basket_footer-totals">
-                                {% block baskettotals %}
-                                    {% t "order.cart.basket_total_discount" %}:
+                                {% block carttotals %}
+                                    {% t "order.cart.cart_total_discount" %}:
                                     <span class="fw-bold">
-                                        {% if not show_tax_separately and basket.is_tax_known %}
-                                            {{ basket.total_incl_tax|currency:basket.currency }}
+                                        {% if not show_tax_separately and cart.is_tax_known %}
+                                            {{ cart.total_incl_tax|currency:cart.currency }}
                                         {% else %}
-                                            {{ basket.total_excl_tax|currency:basket.currency }}
+                                            {{ cart.total_excl_tax|currency:cart.currency }}
                                         {% endif %}
                                     </span>
-                                {% endblock baskettotals %}
+                                {% endblock carttotals %}
                             </div>
                         </div>
                         {% block formactions %}
@@ -161,18 +161,18 @@
                     {% endblock %}
 
                 {% else %}
-                    {% block emptybasket %}
+                    {% block emptycart %}
 
                     <p>
-                        {% t "order.cart.basket_empty" %} <a href="{% url 'catalogue:index' %}">{% t "order.cart.continue_shopping" %}</a>
+                        {% t "order.cart.cart_empty" %} <a href="{% url 'catalogue:index' %}">{% t "order.cart.continue_shopping" %}</a>
                     </p>
 
                     {% endblock %}
                 {% endif %}
 
-                {% block savedbasket %}
+                {% block savedcart %}
                     {% if user.is_authenticated and saved_formset %}
-                    <form action="{% url 'basket:saved' %}" method="post" id="saved_basket_formset">
+                    <form action="{% url 'cart:saved' %}" method="post" id="saved_cart_formset">
 
 
                         <table class="cart_table">
@@ -265,7 +265,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="basket_summary">
-                    {% block basket_summary %}
+                    {% block cart_summary %}
                         {% include 'partials/cart_summary.html' with editable=1 %}
                     {% endblock %}
                 </div>
