@@ -81,8 +81,8 @@
         "cart": {
             "title": "Cestino",
             "summary": "Riepilogo",
-            "basket_total": "Totale cestino",
-            "basket_total_discount": "Totale carrello (dopo gli sconti)",
+            "cart_total": "Totale cestino",
+            "cart_total_discount": "Totale carrello (dopo gli sconti)",
             "applied_offer": "Offerta applicata",
             "applied_coupons": "Coupon applicati",
             "shipping": "Spedizione",
@@ -90,7 +90,7 @@
             "proceed_to_checkout": "Procedi al checkout",
             "upsell_message_detail": "{{ message }} per qualificarsi per l'offerta speciale <b>{{ offer_name }}</b>",
             "continue_shopping": "Continua gli acquisti",
-            "basket_empty": "Il tuo cestino è vuoto.",
+            "cart_empty": "Il tuo cestino è vuoto.",
             "items_count": {
                 "one": "{{ count }} articolo",
                 "other": "{{ count }} articoli"

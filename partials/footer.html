@@ -16,7 +16,7 @@
                     {% t "navigation.footer.account_info" %}
                 </div>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="{% url 'basket:summary' %}">{% t "navigation.main.cart" %}</a></li>
+                    <li class="mb-2"><a href="{% url 'cart:summary' %}">{% t "navigation.main.cart" %}</a></li>
                     {% if user.is_authenticated %}
                     <li class="mb-2"><a href="{% url 'customer:summary' %}">{% t "navigation.account.account" %}</a></li>
                     <li class="mb-2"><a href="{% url 'customer:logout' %}">{% t "navigation.account.logout" %}</a></li>
