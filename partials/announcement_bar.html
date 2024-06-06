@@ -1,0 +1,17 @@
+{% block extrastyles %}
+<style>
+    :root {
+        --ab_bg_color: {{ settings.ab_bg_color }};
+        --ab_text_color: {{ settings.ab_text_color }};
+     }
+</style>
+{% endblock extrastyles %}
+<div class="topbar" style="background-color: var(--ab_bg_color);">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="py-2" style="color: var(--ab_text_color);">{{ settings.ab_text }}</div>
+            </div>
+        </div>
+    </div>
+</div>

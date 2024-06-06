@@ -1,0 +1,317 @@
+<html lang="{{ LANGUAGE_CODE|default:'en' }}" class="{% block html_class %}{% endblock %}{% if settings.checkout_banner %}has-banner{% endif %}">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="alternate" hreflang="{{ LANGUAGE_CODE }}" href="https://{{ request.get_host }}{{ request.path }}" />
+
+        {% if store.branding.icon %}
+            {% with image=store.branding.icon %}
+                {% image_thumbnail image "32x" upscale=False as thumb_store_icon %}
+                <link rel="shortcut icon" href="{{ thumb_store_icon.url }}" />
+            {% endwith %}
+        {% endif %}
+
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="created" content="{% now "jS M Y h:i" %}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="robots" content="NOARCHIVE,NOCACHE" />
+        {% block stylesheet %}{% endblock %}
+        <style>
+            :root {
+                {% if settings.button_link_color %}
+                    --primary-color: {{ settings.button_link_color }};
+                {% else %}
+                    --primary-color: {{ store.branding.primary_color }};
+                {% endif %}
+                {% if settings.checkout_link_color %}
+                    --accent-color: {{ settings.checkout_link_color }};
+                {% else %}
+                    --accent-color: {{ store.branding.accent_color }};
+                {% endif %}
+                --primary-color-lighter: color-mix(in srgb,var(--primary-color),#fff 10%); 
+                --primary-color-darker: color-mix(in srgb,var(--primary-color),#000 10%);
+                --accent-color-lighter: color-mix(in srgb,var(--accent-color),#fff 10%); 
+                --accent-color-darker: color-mix(in srgb,var(--accent-color),#000 10%);
+                {% if settings.checkout_banner %}
+                    --checkout-banner-bg-color: {{ settings.checkout_banner_bg_color }};  
+                    --checkout-banner-height: {{ settings.checkout_banner_height }};  
+                {% endif %}
+                {% if settings.checkout_banner_img %}
+                    --checkout-banner-img: url({{ settings.checkout_banner_img }});  
+                    --checkout-banner-img-size: {{ settings.checkout_banner_img_size }};
+                {% endif %}
+                {% if settings.checkout_summary_bg_color %}
+                    --checkout-summary-bg-color: {{ settings.checkout_summary_bg_color }};
+                {% endif %}
+                {% if settings.checkout_text_color %}
+                    --checkout-text-color: {{ settings.checkout_text_color }};
+                {% endif %}
+                {% if settings.checkout_summary_text_color %}
+                    --checkout-summary-text-color: {{ settings.checkout_summary_text_color }};
+                {% endif %}
+            }
+            {% if settings.checkout_bg_color %}
+                html {
+                    background: {{ settings.checkout_bg_color }};
+                }
+                .checkout_accordion {
+                    background: #fff;
+                }
+
+            {% endif %}
+            {% if settings.checkout_summary_bg_color %}
+                .checkout_summary::after {
+                    background: var(--checkout_summary_bg_color);
+                }
+            {% endif %}
+            {% if settings.checkout_banner %}
+                html.has-banner .checkout_header--banner {
+                    background-color: var(--checkout-banner-bg-color);
+                    display: flex;
+                    align-items: center; 
+                }
+                @media (min-width: 768px) {
+                    html.has-banner .checkout_header--banner {
+                         min-height: var(--checkout-banner-height);
+                    }
+                }
+            {% endif %}
+            {% if settings.checkout_banner_img %}
+                html.has-banner .checkout_header--banner {
+                    background-image: var(--checkout-banner-img);
+                    background-position: 50% 50%;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                }
+                @media (min-width: 768px) {
+                     html.has-banner .checkout_header--banner {
+                        background-size: var(--checkout-banner-img-size);
+                    }
+                }
+            {% endif %}
+     
+            a {
+                color: var(--accent-color);
+                cursor: pointer;
+                text-decoration: none;
+            }
+            a strong {
+                color: currentColor;
+            }
+            a:hover, .checkout_footer--links a:hover, .checkout_steps--breadcrumbs a:hover {
+                color: var(--accent-color-lighter);
+            }
+            .button.button-next_link {
+                background: var(--primary-color);
+                border: 1px solid var(--primary-color);
+            }
+            .button.button-next_link:hover {
+                border: 1px solid var(--primary-color-darker);
+                background: var(--primary-color-darker);
+            }
+            .checkout_summary--toggle_btn-title {
+                color: var(--primary-color);
+            }
+            .checkout_summary--toggle_btn-icon {
+                border-color: var(--primary-color);
+            }
+            .select select:focus, .textarea:focus, .input:focus, .select select.is-focused, .is-focused.textarea, .is-focused.input, .select select:active, .textarea:active, .input:active, .select select.active, .active.textarea, .active.input {
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 1px var(--primary-color)
+            }
+            .radio input:checked {
+                border-color: var(--primary-color-darker);
+            }
+            .checkbox {
+                font-size: .875rem;
+                display: flex;
+                align-items: start;
+            }
+            .checkbox input {
+                margin-right: .75rem;
+                top: 2px;
+                position: relative;
+            }
+            .checkout_accordion {
+                color: initial;
+            }
+           
+            input[type='checkbox'], .checkbox:hover input[type='checkbox'] {
+                accent-color: var(--accent-color);
+            }
+
+            {% if settings.checkout_text_color %}
+                body {
+                    color:var(--checkout-text-color);
+                }
+                .checkout_steps--breadcrumbs li.is-active a {
+                    color:var(--checkout-text-color)
+                }
+                .checkbox:hover {
+                    color:revert;
+                }
+                .checkout_modal-content {
+                    color: #000;
+                }
+            {% endif %}
+            {% if settings.checkout_summary_text_color %}
+                table,
+                table.checkout_summary--totals td:last-child:not(:first-child),
+                table.checkout_summary--totals .checkout_summary--totals-shipping span,
+                table.checkout_summary--totals tfoot td {
+                    color:var(--checkout-summary-text-color);
+                }
+                table.checkout_summary--totals .checkout_summary--totals-shipping span.checkout_summary--totals-shipping-small-text {
+                    color: var(--checkout-summary-text-color);
+                    opacity: .8;
+                }
+            {% endif %}
+            {% if settings.summary_html_block %}
+                .custom-block-summary-desktop{
+                        display: none;
+                }
+                @media (min-width: 768px) {
+                    .custom-block-summary-desktop {
+                        display: block;
+                    }
+                    .custom-block-summary-mobile {
+                        display: none;
+                    }
+                }
+                html.checkout_confirmation .custom-block-summary-desktop, html.checkout_confirmation .custom-block-summary-mobile, html.checkout_confirmation .custom-block-1, html.checkout_confirmation .custom-block-2 {
+                    display: none!important;
+                }
+            {% endif %}
+            {% if settings.form_html_block_1 %}
+                html.checkout_confirmation .custom-block-1 {
+                    display: none!important;
+                }
+            {% endif %}
+            {% if settings.form_html_block_2 %}
+                html.checkout_confirmation .custom-block-2 {
+                    display: none!important;
+                }
+            {% endif %}
+            {% if settings.checkout_page_css %}
+            {{ settings.checkout_page_css }}
+            {% endif %}
+        </style>
+        {% app_hook 'global_header' %}
+    </head>
+    <body class="{% block body_class %}{% endblock %}">
+        <div class="checkout">
+            <header class="checkout_header--banner">
+                {% if settings.checkout_logo %}
+                    <div class="checkout_container">
+                        <div class="checkout_container--header">
+                                <div class="checkout_logo--img">
+                                    <img src="{{ settings.checkout_logo }}" alt="{{ store.name }}">           
+                                </div>
+                            <div class="checkout_logo--text">{{ store.name }}</div>
+                        </div>
+                    </div>
+                {% else %}
+                    {% block banner_header %}{% endblock %}
+                {% endif %}
+            </header>
+
+            {% block order_summary_toggle %}{% endblock %}
+
+            <div class="checkout_main">
+                <div class="checkout_container">
+                    <div class="checkout_container--main">
+                        <div class="checkout_steps">
+                            <div class="checkout_steps--inner">
+                                <div class="checkout_steps--content">
+                                    <header class="checkout_header" role="banner">
+
+                                        {% if settings.checkout_logo %}
+                                        <div class="checkout_logo--img">
+                                            <img src="{{ settings.checkout_logo }}" alt="{{ store.name }}">
+                                        </div>
+                                        <div class="checkout_logo--text">{{ store.name }}</div>
+
+                                        {% else %}
+
+                                            {% block checkout_header %}{% endblock %}
+
+                                        {% endif %}
+
+                                    </header>
+
+                                    {% block checkout_nav %}{% endblock %}
+
+                                    <main class="checkout_steps--main-content" role="main">
+
+                                        {% if settings.form_html_block_1 %}
+                                            <div class="custom-block-1">
+                                                {{ settings.form_html_block_1|safe }}
+                                            </div>
+                                        {% endif %}
+
+                                        {% block checkout_content %}{% endblock %}
+
+                                        {% if settings.form_html_block_2 %}
+                                            <div class="custom-block-2">
+                                                {{ settings.form_html_block_2|safe }}
+                                            </div>
+                                        {% endif %}
+
+                                        {% if settings.summary_html_block %}
+                                            <div class="custom-block-summary-mobile">
+                                                {{ settings.summary_html_block|safe }}
+                                            </div>
+                                        {% endif %}
+
+                                    </main>
+
+                                    <footer class="checkout_footer">
+
+                                        {% block checkout_footer %}{% endblock %}
+
+                                    </footer>
+                                </div>
+                            </div>
+                        </div>
+                        <aside id="order_summary" class="checkout_summary" role="complementary">
+                            <div class="checkout_summary--inner">
+                                {% block order_summary_sidebar %}{% endblock %}
+                                {% if settings.summary_html_block %}
+                                    <div class="custom-block-summary-desktop">
+                                        {{ settings.summary_html_block|safe }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        <aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block tracking_code %}{% endblock %}
+        {% block checkout_js %}{% endblock %}
+
+        {% if settings.checkout_page_js %}
+            <script type="text/javascript">
+                {{ settings.checkout_page_js|safe }}
+            </script>
+        {% endif %}
+
+        {% app_hook 'global_footer' %}
+
+        {% if checkout.step == 'information' %}
+            {% app_hook 'start_checkout' %}      
+        {% endif %}
+
+        {% if checkout.step == 'shipping' %}
+        {% endif %}
+        
+        {% if checkout.step == 'payment' %}
+        {% endif %}
+        
+        {% if checkout.step == 'confirmation' %}
+            {% app_hook 'complete_checkout' %}
+            {% if send_analytics_event %}{% endif %}                
+        {% endif %}
+
+    </body>
+</html>

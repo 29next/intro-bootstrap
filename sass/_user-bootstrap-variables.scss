@@ -23,7 +23,7 @@ $theme-colors: (
 $body-color:  #595d69;
 $link-decoration: none;
 $link-color:var(--accent-color); 
-$link-hover-color: inherit;
+$link-hover-color: var(--accent-color);
 $nav-link-color:$link-color;
 $nav-link-hover-color:$link-hover-color;
 
@@ -48,7 +48,7 @@ $headings-font-style:         null;
 $headings-font-weight:        500;
 $headings-line-height:        1.2;
 $headings-color: #191a1f;
-
+$display-font-weight: 500;
 
 $input-bg:$gray-100;
 $form-select-bg:$input-bg;

@@ -52,7 +52,7 @@
                                                     <div class="cart_table-product">
                                                         {{ form.id }}
                                                         {% with image=product.primary_image %}
-                                                            {% image_thumbnail image.original "70x" upscale=False as thumb %}
+                                                            {% image_thumbnail image.original "70x70" crop="center" upscale=False as thumb %}
                                                             <div class="cart_table-pimage">
                                                                 <a href="{{ product.get_absolute_url }}">
                                                                     <img src="{{ thumb.url }}" alt="Product">

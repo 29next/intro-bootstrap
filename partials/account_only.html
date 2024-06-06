@@ -1,0 +1,17 @@
+<div class="d-flex flex-column">
+	<div class="text-center py-8">
+		{% include 'partials/main_logo.html' %}
+		<h2 class="py-5">Welcome to your account</h2>
+        {% if user.is_authenticated %}
+        <div class="d-grid gap-4 d-xl-block mt-5">
+            <a href="{% url 'customer:summary' %}" class="btn btn-xl btn-primary">{% t "navigation.account.account" %}</a>
+            <a href="{% url 'customer:logout' %}" class="btn btn-xl btn-secondary">{% t "navigation.account.logout" %}</a>
+        </div>
+        {% else %}
+        <div>
+            <a href="{% url 'customer:login' %}" class="btn btn-xl btn-primary">{% t "navigation.account.login_or_register" %}</a>
+        </div>
+        {% endif %}
+	</div>
+	
+</div>

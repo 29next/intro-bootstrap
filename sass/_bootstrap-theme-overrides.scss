@@ -9,43 +9,39 @@
   transition: all 0.2s ease;
   &:hover {
     color: #fff;
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    filter: brightness(110%);
+    background-color: var(--primary-color-darker);
+    border-color: var(--primary-color-darker);
   }
 }
 
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #fff;
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: var(--primary-color-darker);
+  border-color: var(--primary-color-darker);
   box-shadow: none;
-  filter: brightness(110%);
+
 }
 
 .btn-check {
   &:checked + .btn-primary, &:active + .btn-primary {
     color: #fff;
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    filter: brightness(110%);
+    background-color: var(--primary-color-darker);
+    border-color: var(--primary-color-darker);
   }
 }
 
 .btn-primary {
   &:active, &.active {
     color: #fff;
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    filter: brightness(110%);
+    background-color: var(--primary-color-darker);
+    border-color: var(--primary-color-darker);
   }
 }
 
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  filter: brightness(110%);
+  background-color: var(--primary-color-darker);
+  border-color: var(--primary-color-darker);
 }
 
 .btn-check {
@@ -78,43 +74,38 @@
   transition: all 0.2s ease;
   &:hover {
     color: #fff;
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-    filter: brightness(110%);
+    background-color: var(--accent-color-darker);
+    border-color: var(--accent-color-darker);
   }
 }
 
 .btn-check:focus + .btn-secondary, .btn-secondary:focus {
   color: #fff;
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-  filter: brightness(110%);
+  background-color: var(--accent-color-darker);
+  border-color: var(--accent-color-darker);
   box-shadow: none;
 }
 
 .btn-check {
   &:checked + .btn-secondary, &:active + .btn-secondary {
     color: #fff;
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-    filter: brightness(110%);
+    background-color: var(--accent-color-darker);
+    border-color: var(--accent-color-darker);
   }
 }
 
 .btn-secondary {
   &:active, &.active {
     color: #fff;
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-    filter: brightness(110%);
+    background-color: var(--accent-color-darker);
+    border-color: var(--accent-color-darker);
   }
 }
 
 .show > .btn-secondary.dropdown-toggle {
   color: #fff;
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-  filter: brightness(110%);
+  background-color: var(--accent-color-darker);
+  border-color: var(--accent-color-darker);
 }
 
 .btn-check {

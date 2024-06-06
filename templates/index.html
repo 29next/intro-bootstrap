@@ -1,90 +1,184 @@
 {% extends "layouts/base.html" %}
-{% block topbar %}{% include "partials/topbar.html" %}{% endblock %}
+
+
+
+{% block extrastyles %}
+<style>
+    :root {
+        --hero-text-color: {{ settings.hero_text_color }};
+        --hero-overlay: {{ settings.hero_overlay }};
+        --hero-overlay-opacity: {{ settings.hero_overlay_opacity }}%;
+        --hero-bg-size: {{ settings.hero_bg_size }};
+        --hero-bg-color: {{ settings.hero_bg_color }};
+        --fc-bg-color: {{ settings.fc_bg_color }};
+        --fc-text-color: {{ settings.fc_text_color }};
+        --fc-overlay: {{ settings.fc_overlay }};
+        --fc-overlay-opacity: {{ settings.fc_overlay_opacity }}%;
+        --fp-bg-color: {{ settings.fp_bg_color }};
+        --fp-text-color: {{ settings.fp_text_color }};
+        --fps-bg-color: {{ settings.fps_bg_color }};
+        --fps-card-bg: {{ settings.fps_card_bg }};
+
+     }
+     {% if settings.home_page_css %}
+     {{ settings.home_page_css }}
+     {% endif %}
+     
+</style>
+{% endblock extrastyles %}
+
+
+
+{% block announcement_bar %}{% if settings.ab_placement == 'home'%}{% include "partials/announcement_bar.html" %}{% elif settings.ab_placement == 'all'%}{% include "partials/announcement_bar.html" %}{% endif %}{% endblock announcement_bar %}
+
+
 {% block content_wrapper %}
-<section class="py-5" style="background: url('{{ "img/bg.jpg" | asset_url }}') no-repeat center center;background-size: cover;">
-    <div class="container py-5 mb-3 mb-lg-0">
-        <div class="row py-5">
-            <div class="col-sm-8 offset-lg-1 py-4">
-                <h5 class="fw-normal text-light">Lorem ipsum dolor sit amet</h5>
-                <h1 class="text-light mb-3">Store hero value proposition or offer</h1>
-                <h4 class="fw-normal text-muted mb-5">Ullam vero aliquam, natus quae architecto hic quod!</h4>
-                <div class="d-grid gap-3 d-lg-block mb-5">
-                    <a class="btn btn-primary btn-lg me-lg-3" href="{% url 'catalogue:index' %}">Shop Now</a>
-                    <a class="btn btn-secondary btn-lg" href="{% url 'catalogue:detail' 'example-product' 2 %}">Shop Now</a>
+{% if settings.account_only %}
+        {% include "partials/account_only.html" %}
+{% else %}
+
+<section class="hero position-relative" style="background-color: var(--hero-bg-color);">
+    {% if settings.hero_img %}
+    <div class="img-hero">
+        <img src="{{ settings.hero_img }}" class="d-none d-md-block" alt="{{ store.name }}">
+        <img src="{{ settings.hero_img_mobile }}" class="d-block d-md-none" alt="{{ store.name }}">
+    </div>
+    {% endif %}
+    <div class="overlay" style="background-color: var(--hero-overlay); opacity:var(--hero-overlay-opacity);"></div>
+    <div class="container">
+        <div class="row position-relative hero-content  hero-{{ settings.hero_height }} {{ settings.hero_content_pos }}" >
+            <div class="col col-lg-{{ settings.hero_content_width }}">
+                <div class="px-2 px-lg-4 py-5 text-{{ settings.hero_text_align }}">
+                    {% if settings.hero_text %}
+                        <h1 class="mb-3 display-{{ settings.hero_text_size }}" style="color: var(--hero-text-color);">{{ settings.hero_text }}</h1>
+                    {% endif %}
+                    {% if settings.hero_subtext %}
+                        <p class="mb-5 fs-{{ settings.hero_subtext_size }}" style="color: var(--hero-text-color);">{{ settings.hero_subtext }}</p>
+                    {% endif %}
+                    {% if settings.hero_cta %}
+                        <div class="d-grid gap-3 d-lg-block mb-5 ">
+                            <a class="btn btn-{% if settings.hero_cta_outline %}outline-{% endif %}{{ settings.hero_cta_color }} btn-xl" href="{{ settings.hero_cta }}">{{ settings.hero_cta_text }}</a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </section>
-<section>
-    <div class="container py-5 my-5">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            {% for category in product_categories|by_ids:'1,2,3,4'  %}
-            <div class="col">
-                <div class="card bg-light h-100">
-                    {% with image=category.image %}
-                    {% if image %}
-                    {% image_thumbnail image "350x350" crop="center" upscale=True as thumb %}
-                    <a href="{{ category.get_absolute_url }}">
-                        <img  src="{{ thumb.url }}" alt="{{ category.name }}" class="card-img-top">
-                    </a>
+
+{% if settings.featured_categories|length > 0 %}
+<section class="categories" style="background-color: var(--fc-bg-color);">
+    <div class="container py-6">
+        {% if settings.fc_header %}
+        <div class="row mb-4">
+            <div class="col text-{{ settings.fc_header_align }}">
+                <h2 class="fs-{{ settings.fc_header_size }}">{{ settings.fc_header }}</h2>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row row-cols-1 row-cols-lg-{{ settings.featured_cats_count }} g-4">
+            {% for category in settings.featured_categories %}
+            <div class="col category">
+                <div class="card h-100 overflow-hidden" >
+                    <a href="{{ category.get_absolute_url }}" class="w-100 h-100">
+                    {% if category.image %}    
+                        <img src="{{ category.image.url }}" class="card-img-cover" alt="{{ category.name }}">
                     {% endif %}
-                    {% endwith %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ category.name }}</h5>
-                        {{ category.description|safe }}
-                        <a href="{{ category.get_absolute_url }}" class="card-link">Shop now</a>
+                    <div class="overlay" style="background-color: var(--fc-overlay); opacity:var(--fc-overlay-opacity);"></div>
+                     <div class="p-2 position-absolute top-50 start-50 translate-middle">
+                        <h5 class="card-title" style="color: var(--fc-text-color);">{{ category.name }}</h5>
+
                     </div>
+                    </a>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
 </section>
-<section class="bg-light">
-    <div class="container py-5 mb-3 mb-lg-0">
+{% endif %}
+
+
+{% if settings.featured_product_show %}
+<section class="feature-product"  style="background-color: var(--fp-bg-color);">
+    <div class="container py-8">
         <div class="row align-items-center">
-            <div class="col-md-6">
-                <span class="badge bg-danger mb-3">Limited Offer</span>
-                <h5 class="fw-normal">The all new</h5>
-                <h2 class="fs-1">Latest Product</h2>
-                <h4 class="fw-normal text-muted mb-5">at a discounted price, subscribe and save!</h4>
-                <div class="d-grid gap-3  d-xl-block mb-5">
-                    <a class="btn btn-primary btn-lg" href="/checkout/add/?product=2:1&currency={{ request.CURRENCY_CODE }}&replace=true">Buy now</a>
-                    <a class="btn btn-secondary btn-lg" href="/checkout/add/?product=2:1:3:month&currency={{ request.CURRENCY_CODE }}&replace=true">Subscribe & Save</a>
+            <div class="col position-relative">
+                {% with image=settings.featured_product.get_all_images %}
+                {% image_thumbnail image.0.original "850x850" crop="center" upscale=True as thumb %}
+                    <img src="{{ thumb.url }}" alt="{{ settings.featured_product.get_title }}" class="img-fluid ">
+                {% endwith %}
+                {% if settings.featured_product.metadata.file_up %}
+                 <div class="position-absolute top-2 start-5">
+                    <img src="{{ settings.featured_product.metadata.file_up.url }}" alt="" class="img-fluid mb-4">
                 </div>
+                {% endif %}
             </div>
-            <div class="col">
-                <img src="{{ 'img/generic-product-placeholder.png' | asset_url }}" alt="" class="img-fluid">
+            <div class="col-md-6 p-3 p-md-5">
+                <h2 class="fs-3" style="color: var(--fp-text-color);">{{ settings.featured_product.title }}</h2>
+                <div class="fs-5 mb-2">
+                    {% purchase_info_for_product request settings.featured_product as session %} 
+                    {% if session.price.exists %}
+                        <strong style="color: var(--fp-text-color);">{{ session.price.price|currency:session.price.currency }}</strong>
+                        {% if session.price.price_retail > session.price.price %}
+                            <s class="fs-6">{{ session.price.price_retail|currency:session.price.currency }}</s>
+                        {% endif %}
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </div>
+                <p style="color: var(--fp-text-color);">{{ settings.fp_desc }}</p>
+                
+                <div class="d-grid gap-4 d-xl-block mt-5">
+                    <a class="btn btn-{% if settings.fp_cta_outline %}outline-{% endif %}{{ settings.fp_cta_color }} btn-xl" href="{{ settings.featured_product.get_absolute_url }}">{{ settings.fp_cta_text }}</a>
+                     <button class="btn btn-{% if settings.fp_cta_outline %}outline-{% endif %}{{ settings.fp_cta_color }} btn-xl add-to-cart-btn" data-item-id={{settings.featured_product.id}} data-loading-text='Adding to cart' data-text='Add to Cart'>Add to Cart</button>
+
+                </div>
             </div>
         </div>
     </div>
 </section>
-<section class="py-5">
-    <div class="container py-5 mb-3 mb-lg-0">
-        <div class="row">
-            <div class="col">
-                <h2 class="text-center pt-2 pt-md-4 mb-4 mb-md-5">Featured Products</h2>
+{% endif %}
+
+
+{% if settings.featured_products|length > 0 %}
+<section class="featured-products" style="background-color: var(--fps-bg-color);">
+    <div class="container py-6">
+        {% if settings.fps_header %}
+        <div class="row mb-4">
+            <div class="col text-{{ settings.fps_header_align }}">
+                <h2 class="fs-{{ settings.fps_header_size }}">{{ settings.fps_header }}</h2>
             </div>
-            
         </div>
-         <div class="row row-cols-2 row-cols-md-4 g-4">
-            {% for product in products|by_ids:'2,3,4,5' %}
+        {% endif %}
+        <div class="row row-cols-2 row-cols-lg-{{ settings.featured_products_count }} g-4">
+            {% for product in settings.featured_products %}
+            {% purchase_info_for_product request product as session %}
+            {% if session.availability.is_available_to_buy %}
             <div class="col">
-                <div class="card h-100">
-                    {% block product_image %}
-                        {% with image=product.primary_image %}
-                        {% image_thumbnail image.original "350x350" crop="center" upscale=True as thumb %}
-                        <a href="{{ product.get_absolute_url }}">
-                            <img original="{{ image.original }}" src="{{ thumb.url }}" alt="{{ product.get_title }}" class="card-img-top">
-                        </a>
-                        {% endwith %}
-                    {% endblock %}
+                <div class="card h-100 {% if not settings.product_card_border %}border-0{% endif %}" style="background-color: var(--fps-card-bg);">
+                        {% if settings.product_media_fit == 'fit' %}
+                            {% with image=product.primary_image %}
+                            {% image_thumbnail image.original "350x" as thumb %}
+                            <div class="position-relative overflow-hidden mb-3">
+                                <a href="{{ product.get_absolute_url }}" class="product-images-thumb">
+                                    <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="img-fluid">
+                                </a>
+                            </div>
+                            {% endwith %}
+                        {% else %}
+                            {% with image=product.primary_image %}
+                            {% image_thumbnail image.original "350x350" crop="center" upscale=True as thumb %}
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="card-img-top">
+                            </a>
+                            {% endwith %}
+                        {% endif %}
                     <div class="card-body d-flex flex-column">
-                        <div class="card-title fs-5">
-                            <a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}">{{ product.get_title }}</a>
+                        <div class="card-title">
+                            <a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}" class="text-dark">{{ product.get_title }}</a>
                         </div>
-                        {% if product.rating %}
+                        {% if settings.product_reviews and product.rating %}
                             <div class="card-text d-flex mb-2">
                                 <div class="catalogue_item-rating-stars">
                                     {% for i in '12345' %}
@@ -97,7 +191,7 @@
                                             &#9733;
                                         </span>
                                         {% endif %}
-                                        {% endfor %}
+                                    {% endfor %}
                                 </div>
                                 <div class="catalogue_item-rating-count ms-2">
                                     ({{product.num_approved_reviews}})
@@ -105,16 +199,15 @@
                             </div>
                         {% endif %}
                         <div class="mt-auto">
-                            {% block product_price %}
+                            
                             <div class="d-block">
-                                {% purchase_info_for_product request product as session %}
                                 {% if session.price.exists %}
                                     <span>
                                         {{ session.price.price|currency:session.price.currency }}
                                     </span>
                                     {% if session.price.price_retail > session.price.excl_tax %}
-                                        <div class="badge bg-danger position-absolute top-2 start-5 text-uppercase">{% t "store.catalogue.sale" %}</div>
-                                        <span class="text-muted fs-7">
+                                        <div class="badge badge-sale bg-danger position-absolute top-2 start-5 text-uppercase">{% t "store.catalogue.sale" %}</div>
+                                        <span class="text-muted fs-8">
                                             <s>{{ session.price.price_retail|currency:session.price.currency }}</s>
                                         </span>
                                     {% endif %}
@@ -122,144 +215,135 @@
                                 &nbsp;
                                 {% endif %}
                             </div>
-                            {% endblock %}
-                            <div class="d-block mt-3">
-                                <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Shop This</a>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
-    </div>
-</section>
-<section class="bg-light py-5">
-    <div class="container py-md-5 mb-4 pt-3 pb-4">
-        <h2 class="text-center mb-4 mb-md-5 pb-2">Customer reviews</h2>
-        <div class="row testimonials">
-            <div class="col mx-2">
-                <div class="card border-0 shadow-sm">
-                  <div class="card-body text-muted">
-                    <div class="mb-2">
-                      <div class="star-rating">
-                            <span class="text-warning">★</span>
-                            <span class="text-warning">★</span>
-                            <span class="text-warning">★</span>
-                            <span class="text-warning">★</span>
-                            <span class="text-muted">★</span>
-                      </div>
-                    </div>
-                    Lorem ipsum dolor sit amet, quia non consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center pt-4">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <h6 class="fs-7">Laura Willson</h6>
-                      <span class="fs-7 text-muted opacity-75">Feb 05, 2020</span>
-                    </div>
-                  </div>
-                </div>
-            </div>
-            <div class="col mx-2">
-                <div class="card border-0 shadow-sm">
-                  <div class="card-body text-muted">
-                    <div class="mb-2">
-                      <div class="star-rating">
-                            <span class="text-warning">★</span>
-                            <span class="text-warning">★</span>
-                            <span class="text-warning">★</span>
-                            <span class="text-warning">★</span>
-                            <span class="text-muted">★</span>
-                      </div>
-                    </div>
-                    Lorem ipsum dolor sit amet, quia non consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center pt-4">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <h6 class="fs-7">Laura Willson</h6>
-                      <span class="fs-7 text-muted opacity-75">Feb 05, 2020</span>
-                    </div>
-                  </div>
-                </div>
-            </div>
-            <div class="col mx-2">
-                <div class="card border-0 shadow-sm">
-                  <div class="card-body text-muted">
-                    <div class="mb-2">
-                      <div class="star-rating">
-                            <span class="text-warning">★</span>
-                            <span class="text-warning">★</span>
-                            <span class="text-warning">★</span>
-                            <span class="text-warning">★</span>
-                            <span class="text-muted">★</span>
-                      </div>
-                    </div>
-                    Lorem ipsum dolor sit amet, quia non consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center pt-4">
-                  <div class="d-flex align-items-center">
-                    <div>
-                      <h6 class="fs-7">Laura Willson</h6>
-                      <span class="fs-7 text-muted opacity-75">Feb 05, 2020</span>
-                    </div>
-                  </div>
-                </div>
+        <div class="d-flex justify-content-center">
+            <div class="d-grid gap-4 d-xl-block mt-6">
+                <a class="btn btn-{% if settings.fps_cta_outline %}outline-{% endif %}{{ settings.fps_cta_color }} btn-xl" href="{% url 'catalogue:index' %}">View All</a>
             </div>
         </div>
     </div>
 </section>
-<section class="py-5">
-    <div class="container py-md-5 mb-4 pt-3 pb-4">
-        <h2 class="text-center mb-4 mb-md-5 pb-2">From the blog</h2>
-        <div class="row row-cols-md-3 g-4">
-            {% for post in posts|slice:"3" %}
-                <div class="col">
-                    <div class="card border-0 shadow-sm h-100  d-flex flex-column">
-                        {% with image=post.featured_image %}
-                            {% if image %}
-                            {% image_thumbnail image "400x250" upscale=False crop="top" as thumb %}
-                                <a href="{{post.get_absolute_url}}"><img src="{{ thumb.url }}" alt="{{ post.title }}" class="card-img-top"></a>
-                            {% endif %}
-                        {% endwith %}
-                        <div class="p-3">
-                            <div class="card-text text-muted fs-7">{{post.posted_date|date:"M d, Y"}}</div>
-                            <div class="card-title fs-5"><a href="{{post.get_absolute_url}}">{{ post.title }}</a></div>
-                            <div class="text-muted">{{ post.content|striptags|truncatechars_html:140  }}</div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
+{% endif %}
+
+{% endif %}
 {% endblock %}
+
 {% block extrascripts %}
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.testimonials').slick({
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            arrows: true,
-            dots: false,
-            fade: false,
-            responsive: [
-                {
-                    breakpoint: 960,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
+<script>
+
+async function getCartId() {
+  const url = '/api/graphql/';
+
+  var query = `mutation {
+                createCart(
+                    input: {}
+                ) {
+                    cart {
+                        id
+                        lines {
+                            pk
+                            isUpsell
+                            product {
+                                pk
+                                structure
+                                parent {
+                                    pk
+                                }
+                            }
+                        }
                     }
+                    success
+                    errors
                 }
+            }`
 
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query })
+  });
+
+  const result = await response.json();
+  return result.data.createCart.cart.id;
+}
+
+document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+  button.addEventListener('click', async (event) => {
+    const addtext = event.target.dataset.loadingText
+    event.target.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+    event.target.disabled = true
+    // const itemId = event.target.getAttribute('data-item-id');
+    const itemId = parseInt(event.target.getAttribute('data-item-id'), 10);
+    const cartId = await getCartId();
+    const url = '/api/graphql/';
+
+    const query = `mutation addCartLines($input: AddCartLinesInput!) {
+                    addCartLines(input: $input) {
+                        cart {
+                            id
+                            totalExclTax
+                            numLines
+                            numItems
+                        }
+                        success
+                        errors
+                    }
+            }`
+    const variables = {
+        "input": {
+            "cartId": cartId,
+            "lines": [
+                {
+                    "productPk": itemId,
+                    "quantity": 1                
+                }
             ]
+        }
+    }
 
-        });
-
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        query: query,
+        variables: variables
+       })
     });
+
+    const result = await response.json();
+
+    if (result.data) {
+      // alert(`Item ${itemId} added to cart!`);
+      console.log("success:", result.data);
+      location.reload();
+      event.target.textContent = event.target.dataset.text;
+      event.target.disabled = false;
+      sessionStorage.setItem('showCartModal', 'true');
+      // $("#cart-modal").cart('show');
+
+    } else {
+      // alert(`Failed to add item ${itemId} to cart.`);
+      console.error("fail:", result.errors);
+    }
+  });
+});
+ window.onload = function() {
+            if (sessionStorage.getItem('showCartModal') === 'true') {
+                // Remove the flag from sessionStorage
+                sessionStorage.removeItem('showCartModal');
+
+                $("#cart-modal").cart('show');
+            }
+        };
 </script>
 {% endblock %}

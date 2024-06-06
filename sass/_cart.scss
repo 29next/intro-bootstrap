@@ -293,9 +293,8 @@ table.cart_table {
 
         &:hover {
             border: 1px solid transparent;
-            background-color: var(--primary-color);
+            background-color: var(--primary-color-darker);
             color: white;
-            filter: brightness(120%);
         }
     }
 }
