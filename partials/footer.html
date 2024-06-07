@@ -21,17 +21,17 @@
                     {% for item in settings.footer_menu.items %}
                         {% if item.level > 0 %}
                             <li class="mb-2 dropdown">
-                                <a class="dropdown-toggle dropdown-toggle d-flex justify-content-between justify-content-md-start align-items-center {% if item.child_active %}active{% endif %}" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="{{ item.url }}">{{ item.name|title }}</a>
+                                <a class="dropdown-toggle dropdown-toggle d-flex justify-content-between justify-content-md-start align-items-center {% if item.child_active %}active{% endif %}" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="{{ item.url }}">{{ item.name }}</a>
                                 <ul class="dropdown-menu p-0 ">
                                     {% for child_item in item.items %}
                                         {% if child_item.level > 0 %}
                                             <li class="dropdown">
-                                                <a class="dropdown-item dropdown-toggle d-flex justify-content-between align-items-center {% if child_item.child_active %}active{% endif %}" data-bs-toggle="dropdown"  href="{{ child_item.url }}">{{ child_item.name|title }}</a>
+                                                <a class="dropdown-item dropdown-toggle d-flex justify-content-between align-items-center {% if child_item.child_active %}active{% endif %}" data-bs-toggle="dropdown"  href="{{ child_item.url }}">{{ child_item.name }}</a>
                                                 <ul class="dropdown-menu p-0">
                                                     {% for grandchild_item in child_item.items %}
                                                     <li>
                                                         <a class="dropdown-item {% if grandchild_item.current %}active{% endif %}" href="{{ grandchild_item.url }}">
-                                                        {{ grandchild_item.name|title }}
+                                                        {{ grandchild_item.name }}
                                                         </a>
                                                     </li>
                                                     {% endfor %}
@@ -40,7 +40,7 @@
                                         {% else %}
                                             <li>
                                                 <a class="dropdown-item {% if child_item.current %}active{% endif %}" href="{{ child_item.url }}">
-                                                    {{ child_item.name|title }}
+                                                    {{ child_item.name }}
                                                 </a>
                                             </li>
                                         {% endif %}
@@ -49,7 +49,7 @@
                             </li>
                         {% else %}
                             <li class="mb-2">
-                                <a class="{% if item.current %}active{% endif %}" href="{{ item.url }}">{{ item.name|title }}</a>
+                                <a class="{% if item.current %}active{% endif %}" href="{{ item.url }}">{{ item.name }}</a>
                             </li>
                         {% endif %}
                     {% endfor %}
