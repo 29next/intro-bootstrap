@@ -157,8 +157,8 @@
                 <div class="card h-100 {% if not settings.product_card_border %}border-0{% endif %}" style="background-color: var(--fps-card-bg);">
                         {% if settings.product_media_fit == 'fit' %}
                             {% with image=product.primary_image %}
-                            {% image_thumbnail image.original "350x" as thumb %}
-                            <div class="position-relative overflow-hidden mb-3">
+                            {% image_thumbnail image.original "850x" as thumb %}
+                            <div class="position-relative overflow-hidden mb-3 bg-light">
                                 <a href="{{ product.get_absolute_url }}" class="product-images-thumb">
                                     <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="img-fluid">
                                 </a>
@@ -166,7 +166,7 @@
                             {% endwith %}
                         {% else %}
                             {% with image=product.primary_image %}
-                            {% image_thumbnail image.original "350x350" crop="center" upscale=True as thumb %}
+                            {% image_thumbnail image.original "850x850" crop="center" upscale=True as thumb %}
                             <a href="{{ product.get_absolute_url }}">
                                 <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="card-img-top">
                             </a>
