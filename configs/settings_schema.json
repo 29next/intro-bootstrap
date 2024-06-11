@@ -194,34 +194,10 @@
 			        {
 			            "name": "Accent",
 			            "value": "secondary"
-			        },
-			        {
-			            "name": "Success",
-			            "value": "success"
-			        },
-			        {
-			            "name": "Danger",
-			            "value": "danger"
-			        },
-			        {
-			            "name": "Warning",
-			            "value": "warning"
-			        },
-			        {
-			            "name": "Info",
-			            "value": "info"
-			        },
-			        {
-			            "name": "Light",
-			            "value": "light"
-			        },
-			        {
-			            "name": "Dark",
-			            "value": "dark"
 			        }
 			    ],
 			    "default": "primary",
-			    "help_text": "Primary and accent colors are from the store branding settings. The other colors are based of the the storefront bootstrap color utility classes"
+			    "help_text": "Primary and accent colors are from the store branding settings."
 			},
 			{
 			    "name": "hero_cta_text",
@@ -559,34 +535,10 @@
 			        {
 			            "name": "Accent",
 			            "value": "secondary"
-			        },
-			        {
-			            "name": "Success",
-			            "value": "success"
-			        },
-			        {
-			            "name": "Danger",
-			            "value": "danger"
-			        },
-			        {
-			            "name": "Warning",
-			            "value": "warning"
-			        },
-			        {
-			            "name": "Info",
-			            "value": "info"
-			        },
-			        {
-			            "name": "Light",
-			            "value": "light"
-			        },
-			        {
-			            "name": "Dark",
-			            "value": "dark"
 			        }
 			    ],
-			    "default": "Primary",
-			    "help_text": "Primary and accent colors are from the store branding settings. The other colors are based of the the storefront bootstrap color utility classes"
+			    "default": "primary",
+			    "help_text": "Primary and accent colors are from the store branding settings."
 			}
         ],
         "Featured Products": [
@@ -699,34 +651,10 @@
 			        {
 			            "name": "Accent",
 			            "value": "secondary"
-			        },
-			        {
-			            "name": "Success",
-			            "value": "success"
-			        },
-			        {
-			            "name": "Danger",
-			            "value": "danger"
-			        },
-			        {
-			            "name": "Warning",
-			            "value": "wanring"
-			        },
-			        {
-			            "name": "Info",
-			            "value": "info"
-			        },
-			        {
-			            "name": "Light",
-			            "value": "light"
-			        },
-			        {
-			            "name": "Dark",
-			            "value": "dark"
 			        }
 			    ],
-			    "default": "Primary",
-			    "help_text": "Primary and accent colors are from the store branding settings. The other colors are based of the the storefront bootstrap color utility classes"
+			    "default": "primary",
+			    "help_text": "Primary and accent colors are from the store branding settings."
 			}
         ],
         "Custom CSS": [
