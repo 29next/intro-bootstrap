@@ -80,6 +80,7 @@
     "button_link_color": "",
     "checkout_bg_color": "",
     "checkout_text_color": "",
+    "checkout_btn_placement": "start",
     "checkout_summary_bg_color": "",
     "checkout_summary_text_color": "",
     "checkout_logo": null,

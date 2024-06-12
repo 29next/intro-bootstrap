@@ -879,8 +879,27 @@
 			    "label": "Text Color",
 			    "type": "color",
 			    "help_text": "Override the color for the checkout body text."
+			},
+			{
+			    "name": "checkout_btn_placement",
+			    "label": "Button Placement Desktop",
+			    "type": "radio",
+			    "options": [
+			        {
+			            "name": "Left",
+			            "value": "start"
+			        },
+			        {
+			            "name": "Right",
+			            "value": "end"
+			        },
+			        {
+			            "name": "Full",
+			            "value": "full"
+			        }
+			    ],
+			    "default": "start"
 			}
-
 		],
 		"Order Summary": [
 			{

@@ -166,6 +166,22 @@
                     opacity: .8;
                 }
             {% endif %}
+            {% if settings.checkout_btn_placement == 'end' %}
+                @media (min-width: 500px) { 
+                    .checkout_steps--footer { 
+                        flex-direction:row-reverse; 
+                    } 
+                }
+            {% elif settings.checkout_btn_placement == 'full' %}
+                .checkout_steps--footer-previous_link { 
+                    display:none; 
+                }
+                @media (min-width: 500px) { 
+                    .checkout_steps--footer { 
+                        display:block; 
+                    }
+                }
+            {% endif %}
             {% if settings.summary_html_block %}
                 .custom-block-summary-desktop{
                         display: none;
