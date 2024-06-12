@@ -1,7 +1,5 @@
 {% extends "templates/catalogue/index.html" %}
 
-
-
 {% block title %}
     {{ category.get_meta_title }} | {{ block.super }}
 {% endblock %}
@@ -33,14 +31,7 @@
     {% if category.name %}
         <div class="container-xl">
                 <div class="row mb-4 align-items-center">
-                    {% if category.image %}
-                        <div class="col-auto mb-3 mb-sm-0">
-                            {% with image=category.image.url %}
-                            {% image_thumbnail image "75x" upscale=False as thumb %}
-                                <img original="{{ image.original }}" src="{{ thumb.url }}" alt="{{ category.name }}" class="border rounded">
-                            {% endwith %}
-                        </div>
-                    {% endif %}
+                    
                     <div class="col">
                         <h1 class="h5">{{ category.name|safe }}</h1>
                         <p>{{ category.description|safe }}</p>

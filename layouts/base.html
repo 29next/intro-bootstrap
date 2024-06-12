@@ -14,61 +14,115 @@
     {% block favicon %}
         {% if store.branding.icon %}
             {% with image=store.branding.icon %}
-                {% image_thumbnail image "100x" upscale=False as thumb_store_icon %}
+                {% image_thumbnail image "32x32" upscale=False crop="center" as thumb_store_icon %}
                 <link rel="shortcut icon" href="{{ thumb_store_icon.url }}" />
             {% endwith %}
         {% endif %}
-    {% endblock %}
+    {% endblock favicon %}
     {% block styles %}
+        {% if settings.font_script %}
+            {{ settings.font_script|safe }}
+        {% endif %}
         <link rel="stylesheet" type="text/css" href="{{ 'main.css'|asset_url }}">
         <style>
             :root {
                 --primary-color: {{ store.branding.primary_color }};
                 --accent-color: {{ store.branding.accent_color }};
+                --primary-color-lighter: color-mix(in srgb,var(--primary-color),#fff 10%); 
+                --primary-color-darker: color-mix(in srgb,var(--primary-color),#000 10%);
+                --accent-color-lighter: color-mix(in srgb,var(--accent-color),#fff 10%); 
+                --accent-color-darker: color-mix(in srgb,var(--accent-color),#000 10%);
+                {% if settings.font_body %}
+                    --bs-font-sans-serif: {{ settings.font_body|safe }};
+                {% endif %}
+                {% if settings.font_header %}
+                    --font-header: {{ settings.font_header|safe }};
+                {% endif %}
+                {% if settings.body_text_color %}
+                    --body-text-color: {{ settings.body_text_color }};
+                {% endif %}
+                {% if settings.body_header_color %}
+                    --body-header-color: {{ settings.body_header_color }};
+                {% endif %}
+                {% if settings.body_link_color %}
+                    --body-link-color: {{ settings.body_link_color }};
+                    --body-link-color-lighter: color-mix(in srgb,var(--body-link-color),#fff 20%); 
+                {% endif %}
+                {% if settings.navbar_bg_color %}
+                    --navbar-bg-color: {{ settings.navbar_bg_color }};
+                {% endif %}
+                {% if settings.navbar_link_color %}
+                    --navbar-link-color: {{ settings.navbar_link_color }};
+                    --navbar-link-color-lighter: color-mix(in srgb,var(--navbar-link-color),#fff 20%);
+                {% endif %}
+                {% if settings.footer_bg_color %}
+                    --footer-bg-color: {{ settings.footer_bg_color }};
+                {% endif %}
+                {% if settings.footer_link_color %}
+                    --footer-link-color: {{ settings.footer_link_color }};
+                    --footer-link-color-lighter: color-mix(in srgb,var(--footer-link-color),#fff 20%);
+                {% endif %}
+                {% if settings.footer_text_color %}
+                    --footer-text-color: {{ settings.footer_text_color }};  
+                {% endif %}
             }
+            {% if settings.body_text_color %}
+                body {
+                    color: var(--body-text-color);
+                }
+            {% endif %}
+            {% if settings.font_header %}
+                h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+                  font-family: var(--font-header);
+                }
+            {% endif %}
+            {% if settings.body_header_color %}
+                h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+                    color: var(--body-header-color);
+                }
+                {% else %}
+                h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+                    color: var(--body-text-color);
+                }
+            {% endif %}
+            {% if settings.body_link_color %}
+                a {
+                    color: var(--body-link-color);
+                }
+                a:hover {
+                    color: var(--body-link-color-lighter);
+                }
+            {% endif %}
+            {% if settings.footer_link_color %}
+                .footer ul:not(.dropdown-menu)>li>a {color:var(--footer-link-color);}
+                .footer ul:not(.dropdown-menu)>li>a:hover {color:var(--footer-link-color-lighter);}
+            {% endif %}
+            {% if settings.navbar_link_color %}
+                .navbar .navbar-nav a.nav-link {color:var(--navbar-link-color);}
+                .navbar .navbar-nav a.nav-link:hover, .navbar .navbar-nav a.nav-link:focus, .navbar .navbar-nav a.nav-link.active {color:var(--navbar-link-color-lighter);}
+            {% endif %}
+            
         </style>
-    {% endblock %}
-    {% block extrastyles %}{% endblock %}
-    {% block extrahead %}{% endblock %}
-    {% block tracking %}
-    {% endblock %}
+    {% endblock styles %}
+    {% block extrastyles %}{% endblock extrastyles %}
+    {% block extrahead %}{% endblock extrahead %}
+    {% block tracking %}{% endblock tracking %}
 
     {% app_hook 'global_header' %}
 </head>
 
-<body id="{% block body_id %}default{% endblock %}" class="{% block body_class %}default{% endblock %}">
+<body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}main">
     {% block layout %}
-        {% block topbar %}{% endblock %}
+        {% if not settings.account_only %}
+        {% block announcement_bar %}{% if settings.ab_placement == 'all' %}{% include "partials/announcement_bar.html" %}{% endif %}{% endblock announcement_bar %}
         {% block nav_header %}
-        <nav id="store_navbar" class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+        
+        <nav id="store_navbar" class="navbar navbar-expand-md navbar-{{ settings.navbar_style }} sticky-top {% if settings.navbar_style == 'light' %}border-bottom{% endif %}" {% if settings.navbar_bg_color %} style="background-color: var(--navbar-bg-color);"{% endif %}>
             {% include 'partials/search.html' %}
             <div class="container-xl justify-content-md-between">
                 <button class="navbar-toggler ps-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <a class="navbar-brand me-auto me-md-5" href="{{ homepage_url }}">
-                    {% if store.branding.icon and store.branding.logo  %}
-                    <picture>
-                            {% with image=store.branding.logo %}
-                                {% image_thumbnail image "150x" upscale=False as thumb_store_logo %}
-                                 <source srcset="{{ thumb_store_logo.url }}" media="(min-width: 1024px)" />
-                            {% endwith %}
-                            {% with image=store.branding.icon %}
-                                {% image_thumbnail image "50x" upscale=False as thumb_store_icon %}
-                                <img src="{{ thumb_store_icon.url }}" alt="{{ store.name }}" class="img-fluid" />
-                            {% endwith %}
-                        {% elif store.branding.logo and not store.branding.icon %}
-                            {% with image=store.branding.logo %}
-                                {% image_thumbnail image "150x" upscale=False as thumb_store_logo %}
-                                <img src="{{ thumb_store_logo.url }}" alt="{{ store.name }}" class="img-fluid" />
-                            {% endwith %}
-                        {% elif store.branding.icon and not store.branding.logo %}
-                            {% with image=store.branding.icon %}
-                                {% image_thumbnail image "50x" upscale=False as thumb_store_icon %}
-                                <img src="{{ thumb_store_icon.url }}" alt="{{ store.name }}" class="img-fluid" />
-                            {% endwith %}
-                    </picture>
-                    {% else %}
-                            {{ store.name }}
-                    {% endif %}
+                <a class="navbar-brand me-auto me-md-5 d-block d-md-none" href="{{ homepage_url }}">
+                    {% include 'partials/main_logo.html' %}
                 </a>
                 <ul class="navbar-nav mobile-nav flex-row align-items-center d-md-none">
                     <li class="nav-item px-3">
@@ -95,24 +149,48 @@
 
                     </li>
                 </ul>
-
-                {% url 'catalogue:index' as catalogue_url %}
-                {% url 'blog:blog-list' as blog_url %}
-                {% url 'support:category-list' as support_url %}
-                <div class="collapse navbar-collapse" id="navbarMain">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
-
-                        <li class="nav-item"><a {% if request.path == homepage_url %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %}  href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
-
-                        <li class="nav-item"><a {% if catalogue_url in request.path %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %} href="{% url 'catalogue:index' %}">{% t "navigation.main.shop" %}</a></li>
-
-                        <li class="nav-item"><a {% if blog_url in request.path %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %}  href="{% url 'blog:blog-list' %}">{% t "navigation.main.blog" %}</a></li>
-
-                        <li class="nav-item"><a {% if support_url in request.path %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %}  href="{% url 'support:category-list' %}">{% t "navigation.main.support" %}</a></li>
-
-                        <li class="nav-item"><a {% if '/contact/' == request.path %} class="nav-link active" aria-current="page" {% else %} class="nav-link" {% endif %} href="/contact/">{% t "navigation.main.contact" %}</a></li>
+                <div class="collapse navbar-collapse justify-content-md-between" id="navbarMain">
+                    <a class="navbar-brand d-none d-md-block {% if settings.logo_align == 'left' %}order-first{% elif settings.logo_align == 'right' %}order-last{% endif %}" href="{{ homepage_url }}">
+                        {% include 'partials/main_logo.html' %}
+                    </a>
+                    <ul class="navbar-nav mb-0 {% if settings.logo_align == 'centered' %}order-first{% endif %}">
+                        {% for item in settings.main_menu.items %}
+                            {% if item.level > 0 %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle dropdown-toggle d-flex justify-content-between justify-content-md-start align-items-center {% if item.child_active %}active{% endif %}" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="{{ item.url }}">{{ item.name|title }}</a>
+                                    <ul class="dropdown-menu p-0 ">
+                                        {% for child_item in item.items %}
+                                            {% if child_item.level > 0 %}
+                                                <li class="dropend">
+                                                    <a class="dropdown-item dropdown-toggle d-flex justify-content-between align-items-center {% if child_item.child_active %}active{% endif %}" data-bs-toggle="dropdown"  href="{{ child_item.url }}">{{ child_item.name|title }}</a>
+                                                    <ul class="dropdown-menu p-0">
+                                                        {% for grandchild_item in child_item.items %}
+                                                        <li>
+                                                            <a class="dropdown-item {% if grandchild_item.current %}active{% endif %}" href="{{ grandchild_item.url }}">
+                                                            {{ grandchild_item.name|title }}
+                                                            </a>
+                                                        </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </li>
+                                            {% else %}
+                                                <li>
+                                                    <a class="dropdown-item {% if child_item.current %}active{% endif %}" href="{{ child_item.url }}">
+                                                        {{ child_item.name|title }}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if item.current %}active{% endif %}" href="{{ item.url }}">{{ item.name|title }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
                     </ul>
-                    <ul class="navbar-nav mb-2 mb-md-0">
+                    <ul class="navbar-nav mb-0 {% if settings.logo_align == 'right' %}order-first{% endif %}">
                         <li class="nav-item  d-none d-md-block">
                             <a class="nav-link store_search-icon"  href="#">
                                 <div>
@@ -122,34 +200,16 @@
                                 </div>
                             </a>
                         </li>
-
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link has-icon dropdown-toggle" id="navbarAccount" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="me-2 me-md-0">
+                        <li class="nav-item ">
+                            <a class="nav-link has-icon" id="navbarAccount" href="{% url 'customer:summary' %}" role="button">
+                                <span class="me-2 me-md-0 d-none d-md-block">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.409 0.0285383C10.2103 0.0271165 8.05654 0.651433 6.19943 1.82854C4.34231 3.00565 2.85852 4.68695 1.92142 6.67599C0.984309 8.66504 0.632586 10.8797 0.907341 13.0612C1.1821 15.2427 2.07198 17.301 3.47303 18.9955C3.47303 19.0015 3.47303 19.0085 3.48203 19.0145C4.65999 20.4364 6.16066 21.5561 7.85903 22.2805L7.91703 22.3055C8.05303 22.3625 8.19003 22.4155 8.32703 22.4675L8.49003 22.5285C8.60869 22.5712 8.72803 22.6115 8.84803 22.6495C8.92503 22.6745 9.00203 22.6985 9.07903 22.7215C9.18503 22.7535 9.29169 22.7839 9.39903 22.8125C9.49303 22.8385 9.58803 22.8615 9.68303 22.8845C9.77803 22.9075 9.87603 22.9305 9.97303 22.9515C10.07 22.9725 10.191 22.9955 10.3 23.0155C10.388 23.0315 10.476 23.0485 10.565 23.0635C10.687 23.0835 10.809 23.0985 10.932 23.1145C11.011 23.1245 11.09 23.1365 11.17 23.1445C11.309 23.1595 11.449 23.1695 11.59 23.1795C11.655 23.1795 11.72 23.1915 11.79 23.1945C11.9954 23.2059 12.2027 23.2119 12.412 23.2125C12.621 23.2125 12.829 23.2065 13.034 23.1955C13.1 23.1955 13.165 23.1855 13.234 23.1805C13.375 23.1705 13.515 23.1605 13.654 23.1455C13.734 23.1365 13.812 23.1255 13.892 23.1155C14.015 23.0995 14.137 23.0845 14.259 23.0645C14.347 23.0505 14.436 23.0335 14.524 23.0165C14.633 22.9965 14.743 22.9755 14.851 22.9525C14.959 22.9295 15.044 22.9085 15.141 22.8855C15.238 22.8625 15.331 22.8385 15.425 22.8135C15.519 22.7885 15.639 22.7535 15.745 22.7225C15.823 22.6995 15.9 22.6745 15.976 22.6505C16.096 22.6119 16.2154 22.5715 16.334 22.5295L16.497 22.4685C16.635 22.4165 16.772 22.3635 16.907 22.3065L16.965 22.2815C18.6633 21.557 20.164 20.4373 21.342 19.0155C21.342 19.0105 21.347 19.0025 21.351 18.9965C22.7519 17.3014 23.6414 15.2425 23.9156 13.0606C24.1899 10.8787 23.8376 8.66378 22.8998 6.67464C21.9621 4.6855 20.4777 3.00429 18.62 1.82742C16.7623 0.650553 14.6081 0.0266268 12.409 0.0285383ZM17.109 21.3645L17.092 21.3725C16.954 21.4385 16.814 21.5015 16.672 21.5625L16.572 21.6035C16.4487 21.6555 16.3237 21.7049 16.197 21.7515L16.039 21.8095C15.927 21.8495 15.815 21.8875 15.702 21.9235L15.49 21.9885C15.39 22.0185 15.29 22.0475 15.19 22.0745C15.104 22.0975 15.018 22.1185 14.931 22.1385C14.844 22.1585 14.75 22.1825 14.658 22.2015C14.566 22.2205 14.458 22.2405 14.358 22.2595C14.276 22.2745 14.195 22.2905 14.113 22.3035C14 22.3215 13.885 22.3355 13.771 22.3495C13.699 22.3585 13.627 22.3695 13.554 22.3775C13.424 22.3915 13.292 22.4005 13.161 22.4095C13.103 22.4095 13.045 22.4195 12.986 22.4235C12.7947 22.4335 12.603 22.4385 12.411 22.4385C12.219 22.4385 12.0274 22.4335 11.836 22.4235C11.777 22.4235 11.719 22.4145 11.661 22.4095C11.53 22.4005 11.399 22.3915 11.268 22.3775C11.195 22.3695 11.123 22.3585 11.051 22.3495C10.937 22.3355 10.823 22.3205 10.709 22.3035C10.627 22.2905 10.546 22.2745 10.464 22.2595C10.364 22.2415 10.264 22.2225 10.164 22.2015C10.064 22.1805 9.98203 22.1605 9.89103 22.1385C9.80003 22.1165 9.71803 22.0975 9.63203 22.0745C9.53203 22.0475 9.43203 22.0185 9.33203 21.9885L9.11703 21.9285C9.00369 21.8925 8.89136 21.8545 8.78003 21.8145L8.61703 21.7525C8.49103 21.7052 8.36603 21.6559 8.24203 21.6045L8.14203 21.5635C8.00103 21.5025 7.86003 21.4395 7.72203 21.3735L7.70503 21.3655C6.36396 20.7153 5.17093 19.7963 4.20003 18.6655C4.57369 17.3048 5.27916 16.0581 6.25319 15.0371C7.22723 14.0161 8.4394 13.2528 9.78103 12.8155C9.83503 12.8485 9.89103 12.8775 9.94603 12.9085C9.97803 12.9265 10.011 12.9455 10.046 12.9635C10.161 13.0245 10.278 13.0815 10.397 13.1335C10.489 13.1735 10.583 13.2075 10.678 13.2425L10.734 13.2625C11.8141 13.6516 12.996 13.6516 14.076 13.2625L14.132 13.2425C14.226 13.2075 14.321 13.1735 14.413 13.1335C14.532 13.0825 14.649 13.0245 14.764 12.9635L14.864 12.9085C14.919 12.8775 14.976 12.8485 15.03 12.8145C16.3716 13.252 17.5836 14.0153 18.5577 15.0363C19.5317 16.0573 20.2372 17.3039 20.611 18.6645C19.6399 19.7951 18.4469 20.714 17.106 21.3645H17.109ZM8.15803 8.52854C8.15698 7.79139 8.34767 7.06665 8.71139 6.42549C9.07511 5.78432 9.59933 5.24878 10.2326 4.87146C10.8658 4.49414 11.5864 4.28802 12.3233 4.27333C13.0603 4.25864 13.7885 4.4359 14.4363 4.78769C15.0841 5.13949 15.6292 5.65372 16.0182 6.27988C16.4071 6.90605 16.6266 7.62262 16.6549 8.35922C16.6832 9.09582 16.5194 9.82712 16.1797 10.4813C15.8399 11.1355 15.3359 11.6901 14.717 12.0905C14.5654 12.1892 14.4074 12.2778 14.244 12.3555L14.186 12.3835C13.626 12.635 13.019 12.765 12.405 12.765C11.7911 12.765 11.1841 12.635 10.624 12.3835L10.566 12.3555C10.4026 12.2778 10.2446 12.1893 10.093 12.0905C9.49916 11.7051 9.01107 11.1774 8.67313 10.5553C8.33518 9.9332 8.15812 9.2365 8.15803 8.52854ZM21.19 17.9285C20.7527 16.6452 20.0403 15.4729 19.1028 14.4935C18.1652 13.5142 17.0251 12.7514 15.762 12.2585C16.5187 11.5796 17.0516 10.6871 17.2902 9.69885C17.5288 8.71064 17.462 7.67328 17.0985 6.72387C16.735 5.77445 16.092 4.95769 15.2544 4.3815C14.4168 3.80532 13.4241 3.49684 12.4075 3.49684C11.3909 3.49684 10.3982 3.80532 9.56066 4.3815C8.72309 4.95769 8.08007 5.77445 7.71658 6.72387C7.35309 7.67328 7.28623 8.71064 7.52486 9.69885C7.76348 10.6871 8.29634 11.5796 9.05303 12.2585C7.79039 12.7517 6.65066 13.5146 5.71346 14.4939C4.77627 15.4733 4.0642 16.6454 3.62703 17.9285C2.63243 16.5442 1.97911 14.9443 1.72036 13.2595C1.46161 11.5746 1.60475 9.85245 2.13811 8.23343C2.67147 6.6144 3.57994 5.14437 4.78945 3.9432C5.99895 2.74203 7.47523 1.84374 9.0979 1.32159C10.7206 0.799439 12.4437 0.668208 14.1267 0.938601C15.8097 1.20899 17.405 1.87335 18.7825 2.8775C20.1599 3.88165 21.2806 5.19715 22.053 6.71673C22.8253 8.23631 23.2276 9.91693 23.227 11.6215C23.229 13.8857 22.5165 16.0928 21.191 17.9285H21.19Z" fill="currentColor"/>
                                     </svg>
                                 </span>
                                 <span class="d-md-none">{% t "navigation.account.account" %}</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarAccount">
-                                {% if user.is_authenticated %}
-                                    <li><a class="dropdown-item" href="{% url 'customer:order-list' %}"> {% t "navigation.account.orders" %}</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'customer:subscription-list' %}"> {% t "navigation.account.subscriptions" %}</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'customer:summary' %}"> {% t "navigation.account.profile" %}</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'customer:address-list' %}"> {% t "navigation.account.addresses" %}</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'customer:support-ticket-list' %}"> {% t "navigation.account.support" %}</a></li>
-                                    {% if perms.dashboard.dashboard_manage or user.is_staff %}
-                                        <li><a class="dropdown-item" href="{% url 'dashboard:index' %}"> {% t "navigation.account.dashboard" %}</a></li>
-                                    {% endif %}
-                                    <li><a class="dropdown-item" href="{% url 'customer:logout' %}"> {% t "navigation.account.logout" %}</a></li>
-                                    {% else %}
-                                    <li><a class="dropdown-item" href="{% url 'customer:login' %}"> {% t "navigation.account.login_or_register" %}</a></li>
-                                {% endif %}
-                            </ul>
                         </li>
-
                         {% block mini_cart %}
                         <li class="nav-item d-none d-md-block">
                             <a class="nav-link has-icon"  href="#cart-modal" data-toggle="side-cart">
@@ -161,13 +221,14 @@
                                 <span><span class="d-md-none">Cart</span> <span id="cart-count">{{ request.cart.num_items }}</span></span>
                             </a>
                         </li>
-                        {% endblock %}
-                        {% include 'partials/nav_lang_currency_switcher.html' %}
+                        {% endblock %}     
                     </ul>
                 </div>
             </div>
         </nav>
+
         {% endblock %}
+        {% endif %}
         {% block content_wrapper %}
             {% block breadcrumbs %}{% endblock %}
             <div id="content_inner">
@@ -177,6 +238,7 @@
         {% block footer %}
             {% include "partials/footer.html" %}
         {% endblock %}
+
     {% endblock %}
 
     {# Modals #}
@@ -184,10 +246,8 @@
 
     {# Core JS scripts #}
     {% block scripts %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{{ 'js/slick.min.js'|asset_url }}"></script>
-    <script type="text/javascript" src="{{ 'js/slick_lightbox.min.js'|asset_url }}"></script>
+    <script type="text/javascript" src="{{ 'js/jquery-3.6.0.min.js'|asset_url }}"></script>
+    <script type="text/javascript" src="{{ 'js/bootstrap.bundle.min.js'|asset_url }}"></script>
     <script type="text/javascript" src="{{ 'js/theme.js'|asset_url }}"></script>
     <script>
     (function() {

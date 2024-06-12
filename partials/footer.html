@@ -1,90 +1,126 @@
-<footer>
+<footer class="footer border-top mt-auto" style="background-color: var(--footer-bg-color);color: var(--footer-text-color)">
     <div class="container-xl">
-        <div class="row pt-5 my-5 text-muted border-top">
+        <div class="row pt-5 py-md-5">
             <div class="col-md mb-3 mb-md-0">
                 <div class="mb-3">
-                    {% t "navigation.footer.about_us" %}
+                    <a href="{{ homepage_url }}">
+                        {% include 'partials/footer_logo.html' %}
+                    </a>
                 </div>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
-                    <li class="mb-2"><a href="{% url 'catalogue:index' %}">{% t "navigation.main.shop" %}</a></li>
-                    <li class="mb-2"><a href="{% url 'blog:blog-list' %}">{% t "navigation.main.blog" %}</a></li>
-                </ul>
+                {% if settings.enable_social %}
+                    {% include 'partials/social_links.html' %}
+                {% endif %}
             </div>
+
             <div class="col-md mb-3 mb-md-0">
+                {% if settings.footer_menu.items|length > 0 %}
                 <div class="mb-3">
-                    {% t "navigation.footer.account_info" %}
+                   {{ settings.footer_menu.name }}
                 </div>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="{% url 'cart:summary' %}">{% t "navigation.main.cart" %}</a></li>
-                    {% if user.is_authenticated %}
-                    <li class="mb-2"><a href="{% url 'customer:summary' %}">{% t "navigation.account.account" %}</a></li>
-                    <li class="mb-2"><a href="{% url 'customer:logout' %}">{% t "navigation.account.logout" %}</a></li>
-                    {% else %}
-                    <li class="mb-2"><a href="{% url 'customer:login' %}">{% t "navigation.account.login_or_register" %}</a></li>
-                    {% endif %}
+                    {% for item in settings.footer_menu.items %}
+                        {% if item.level > 0 %}
+                            <li class="mb-2 dropdown">
+                                <a class="dropdown-toggle dropdown-toggle d-flex justify-content-between justify-content-md-start align-items-center {% if item.child_active %}active{% endif %}" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="{{ item.url }}">{{ item.name }}</a>
+                                <ul class="dropdown-menu p-0 ">
+                                    {% for child_item in item.items %}
+                                        {% if child_item.level > 0 %}
+                                            <li class="dropdown">
+                                                <a class="dropdown-item dropdown-toggle d-flex justify-content-between align-items-center {% if child_item.child_active %}active{% endif %}" data-bs-toggle="dropdown"  href="{{ child_item.url }}">{{ child_item.name }}</a>
+                                                <ul class="dropdown-menu p-0">
+                                                    {% for grandchild_item in child_item.items %}
+                                                    <li>
+                                                        <a class="dropdown-item {% if grandchild_item.current %}active{% endif %}" href="{{ grandchild_item.url }}">
+                                                        {{ grandchild_item.name }}
+                                                        </a>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a class="dropdown-item {% if child_item.current %}active{% endif %}" href="{{ child_item.url }}">
+                                                    {{ child_item.name }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="mb-2">
+                                <a class="{% if item.current %}active{% endif %}" href="{{ item.url }}">{{ item.name }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
+                {% endif %}
             </div>
-            <div class="col-md mb-3 mb-md-0">
-                <div class="mb-3">
-                    {% t "navigation.footer.support_terms" %}
-                </div>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="{% url 'support:category-list' %}"><span>{% t "navigation.footer.support" %}</span></a></li>
-                    <li class="mb-2"><a href="/terms/">{% t "navigation.footer.terms_conditions" %}</a></li>
-                    <li class="mb-2"><a href="/privacy/">{% t "navigation.footer.privacy" %}</a></li>
-                </ul>
-            </div>
-            <div class="col-md mb-3 mb-md-0">
+
+    
+            <div class="col-md-auto">
                 <div class="mb-3">
                     {% t "navigation.footer.contact_us" %}
                 </div>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="/contact/">{% t "navigation.main.contact" %} </a></li>
-                    {% if store.phone %}
-                    <li class="mb-2"><a href="tel:{{ store.phone }}">{{ store.phone }} </a></li>
+                    {% if store.address.line_1 %}
+                    <address>
+                        {% if store.legal_name %}{{ store.legal_name }}<br>{% endif %}
+                        {% if store.address.line_1 %}{{ store.address.line_1 }}{% endif %}{% if store.address.line_2 %}, {{ store.address.line_2 }}{% endif %}<br>
+                        {% if store.address.city and store.address.state %}{{ store.address.city }}, {{ store.address.state }}
+                        {% elif store.address.city and not store.address.state %}
+                        {{ store.address.city }}
+                        {% elif store.address.state and not store.address.city %}
+                        {{ store.address.state }}
+                        {% endif %}
+                        {% if store.address.postcode %}{{ store.address.postcode }}{% endif %}
+                        <br>
+                        {% if store.address.country %}{{ store.address.country }}{% endif %}
+                    </address>
                     {% endif %}
-                    <li class="mb-2"><a href="mailto:{{ support_email }}">{{ support_email }}</a></li>
+                    {% if store.phone %}
+                    <li class="mb-2">Phone: <a href="tel:{{ store.phone }}">{{ store.phone }}</a></li>
+                            
+                    {% endif %}
+                    {% if store.email %}
+                        <li class="mb-2">Email: <a href="mailto:{{ store.email }}">{{ store.email }}</a></li>
+                    {% endif %}
                 </ul>
             </div>
-            {% if store.address.line_1 %}
-            <div class="col-md mb-3 mb-md-0">
-                <div class="mb-3">
-                    {% t "navigation.footer.address" %}
-                </div>
-                <address>
-                    {% if store.legal_name %}{{ store.legal_name }}<br>{% endif %}
-                    {% if store.address.line_1 %}{{ store.address.line_1 }}<br>{% endif %}
-                    {% if store.address.line_2 %}{{ store.address.line_2 }}<br>{% endif %}
-                    {% if store.address.city and store.address.state %}
-                    {{ store.address.city }}, {{ store.address.state }}<br>
-                    {% elif store.address.city and not store.address.state %}
-                    {{ store.address.city }}<br>
-                    {% elif store.address.state and not store.address.city %}
-                    {{ store.address.state }}<br>
-                    {% endif %}
-                    {% if store.address.postcode %}{{ store.address.postcode }}<br>{% endif %}
-                    {% if store.address.country %}{{ store.address.country }}<br>{% endif %}
-                </address>
-            </div>
-            {% endif %}
+            
+            
         </div>
-        <div class="row pt-5 my-5 text-muted border-top">
-            <div class="col-sm mb-4 mb-sm-0">
+        {% if settings.pay_icons or storefront_geos and storefront_geos|length > 1 %}
+        <div class="row py-3 align-items-center justify-content-between">
+
+            <div class="col-sm-auto mb-3 mb-sm-0">
+                <div class="d-flex align-items-center">
+                    {% for icon in settings.pay_icons %}
+                        <span class="pay-icon pay-icon-{{ icon }}"></span>&nbsp;
+                    {% endfor %}
+                    
+                </div>
+            </div>
+      
+            <div class="col-sm-auto ">
+                 {% include 'partials/nav_lang_currency_switcher.html' %}
+            </div>
+           
+        </div>
+        {% endif %}
+        <div class="row  pt-3 pb-5 border-top">
+            
+            <div class="col-sm mb-4 mb-sm-0 fs-6">
                  &copy;{% now "Y" %} {{ store.name }}. {% t "navigation.footer.copyright" %}
             </div>
-            <div class="col-sm-auto">
-                <div class="d-flex align-items-center">
-                    <span class="pay-icon pay-icon-visa"></span>&nbsp;
-                    <span class="pay-icon pay-icon-mc"></span>&nbsp;
-                    <span class="pay-icon pay-icon-ppal"></span>&nbsp;
-                    <span class="pay-icon pay-icon-klarna"></span>&nbsp;
-                    <span class="pay-icon pay-icon-amex"></span>&nbsp;
-                    <span class="pay-icon pay-icon-discover"></span>&nbsp;
-                    <span class="pay-icon pay-icon-jcb"></span>&nbsp;
-                    <span class="pay-icon pay-icon-dankort"></span>&nbsp;
-                </div>
+            
+        </div>
+        {% if settings.site_disclaimer %}
+        <div class="row pb-5">
+            <div class="col-sm mb-4 mb-sm-0 fs-9">
+                {{ settings.site_disclaimer|safe }}
             </div>
         </div>
+        {% endif %}
     </div>
 </footer>
