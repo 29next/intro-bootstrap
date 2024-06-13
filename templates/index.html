@@ -38,10 +38,14 @@
 {% else %}
 
 <section class="hero position-relative" style="background-color: var(--hero-bg-color);">
-    {% if settings.hero_img %}
+    {% if settings.hero_img and settings.hero_img_mobile %}
     <div class="img-hero">
         <img src="{{ settings.hero_img }}" class="d-none d-md-block" alt="{{ store.name }}">
         <img src="{{ settings.hero_img_mobile }}" class="d-block d-md-none" alt="{{ store.name }}">
+    </div>
+    {% elif settings.hero_img and not settings.hero_img_mobile %}
+    <div class="img-hero">
+        <img src="{{ settings.hero_img }}" alt="{{ store.name }}">
     </div>
     {% endif %}
     <div class="overlay" style="background-color: var(--hero-overlay); opacity:var(--hero-overlay-opacity);"></div>
