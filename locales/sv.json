@@ -79,7 +79,7 @@
     },
     "order": {
         "cart": {
-            "title": "Korg",
+            "title": "Varukorg",
             "summary": "Sammanfattning",
             "cart_total": "Korg Totalt",
             "cart_total_discount": "Korg totalt (efter rabatter)",

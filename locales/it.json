@@ -79,7 +79,7 @@
     },
     "order": {
         "cart": {
-            "title": "Cestino",
+            "title": "Carrello",
             "summary": "Riepilogo",
             "cart_total": "Totale cestino",
             "cart_total_discount": "Totale carrello (dopo gli sconti)",

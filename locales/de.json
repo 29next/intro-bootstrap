@@ -79,7 +79,7 @@
     },
     "order": {
         "cart": {
-            "title": "Korb",
+            "title": "Einkaufswagen",
             "summary": "Zusammenfassung",
             "cart_total": "Korb Gesamt",
             "cart_total_discount": "Korbsumme (nach Rabatten)",

@@ -79,7 +79,7 @@
     },
     "order": {
         "cart": {
-            "title": "Cesta",
+            "title": "Carrito",
             "summary": "Resumen",
             "cart_total": "Total cesta",
             "cart_total_discount": "Total de la cesta (después de descuentos)",

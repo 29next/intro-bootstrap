@@ -79,7 +79,7 @@
     },
     "order": {
         "cart": {
-            "title": "Kurv",
+            "title": "Handlekurv",
             "summary": "Summering",
             "cart_total": "Kurv totalt",
             "cart_total_discount": "Kurv totalt (etter rabatter)",
