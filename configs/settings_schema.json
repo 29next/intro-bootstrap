@@ -1,5 +1,5 @@
 {
-    
+
     "Typography": {
     	"Fonts": [
         	{
@@ -50,7 +50,8 @@
 			    "name": "main_menu",
 			    "label": "Main Menu",
 			    "type": "menu",
-			    "help_text": "Main site navigation menu."
+			    "help_text": "Main site navigation menu.",
+                "default": "main_menu"
 			},
 			{
 			    "name": "logo_align",
@@ -105,10 +106,11 @@
 			    "name": "footer_menu",
 			    "label": "Footer Menu",
 			    "type": "menu",
-			    "help_text": "Footer Links (Policy links, etc.)"
+			    "help_text": "Footer Links (Policy links, etc.)",
+                "default": "footer_menu"
 			}
         ]
-    }, 
+    },
     "Homepage": {
         "Hero Text": [
             {
@@ -180,7 +182,7 @@
 			{
 			    "name": "hero_cta_outline",
 			    "label": "Use Outline Button Style",
-			    "type": "checkbox"			
+			    "type": "checkbox"
 			},
 			{
 			    "name": "hero_cta_color",
@@ -732,7 +734,7 @@
 			    ],
 			    "default": "6"
 			},
-			
+
 			{
 			    "name": "product_description_placement",
 			    "label": "Display",
@@ -842,7 +844,7 @@
 			        }
 			    ]
 			}
-			
+
         ],
         "Custom CSS": [
         	{
@@ -1139,7 +1141,7 @@
 			    "help_text": "Add a site disclaimer",
 			    "type": "textarea"
 			}
-			
+
         ]
     },
     "Social Media": {
