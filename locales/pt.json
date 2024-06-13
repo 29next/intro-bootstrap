@@ -81,8 +81,8 @@
         "cart": {
             "title": "Carrinho",
             "summary": "Resumo",
-            "cart_total": "Total do carrinho",
-            "cart_total_discount": "Total do carrinho (após descontos)",
+            "cart_total": "Total da cesta",
+            "cart_total_discount": "Total da cesta (após descontos)",
             "applied_offer": "Oferta aplicada",
             "applied_coupons": "Cupons aplicados",
             "shipping": "Remessa",
@@ -90,7 +90,7 @@
             "proceed_to_checkout": "Prosseguir com a finalização da compra",
             "upsell_message_detail": "{{ message }} para se qualificar para a oferta especial <b>{{ offer_name }}</b>",
             "continue_shopping": "Continue comprando",
-            "cart_empty": "Seu carrinho está vazio.",
+            "cart_empty": "Sua cesta está vazia.",
             "items_count": {
                 "one": "{{ count }} item",
                 "other": "{{ count }} itens"

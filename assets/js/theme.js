@@ -85,16 +85,25 @@ var theme = (function(t, $) {
                 return;
             }
             t.product.handleVariantSelect();
-            $("select[name*='attr_']").on("change", t.product.handleVariantSelect);          
+            $("[name*='attr_']").on("change", t.product.handleVariantSelect);          
             
         },
         getSelectAttributeValues: function() {
             var attributeValues = [];
-            $("select[name*='attr_']").each(function(_, ele) {
-                attributeValues.push({
-                    name: $(ele).attr('name').replace("attr_", ""),
-                    value: $(ele).val()
-                });
+            document.querySelectorAll("[name*='attr_']").forEach(function(ele) {
+                if (ele.type === 'radio') {
+                    if (ele.checked) {
+                        attributeValues.push({
+                            name: ele.getAttribute('name').replace("attr_", ""),
+                            value: ele.value
+                        });
+                    }
+                } else {
+                    attributeValues.push({
+                        name: ele.getAttribute('name').replace("attr_", ""),
+                        value: ele.value
+                    });
+                }
             });
             return attributeValues;
         },
@@ -147,7 +156,7 @@ var theme = (function(t, $) {
             $(selector).find("button").prop('disabled', false);
             $(buyOpt).find("input").prop('disabled', false);
             $(selector).find("button").text(t.product.options.add_to_cart_msg);
-            var addProductUrl = $(selector).attr('action').replace(/\d+/g, variant.id);
+            var addProductUrl = $(selector).attr('action').replace(/(cart\/add\/)\d+/, `$1${variant.id}`);
             $(selector).attr('action', addProductUrl);
 
         },

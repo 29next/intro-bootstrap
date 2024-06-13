@@ -1,0 +1,26 @@
+<div class="product-carousel">
+    {% with all_images=product.get_all_images %}
+    <div class="slider-for border rounded-3 mb-3 overflow-hidden">
+         {% for image in all_images %}{% image_thumbnail image.original "850x" upscale=True as thumb %}
+            <div class="bg-white">
+                <a href="{{ thumb.url }}" class="product-images-thumb">
+                    <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="img-fluid">
+                </a>
+            </div>
+         {% endfor %}
+    </div>
+    {% if all_images|length > 1 %}
+    {% if all_images|length < 6 %}
+    <div class="slider-nav is-no-scroll">
+    {% else %}    
+    <div class="slider-nav">
+    {% endif %}
+    {% for image in all_images %}{% image_thumbnail image.original "100x" as thumb %}
+        <div id="{{ image.id }}" class="product-images-thumb ">
+            <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="img-fluid">
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+</div>

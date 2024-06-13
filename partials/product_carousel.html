@@ -1,24 +1,26 @@
-{% with all_images=product.get_all_images %}
-<div class="slider-for">
-     {% for image in all_images %}{% image_thumbnail image.original "850x850" crop="center" as thumb %}
-        <div style="background-color: #fff;border: 1px solid #dee2e6;border-radius: 0.35rem; margin-bottom: 1.5rem;">
-            <a href="{{ thumb.url }}">
-                <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="img-fluid">
-            </a>
-        </div>
-     {% endfor %}
-</div>
-{% if all_images|length > 1 %}
-{% if all_images|length < 6 %}
-<div class="slider-nav is-no-scroll">
-{% else %}    
-<div class="slider-nav">
-{% endif %}
-{% for image in all_images %}{% image_thumbnail image.original "100x100" crop="center" as thumb %}
-    <div id="{{ image.id }}">
-        <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="img-fluid">
+<div class="product-carousel">
+    {% with all_images=product.get_all_images %}
+    <div class="slider-for border rounded-3 mb-3 overflow-hidden">
+         {% for image in all_images %}{% image_thumbnail image.original "850x850" crop="center" as thumb %}
+            <div class="bg-white">
+                <a href="{{ thumb.url }}">
+                    <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="img-fluid">
+                </a>
+            </div>
+         {% endfor %}
     </div>
-    {% endfor %}
+    {% if all_images|length > 1 %}
+    {% if all_images|length < 6 %}
+    <div class="slider-nav is-no-scroll">
+    {% else %}    
+    <div class="slider-nav">
+    {% endif %}
+    {% for image in all_images %}{% image_thumbnail image.original "100x100" crop="center" as thumb %}
+        <div id="{{ image.id }}">
+            <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="img-fluid">
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
 </div>
-{% endif %}
-{% endwith %}

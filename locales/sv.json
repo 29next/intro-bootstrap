@@ -81,8 +81,8 @@
         "cart": {
             "title": "Varukorg",
             "summary": "Sammanfattning",
-            "cart_total": "Varukorg Totalt",
-            "cart_total_discount": "Varukorg totalt (efter rabatter)",
+            "cart_total": "Korg Totalt",
+            "cart_total_discount": "Korg totalt (efter rabatter)",
             "applied_offer": "Tillämpat erbjudande",
             "applied_coupons": "Tillämpade kuponger",
             "shipping": "Frakt",

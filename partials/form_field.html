@@ -20,11 +20,24 @@
 
                     {% block controls %}
                             {% block widget %}
+
+                                {% if widget_type == 'custom_radioselect' %}
+                                    <label class="form-label">{{ field.label|safe }} <span class="label-{{ field.label|lower }}"></span></label>
+                                    <div class="d-flex flex-wrap align-items-center gap-2 custom-selector {{ field.name }}">
+                                    {% for radio in field %}
+                                        <input id="attr_{{ radio.data.value }}" name="{{ field.name }}" type="radio" value="{{ radio.data.value }}" class="btn-check {% if field.errors %}invalid{% endif %}" {% if radio.data.value == radio.data.value and forloop.first %}checked="checked"{% endif %} data-label="{{ radio.data.label }}"/>
+                                        <label for="attr_{{ radio.data.value }}" class="btn btn-outline-primary btn-sm is-{{ radio.data.label|lower }}"><span>{{ radio.data.label }}</span> </label>  
+                                    {% endfor %}
+                                    </div>
+
+                                {% else %}
+
                                 {% if field.widget_type == 'checkbox' %}
                                     <div class="form-check">
                                         {% render_field field class+="form-check-input" %} {{field.label}}
                                         <label class="form-check-label" for="{{ field.id_for_label }}"></label>
                                     </div>
+
                                 {% elif field.widget_type == 'radioselect' %}
                                     {% for radio in field %}
                                         <div class="form-check">
@@ -38,7 +51,6 @@
 
                           
                                     {% render_field field class+="form-control" %}
-
 
 
                                 {% elif field.widget_type == 'datetimepicker' %}
@@ -73,6 +85,8 @@
                                     {% else %}
                                         {% render_field field class+="form-control" %}
                                     {% endif %}
+
+                                {% endif %}
 
                                 {% endif %}
 

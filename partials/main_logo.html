@@ -1,0 +1,37 @@
+{% if store.branding.icon and store.branding.logo %}
+<picture>
+    {% with image=store.branding.logo %}
+    {% image_thumbnail image "150x" upscale=False as thumb_store_logo %}
+    {% image_thumbnail image "300x" upscale=False as thumb_store_logox2 %}
+    {% image_thumbnail image "450x" upscale=False as thumb_store_logox3 %}
+    <source srcset="{{ thumb_store_logo.url }}, {{ thumb_store_logox2.url }} 2x, {{ thumb_store_logox3.url }} 3x" media="(min-width: 500px)" />
+    {% endwith %}
+    {% with image=store.branding.icon %}
+    {% image_thumbnail image "40x" upscale=False as thumb_store_icon %}
+    {% image_thumbnail image "80x" upscale=False as thumb_store_iconx2 %}
+    {% image_thumbnail image "120x" upscale=False as thumb_store_iconx3 %}
+    <img src="{{ thumb_store_logo.url }}" alt="{{ store.name }}" srcset="{{ thumb_store_icon.url }}, {{ thumb_store_iconx2.url }} 2x, {{ thumb_store_iconx3.url }} 3x" />
+    {% endwith %}
+</picture>
+{% elif store.branding.logo and not store.branding.icon %}
+<picture>
+    {% with image=store.branding.logo %}
+    {% image_thumbnail image "150x" upscale=False as thumb_store_logo %}
+    {% image_thumbnail image "300x" upscale=False as thumb_store_logox2 %}
+    {% image_thumbnail image "450x" upscale=False as thumb_store_logox3 %}
+    <source srcset="{{ thumb_store_logo.url }}, {{ thumb_store_logox2.url }} 2x, {{ thumb_store_logox3.url }} 3x" media="(min-width: 1024px)" />
+    <img src="{{ thumb_store_logo.url }}" alt="{{ store.name }}" />
+    {% endwith %}
+</picture>
+{% elif store.branding.icon and not store.branding.logo %}
+<picture>
+    {% with image=store.branding.icon %}
+    {% image_thumbnail image "40x" upscale=False as thumb_store_icon %}
+    {% image_thumbnail image "80x" upscale=False as thumb_store_iconx2 %}
+    {% image_thumbnail image "120x" upscale=False as thumb_store_iconx3 %}
+    <img src="{{ thumb_store_logo.url }}" alt="{{ store.name }}" srcset="{{ thumb_store_icon.url }}, {{ thumb_store_iconx2.url }} 2x, {{ thumb_store_iconx3.url }} 3x" />
+    {% endwith %}
+</picture>
+{% else %}
+{{ store.name }}
+{% endif %}
