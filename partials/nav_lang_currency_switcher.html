@@ -1,8 +1,8 @@
 {% if storefront_geos and storefront_geos|length > 1 %}
 <div class="dropdown">
-    <button class="btn btn-light btn-sm has-icon dropdown-toggle" id="langCurrencyDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="btn btn-light btn-sm has-icon dropdown-toggle" id="langCurrencyDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <span class="flag-icon flag-icon-{{ request.COUNTRY_CODE|lower }} me-2"></span><span>{{ request.COUNTRY_CODE|upper }} | {{ request.CURRENCY_CODE|upper }}</span>
-    </button>
+    </a>
     <ul class="dropdown-menu " aria-labelledby="langCurrencyDropdown">
 
         <form action="{% url 'core:set-storefront' %}" method="post" id='set-storefront'>
@@ -12,11 +12,11 @@
             <input name="currency" type="hidden" value="" />
             <input name="next" type="hidden" value="{{ language_neutral_url_path }}">
             {% for storefront in storefront_geos %}
-                <button class="dropdown-item" href="#" data-country="{{ storefront.country.code }}" data-language="{{ storefront.get_language }}" data-currency="{{ storefront.currency.code }}"> 
+                <a class="dropdown-item" href="#" data-country="{{ storefront.country.code }}" data-language="{{ storefront.get_language }}" data-currency="{{ storefront.currency.code }}"> 
                     <span class="flag-icon flag-icon-{{ storefront.country.code|lower }}"></span>
                     &nbsp;&nbsp;
                     <span> {{ storefront.country }}</span>
-                </button>
+                </a>
             {% endfor %}
         </form>
 
