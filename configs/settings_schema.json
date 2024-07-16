@@ -663,7 +663,7 @@
         	{
 			    "name": "home_page_css",
 			    "label": "Add custom styles to the home page only.",
-			    "type": "textarea"
+			    "type": "css"
 			}
         ]
     },
@@ -850,7 +850,7 @@
         	{
 			    "name": "product_page_css",
 			    "label": "Add custom styles to product pages only.",
-			    "type": "textarea"
+			    "type": "css"
 			}
         ]
     },
@@ -990,31 +990,31 @@
         	{
 			    "name": "summary_html_block",
 			    "label": "Add custom html content to area below checkout summary.",
-			    "type": "textarea"
+			    "type": "html"
 			},
 			{
 			    "name": "form_html_block_1",
 			    "label": "Add custom html content to area above checkout form.",
-			    "type": "textarea"
+			    "type": "html"
 			},
 			{
 			    "name": "form_html_block_2",
 			    "label": "Add custom html content to area below checkout buttons.",
-			    "type": "textarea"
+			    "type": "html"
 			}
         ],
 		"Custom CSS": [
         	{
 			    "name": "checkout_page_css",
 			    "label": "Add custom styles to checkout pages only.",
-			    "type": "textarea"
+			    "type": "css"
 			}
         ],
         "Custom Javascript": [
         	{
 			    "name": "checkout_page_js",
 			    "label": "Add custom javascript to the checkout pages.",
-			    "type": "textarea"
+			    "type": "javascript"
 			}
         ]
     },

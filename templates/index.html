@@ -20,11 +20,10 @@
         --fps-card-bg: {{ settings.fps_card_bg }};
 
      }
-     {% if settings.home_page_css %}
-     {{ settings.home_page_css }}
-     {% endif %}
-     
 </style>
+{% if settings.home_page_css %}
+     {{ settings.home_page_css }}
+{% endif %}
 {% endblock extrastyles %}
 
 
