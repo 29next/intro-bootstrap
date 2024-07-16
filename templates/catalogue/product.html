@@ -29,9 +29,6 @@
     --recommended_products_card_bg: {{ settings.recommended_products_card_bg }};
 
     }
-    {% if settings.product_page_css %}
-    {{ settings.product_page_css }}
-    {% endif %}
     {% if settings.product_description_placement == 'column' %}
         @media (min-width: 992px) { 
             .product-carousel {
@@ -43,6 +40,9 @@
         }
     {% endif %}
 </style>
+{% if settings.product_page_css %}
+    {{ settings.product_page_css }}
+{% endif %}
 {% endblock extrastyles %}
 {% block content %}
 
@@ -62,11 +62,6 @@
               
                 <h1 class="fs-3">
                     {{ product.get_title }}
-                    {% if user.is_staff %}
-                        <span class="fs-7">
-                            <a href="{% url 'dashboard:catalogue-product' pk=product.id %}"><small> {% t "store.catalogue.edit_this_product" %}</small></a>
-                        </span>
-                    {% endif %}
                 </h1>
 
                 {% if settings.product_reviews and product.rating %}

@@ -11,14 +11,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
                 <li class="breadcrumb-item"><a href="{% url 'blog:blog-list' %}">{% t "navigation.main.blog" %}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
-
-                {% if user.is_staff %}
-                <li class="breadcrumb-item">
-                    <a href="{% url 'blog_dashboard:blog-post-detail' pk=post.pk %}"><small> {% t "store.support.edit_this_article" %}</small></a>
-                </li>
-                {% endif %}
-              
+                <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>           
             </ol>
         </nav>
     </div>

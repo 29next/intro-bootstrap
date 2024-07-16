@@ -15,11 +15,6 @@
                 <li class="breadcrumb-item"><a href="{{ homepage_url }}">{% t "navigation.main.home" %}</a></li>
                 <li class="breadcrumb-item"><a href="{% url 'support:category-list' %}">{% t "navigation.main.support" %}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ article.title }}</li>
-                {% if user.is_staff %}
-                <li class="breadcrumb-item">
-                    <a  href="{% url 'support_dashboard:article-detail' pk=article.pk %}"><small> {% t "store.support.edit_this_article" %}</small></a>
-                </li>
-                {% endif %}
             </ol>
         </nav>
     </div>

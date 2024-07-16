@@ -208,10 +208,11 @@
                     display: none!important;
                 }
             {% endif %}
-            {% if settings.checkout_page_css %}
-            {{ settings.checkout_page_css }}
-            {% endif %}
+            
         </style>
+        {% if settings.checkout_page_css %}
+            {{ settings.checkout_page_css }}
+        {% endif %}
         {% app_hook 'global_header' %}
     </head>
     <body class="{% block body_class %}{% endblock %}">
@@ -307,9 +308,7 @@
         {% block checkout_js %}{% endblock %}
 
         {% if settings.checkout_page_js %}
-            <script type="text/javascript">
-                {{ settings.checkout_page_js|safe }}
-            </script>
+            {{ settings.checkout_page_js }}
         {% endif %}
 
         {% app_hook 'global_footer' %}
