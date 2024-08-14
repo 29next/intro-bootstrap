@@ -7,13 +7,13 @@
     :root {
         --hero-text-color: {{ settings.hero_text_color }};
         --hero-overlay: {{ settings.hero_overlay }};
-        --hero-overlay-opacity: {{ settings.hero_overlay_opacity }}%;
+        --hero-overlay-opacity: {{ settings.hero_overlay_opacity }};
         --hero-bg-size: {{ settings.hero_bg_size }};
         --hero-bg-color: {{ settings.hero_bg_color }};
         --fc-bg-color: {{ settings.fc_bg_color }};
         --fc-text-color: {{ settings.fc_text_color }};
         --fc-overlay: {{ settings.fc_overlay }};
-        --fc-overlay-opacity: {{ settings.fc_overlay_opacity }}%;
+        --fc-overlay-opacity: {{ settings.fc_overlay_opacity }};
         --fp-bg-color: {{ settings.fp_bg_color }};
         --fp-text-color: {{ settings.fp_text_color }};
         --fps-bg-color: {{ settings.fps_bg_color }};
@@ -79,7 +79,7 @@
             </div>
         </div>
         {% endif %}
-        <div class="row row-cols-1 row-cols-lg-{{ settings.featured_cats_count }} g-4">
+        <div class="row row-cols-1 row-cols-lg-{{ settings.featured_cats_count|floatformat }}  }} g-4">
             {% for category in settings.featured_categories %}
             <div class="col category">
                 <div class="card h-100 overflow-hidden" >
@@ -152,7 +152,7 @@
             </div>
         </div>
         {% endif %}
-        <div class="row row-cols-2 row-cols-lg-{{ settings.featured_products_count }} g-4">
+        <div class="row row-cols-2 row-cols-lg-{{ settings.featured_products_count|floatformat }} g-4">
             {% for product in settings.featured_products %}
             {% purchase_info_for_product request product as session %}
             {% if session.availability.is_available_to_buy %}
