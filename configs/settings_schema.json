@@ -326,9 +326,9 @@
 		],
 		"Hero Background": [
             {
-			    "type": "file",
-			    "name": "hero_img",
-			    "label": "Image"
+				"name": "hero_img",
+				"label": "Image",
+				"type": "image_picker"
 			},
 			{
 			    "name": "hero_bg_color",
@@ -354,9 +354,9 @@
 			    "default": "cover"
 			},
 			{
-			    "type": "file",
-			    "name": "hero_img_mobile",
-			    "label": "Hero Image Mobile"
+				"name": "hero_img_mobile",
+				"label": "Hero Image Mobile",
+				"type": "image_picker"
 			},
 			{
 			    "name": "hero_overlay",
@@ -882,10 +882,10 @@
 		],
 		"Logo": [
 			{
-			    "type": "file",
-			    "name": "checkout_logo",
-			    "label": "Logo",
-			    "help_text": "Custom logo for checkout if different from branding settings"
+				"name": "checkout_logo",
+				"label": "Logo",
+			    "help_text": "Custom logo for checkout if different from branding settings",
+				"type": "image_picker"
 			}
         ],
         "Header": [
@@ -904,10 +904,10 @@
 			    "default": "#ffffff"
 			},
 			{
-			    "type": "file",
-			    "name": "checkout_banner_img",
-			    "label": "Background Image",
-			    "help_text": "Background image for banner if enabled"
+				"name": "checkout_banner_img",
+				"label": "Logo",
+			    "help_text": "Background image for banner if enabled",
+				"type": "image_picker"
 			},
 			{
 			    "type": "select",
