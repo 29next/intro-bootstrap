@@ -1,0 +1,153 @@
+{% load currency_filters %}
+<form id="productFilters" novalidate>
+    <div class="d-flex flex-wrap gap-2 mb-4">
+        <div class="d-flex justify-content-between w-100">
+            <h5 class="card-title">{% t "store.catalogue.filters" %}</h5>
+            {% if has_active_filter %}
+                <a class="btn btn-light btn-sm" href="{% url 'catalogue:index' %}">
+                    {% t "store.catalogue.filter_clear" %}
+                </a>
+            {% endif %}
+        </div>
+        {% for filter in filters %}
+            {% if filter.type == 'price_range' and filter.active_values %}
+                <a class="btn btn-light btn-sm has-icon" href="{{ filter.url_to_remove }}">
+                    {{ filter.min_value.value|default:0|currency:request.CURRENCY_CODE }} - {{ filter.max_value.value|default:filter.range_max|currency:request.CURRENCY_CODE }}
+                    <span aria-hidden="true">×</span>
+                </a>
+            {% else %}
+                {% for value in filter.active_values %}
+                    <a class="btn btn-light btn-sm has-icon" href="{{ value.url_to_remove }}">
+                        {{ filter.label }}: {{ value.label }}
+                        <span aria-hidden="true">×</span>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% for filter in filters %}
+        {% if filter.type == 'price_range' %}
+            <!-- {{ filter.label }} -->
+            <div class="mb-4">
+                <h5 class="card-title">{{ filter.label }}</h5>
+                <div class="d-flex gap-2">
+                    <input
+                        type="number"
+                        name="{{filter.min_value.param_name }}"
+                        value="{{ filter.min_value.value|default:'' }}"
+                        class="form-control"
+                        min="0"
+                        max="{{filter.range_max}}"
+                        id="{{filter.min_value.param_name }}"
+                        placeholder="{{filter.min_value.label}}">
+                    <span class="align-self-center">-</span>
+                    <input
+                        type="number"
+                        name="{{filter.max_value.param_name }}"
+                        value="{{ filter.max_value.value|default:'' }}"
+                        class="form-control"
+                        min="0"
+                        max="{{filter.range_max}}"
+                        id="{{filter.max_value.param_name }}"
+                        placeholder="{{filter.max_value.label}}">
+                </div>
+            </div>
+        {% elif filter.type == 'boolean' %}
+            <!-- {{ filter.label }} -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between w-100">
+                    <h5 class="card-title">{{ filter.label }}</h5>
+                    {% if filter.active_values %}
+                        <a class="btn btn-light btn-sm" href="{{ filter.url_to_remove }}">
+                            Reset
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="form-check">
+                        <input name="{{  filter.true_value.param_name }}" class="form-check-input" type="checkbox"
+                            id="{{ filter.true_value.param_name }}-{{ forloop.counter }}"
+                            value="{{ filter.true_value.value }}"
+                            {% if filter.true_value.active %}
+                                checked
+                            {% endif %}
+                            {% if filter.true_value.count == 0 %}
+                                disabled
+                            {% endif %}
+                            >
+                        <label class="form-check-label d-flex justify-content-between"
+                            for="{{ filter.true_value.param_name }}-{{ forloop.counter }}"
+                            >
+                            {{ filter.true_value.label }}
+                            <span>{{ filter.true_value.count }}</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input name="{{  filter.false_value.param_name }}" class="form-check-input" type="checkbox"
+                            id="{{ filter.false_value.param_name }}-{{ forloop.counter }}"
+                            value="{{ filter.false_value.value }}"
+                            {% if filter.false_value.active %}
+                                checked
+                            {% endif %}
+                            {% if filter.false_value.count == 0 %}
+                                disabled
+                            {% endif %}
+                            >
+                        <label class="form-check-label d-flex justify-content-between"
+                            for="{{ filter.false_value.param_name }}-{{ forloop.counter }}"
+                            >
+                            {{ filter.false_value.label }}
+                            <span>{{ filter.false_value.count }}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        {% elif filter.type == 'list' %}
+            <!-- {{ filter.label }} -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between w-100">
+                    <h5 class="card-title">{{ filter.label }}</h5>
+                    {% if filter.active_values %}
+                        <a class="btn btn-light btn-sm" href="{{ filter.url_to_remove }}">
+                            Reset
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="d-flex flex-column">
+                    {% for filter_value in filter.values %}
+                        <div class="form-check">
+                            <input name="{{  filter_value.param_name }}" class="form-check-input" type="checkbox"
+                                id="{{ filter_value.param_name }}-{{ forloop.counter }}"
+                                value="{{ filter_value.value }}"
+                                {% if filter_value.active %}
+                                    checked
+                                {% endif %}
+                                {% if filter_value.count == 0 %}
+                                    disabled
+                                {% endif %}
+                                >
+                            <label class="form-check-label d-flex justify-content-between"
+                                for="{{ filter_value.param_name }}-{{ forloop.counter }}"
+                                >
+                                {% if filter_value.param_name == 'filter.p.rating' %}
+                                    {% for i in '12345' %}
+                                        {% if forloop.counter <= filter_value.value %}
+                                            ⭐
+                                        {% else %}
+
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    {{ filter_value.label }}
+                                {% endif %}
+                                <span>{{ filter_value.count }}</span>
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+</form>
