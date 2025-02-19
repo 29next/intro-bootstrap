@@ -82,7 +82,7 @@
             "title": "Chariot",
             "summary": "Résumé",
             "cart_total": "Total du panier",
-            "cart_total_discount": "Total du panier (après rabais)",
+            "cart_total_discount": "Total du panier (après remises)",
             "applied_offer": "Offre appliquée",
             "applied_coupons": "Coupons appliqués",
             "shipping": "Expédition",
@@ -115,6 +115,8 @@
             "search_not_found": "Trouvé <strong>0</strong> résultats."
         },
         "catalogue": {
+            "filters": "Filtres",
+            "filter_clear": "Clear",
             "free": "Gratuit",
             "sale": "Vente",
             "none_found": "Aucun produit n'a été trouvé.",
