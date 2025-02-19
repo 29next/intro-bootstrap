@@ -115,6 +115,8 @@
             "search_not_found": "Löytyi <strong>0</strong> -tuloksia."
         },
         "catalogue": {
+            "filters": "Suodattimet",
+            "filter_clear": "Clear",
             "free": "Vapaa",
             "sale": "Myynti",
             "none_found": "Tuotteita ei löytynyt.",
