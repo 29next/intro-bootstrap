@@ -116,7 +116,7 @@
         },
         "catalogue": {
             "filters": "Filtros",
-            "filter_clear": "Clear",
+            "filter_clear": "Limpar",
             "free": "Gratuito",
             "sale": "Venda",
             "none_found": "Nenhum produto encontrado.",
