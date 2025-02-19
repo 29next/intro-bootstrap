@@ -115,6 +115,8 @@
             "search_not_found": "Found <strong>0</strong> results."
         },
         "catalogue": {
+            "filters": "Filters",
+            "filter_clear": "Clear",
             "free": "Free",
             "sale": "Sale",
             "none_found": "No products found.",
