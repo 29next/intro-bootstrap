@@ -116,7 +116,7 @@
         },
         "catalogue": {
             "filters": "ตัวกรอง",
-            "filter_clear": "Clear",
+            "filter_clear": "ล้างออก",
             "free": "ฟรี",
             "sale": "การขาย",
             "none_found": "ไม่พบผลิตภัณฑ์",
