@@ -81,8 +81,8 @@
         "cart": {
             "title": "Carrito",
             "summary": "Resumen",
-            "cart_total": "Total cesta",
-            "cart_total_discount": "Total de la cesta (después de descuentos)",
+            "cart_total": "Total del carrito",
+            "cart_total_discount": "Total del carrito (después de los descuentos)",
             "applied_offer": "Oferta aplicada",
             "applied_coupons": "Cupones aplicados",
             "shipping": "Envíos",
@@ -90,7 +90,7 @@
             "proceed_to_checkout": "Proceder al pago",
             "upsell_message_detail": "{{ message }} para calificar para la oferta especial <b>{{ offer_name }}</b>",
             "continue_shopping": "Continuar comprando",
-            "cart_empty": "Tu cesta está vacía.",
+            "cart_empty": "Tu carrito está vacío.",
             "items_count": {
                 "one": "{{ count }} artículo",
                 "other": "{{ count }} artículos"
@@ -115,6 +115,8 @@
             "search_not_found": "Encontraron <strong>0</strong> resultados."
         },
         "catalogue": {
+            "filters": "Filtros",
+            "filter_clear": "Clear",
             "free": "Libre",
             "sale": "Venta",
             "none_found": "No se han encontrado productos.",
