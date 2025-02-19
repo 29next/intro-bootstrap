@@ -81,7 +81,7 @@
         "cart": {
             "title": "รถเข็น",
             "summary": "สรุป",
-            "cart_total": "รวมตะกร้า",
+            "cart_total": "รวมตะกร้าสินค้า",
             "cart_total_discount": "รวมตะกร้า (หลังจากส่วนลด)",
             "applied_offer": "ข้อเสนอที่สมัครใช้",
             "applied_coupons": "คูปองที่ใช้แล้วได้",
@@ -90,7 +90,7 @@
             "proceed_to_checkout": "ดำเนินการเช็คเอาท์",
             "upsell_message_detail": "{{ message }} เพื่อรับข้อเสนอพิเศษ <b>{{ offer_name }}</b>",
             "continue_shopping": "ซื้อสินค้าต่อ",
-            "cart_empty": "ตะกร้าของคุณว่างเปล่า",
+            "cart_empty": "รถเข็นของคุณว่างเปล่า",
             "items_count": {
                 "one": "{{ count }} รายการ",
                 "other": "{{ count }} รายการ"
@@ -115,6 +115,8 @@
             "search_not_found": "พบผลลัพธ์ <strong>0</strong>"
         },
         "catalogue": {
+            "filters": "ตัวกรอง",
+            "filter_clear": "Clear",
             "free": "ฟรี",
             "sale": "การขาย",
             "none_found": "ไม่พบผลิตภัณฑ์",
