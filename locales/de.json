@@ -81,8 +81,8 @@
         "cart": {
             "title": "Einkaufswagen",
             "summary": "Zusammenfassung",
-            "cart_total": "Korb Gesamt",
-            "cart_total_discount": "Korbsumme (nach Rabatten)",
+            "cart_total": "Einkaufswagen insgesamt",
+            "cart_total_discount": "Gesamtbetrag des Warenkorbs (nach Rabatten)",
             "applied_offer": "Angewandtes Angebot",
             "applied_coupons": "Angewandte Coupons",
             "shipping": "Versand",
@@ -90,7 +90,7 @@
             "proceed_to_checkout": "Weiter zur Kasse",
             "upsell_message_detail": "{{ message }} um sich für das <b>{{ offer_name }}</b> Sonderangebot zu qualifizieren",
             "continue_shopping": "Einkauf fortsetzen",
-            "cart_empty": "Ihr Warenkorb ist leer.",
+            "cart_empty": "Ihr Einkaufswagen ist leer.",
             "items_count": {
                 "one": "{{ count }} Artikel",
                 "other": "{{ count }} Artikel"
@@ -115,6 +115,8 @@
             "search_not_found": "Es wurden <strong>0</strong> Ergebnisse gefunden."
         },
         "catalogue": {
+            "filters": "Filter",
+            "filter_clear": "Klar",
             "free": "Kostenlos",
             "sale": "Verkauf",
             "none_found": "Keine Produkte gefunden.",
