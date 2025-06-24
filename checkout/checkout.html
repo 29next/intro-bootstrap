@@ -214,6 +214,7 @@
             {{ settings.checkout_page_css }}
         {% endif %}
         {% app_hook 'global_header' %}
+        {% include "oscar/checkout/partials/checkout_custom_setting.html" %}
     </head>
     <body class="{% block body_class %}{% endblock %}">
         <div class="checkout">
