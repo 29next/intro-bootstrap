@@ -46,4 +46,10 @@
 	&-dankort {
 		background-image: url("{{ 'img/pay/dankort.svg' | asset_url }}");
 	}
+	&-googlepay {
+		background-image: url("{{ 'img/pay/googlepay.svg' | asset_url }}");
+	}
+	&-applepay {
+		background-image: url("{{ 'img/pay/applepay.svg' | asset_url }}");
+	}
 }
