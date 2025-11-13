@@ -922,6 +922,14 @@
 			        {
 			            "name": "Dankort",
 			            "value": "dankort"
+			        },
+			        {
+			            "name": "Google Pay",
+			            "value": "googlepay"
+			        },
+			        {
+			        	"name": "Apple Pay",
+			            "value": "applepay"
 			        }
 			    ],
 			    "default": "Small"
@@ -1002,6 +1010,17 @@
 			    "help_text": "Hides typical storefront content ",
 			    "type": "checkbox",
 			    "default": false
+			}
+        ]
+    },
+    "Site Index": {
+        "Enable/disable": [
+            {
+			    "name": "site_index",
+			    "label": "Disable Site Indexing",
+			    "help_text": "Prevent Search Engines from Indexing Your Site",
+			    "type": "checkbox",
+			    "default": true
 			}
         ]
     }
