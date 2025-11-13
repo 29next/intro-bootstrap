@@ -44,15 +44,13 @@
                 <h3><a href="{{ product.get_absolute_url }}">{{ product.get_title }}</a></h3>
                 {% purchase_info_for_product request product as session %}
                 {% if session.price.exists %}
-                {% if session.price.price_retail > session.price.excl_tax %}
+                {% if session.price.price_retail > session.price.price %}
                 <del class="text-muted">{{ session.price.price_retail|currency:session.price.currency }}</del>
                 {% endif %}
-                {% if session.price.excl_tax == 0 %}
+                {% if session.price.price == 0 %}
                 <span class="h5">{% t "store.catalogue.free" %}</span> 
-                {% elif session.price.is_tax_known %}
-                <span class="h5">{{ session.price.incl_tax|currency:session.price.currency }}</span>
                 {% else %}
-                <span class="h5">{{ session.price.excl_tax|currency:session.price.currency }}</span>
+                <span class="h5">{{ session.price.price|currency:session.price.currency }}</span>
                 {% endif %}
                 {% else %}
                 &nbsp;
