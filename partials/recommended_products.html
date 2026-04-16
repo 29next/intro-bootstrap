@@ -40,6 +40,7 @@
                         <div class="card-title">
                             <a href="{{ product.get_absolute_url }}" title="{{ product.get_title }}" class="text-dark">{{ product.get_title }}</a>
                         </div>
+                        {% app_hook 'product_card_rating_summary' %}
                         {% if settings.product_reviews and product.rating %}
                             <div class="card-text d-flex mb-2">
                                 <div class="catalogue_item-rating-stars">
