@@ -1,5 +1,5 @@
 {% for attribute in attributes %}
-    {% if attribute.option.code|first not in "_" %}
+    {% if attribute.option.code.0 not in "_" %}
         <div>{{ attribute.option.code }}: {{ attribute.value }}</div>
     {% endif %}
 {% endfor %}
