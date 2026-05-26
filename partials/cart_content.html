@@ -64,7 +64,7 @@
                                                                     {{ line.description }}
                                                                 </div>
                                                                 <div class="cart_table-schedule">
-                                                                    {% include "partials/cart_line_properties.html" with attributes=line.attributes.all %}
+                                                                    {% include "partials/cart_line_properties.html" with properties=line.properties %}
                                                                     <div>
                                                                         {% t "tables.content.price" %}:
                                                                         {% if not line.unit_price_incl_tax and not line.unit_tax_excl_tax %}
