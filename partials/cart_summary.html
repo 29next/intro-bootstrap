@@ -69,7 +69,10 @@
                                                         </tr>
                                                         {% for line in group.lines %}
                                                             <tr>
-                                                                <td>{{ line.product.get_title }}</td>
+                                                                <td>
+                                                                    {{ line.product.get_title }}
+                                                                    {% include "partials/cart_line_properties.html" with properties=line.properties %}
+                                                                </td>
                                                                 <td>{{ line.quantity }}</td>
                                                                 <td>{{ line.rebill_unit_price_excl_tax_incl_discount|currency:group.currency }}</td>
                                                             </tr>
