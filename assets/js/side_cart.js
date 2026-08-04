@@ -32,9 +32,9 @@ class SideCart {
                       linePriceExclTaxInclDiscounts
                       interval
                       intervalCount
-                      attributes{
+                      properties{
+                        key
                         value
-                        option
                       }
                       product {
                         primaryImage {
@@ -103,9 +103,9 @@ class SideCart {
                       linePriceExclTaxInclDiscounts
                       interval
                       intervalCount
-                      attributes{
+                      properties{
+                        key
                         value
-                        option
                       }
                       product {
                         primaryImage {
@@ -175,9 +175,9 @@ class SideCart {
                       linePriceExclTaxInclDiscounts
                       interval
                       intervalCount
-                      attributes{
+                      properties{
+                        key
                         value
-                        option
                       }
                       product {
                         primaryImage {
