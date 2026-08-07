@@ -57,6 +57,9 @@
                             </div>
                             {% endblock %}
                             {% block product_review %}
+                                {% with product=result.object %}
+                                    {% app_hook 'product_card_rating_summary' %}
+                                {% endwith %}
                                 {% if settings.product_reviews and result.object.rating %}
                                 <div class="card-text d-flex mb-2 fs-8">
                                     <div class="catalogue_item-rating-stars">

@@ -64,6 +64,8 @@
                     {{ product.get_title }}
                 </h1>
 
+                {% app_hook 'product_rating_summary' %}
+
                 {% if settings.product_reviews and product.rating %}
                
                     <div class="my-3">          
@@ -178,6 +180,8 @@
                      {{ product.get_description|safe }}
                 </div>
                 {% endif %}
+
+                {% app_hook 'product_info' %}
             
             </div>
         </div>
@@ -203,9 +207,15 @@
     </div>
 </section>
 {% endif %}
+
+{% app_hook 'product_footer' %}
+
 {% if product.sorted_recommended_products %}
     {% include "partials/recommended_products.html" %}
 {% endif %}
+
+{% app_hook 'product_reviews' %}
+{% app_hook 'product_review_cta' %}
 
 {% if settings.product_reviews %}
 <section id="reviews" class="border-top">
@@ -215,14 +225,12 @@
             <div class="col">
                 <div class="py-5">
                     {% if product.num_approved_reviews == 0 %}
-                        <p>
-                            {% if product|is_review_permitted:user %}
-                                {% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id as add_review_url %}
-                                {% t "store.catalogue.no_reviews" %} <a href="{{ add_review_url }}#addreview">{% t "store.catalogue.no_reviews_add" %}</a>.
-                            {% else %}
-                                {% t "store.catalogue.no_reviews" %}.
-                            {% endif %}
-                        </p>
+                        {% if product|is_review_permitted:user %}
+                            {% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id as add_review_url %}
+                            <p>{% t "store.catalogue.no_reviews" %} <a href="{{ add_review_url }}#addreview">{% t "store.catalogue.no_reviews_add" %}</a>.</p>
+                        {% else %}
+                            <p>{% t "store.catalogue.no_reviews" %}.</p>
+                        {% endif %}
                     {% else %}
                     <div class="d-flex flex-column flex-md-row align-items-center mb-3">
                         <h4 class="me-3">{% t "store.catalogue.customer_reviews" %}</h4>

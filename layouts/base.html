@@ -275,6 +275,7 @@
     {% include 'partials/side_cart.html' %}
     {% core_js %}
 
+    {% app_hook 'global_social_proof' %}
     {% app_hook 'global_footer' %}
 
 </body>

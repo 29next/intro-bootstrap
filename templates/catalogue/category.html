@@ -40,4 +40,5 @@
         </div>
     {% endif %}
     {{ block.super }}
+    {% app_hook 'collection_review_feed' %}
 {% endblock %}
